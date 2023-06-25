@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Doces Kotlin</string>
+
+    <string name="menu_drawer_open">Abrir Navegação</string>
+    <string name="menu_drawer_close">Fechar Navegação</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="EntrarActivityHintPassword">Senha</string>
+    <string name="EntrarActivityHintEmail">E-mail</string>
+    <string name="EntrarActivityBotaoEntrar">Entrar</string>
+    <string name="EntrarActivityBotaoCriarContar">Criar Conta</string>
+    <string name="EntrarActivityTextViewEsqueciSenha">Esqueci Minha Senha</string>
+
+    <string name="CadastrarUsuarioActivityNome">Nome</string>
+    <string name="CadastrarUsuarioActivityEmail">E-mail</string>
+    <string name="CadastrarUsuarioActivitySenha">Senha</string>
+    <string name="CadastrarUsuarioActivityConfirmarSenha">Confirmar Senha</string>
+    <string name="CadastrarUsuarioActivityBotaoCadastrar">Cadastrar</string>
+    <string name="CadastrarUsuarioActivityTextViewVoltar">Voltar</string>
+
+    <string name="MainActivityTextViewSemEncomendas">Sem Encomendas...</string>
+
+    <string name="FragmentCadastrarEncomendaHintCliente">Cliente</string>
+    <string name="FragmentCadastrarEncomendaHintTelefone">Telefone</string>
+    <string name="FragmentCadastrarEncomendaHintData">Data</string>
+    <string name="FragmentCadastrarEncomendaHintHora">Hora</string>
+    <string name="FragmentCadastrarEncomendaBotaoSalvar">Salvar</string>
+    <string name="FragmentCadastrarEncomendaTextViewObs">Obs</string>
+
+    <string name="UmaLinhaSpinnerDoceTextViewSelecione">Selecione</string>
+    <string name="UmLinhaSpinnerDoceImageViewContentDescription">Imagem de um docinho em pixel art</string>
+
+    <string name="DialogoDoceHintQuantidade">Quantidade</string>
+    <string name="DialogoDoceBotaoOK">OK</string>
+</resources>

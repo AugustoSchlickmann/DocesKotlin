@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayoutUmaLinhaEncomenda"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="2dp">
+
+    <ImageView
+        android:id="@+id/imageViewUmaLinhaEncomendaCheckFeita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_done_24"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/verdin"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/textViewUmaLinhaEncomendaNomeCliente"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="4dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textAlignment="textStart"
+        android:textColor="@color/roxinho"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewUmaLinhaEncomendaData"
+        app:layout_constraintStart_toEndOf="@+id/imageViewUmaLinhaEncomendaCheckFeita"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Nome de um cliente que ocupe umonte de caracters" />
+
+    <TextView
+        android:id="@+id/textViewUmaLinhaEncomendaQtdDoces"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="4dp"
+        android:textAlignment="center"
+        android:textColor="@color/rosinha"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewUmaLinhaEncomendaNomeCliente"
+        tools:text="9999 Doces" />
+
+
+    <TextView
+        android:id="@+id/textViewUmaLinhaEncomendaValor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:text="R$: 9999.99"
+        android:textAlignment="center"
+        android:textColor="@color/verdin"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/textViewUmaLinhaEncomendaQtdDoces"
+        app:layout_constraintTop_toTopOf="@+id/textViewUmaLinhaEncomendaQtdDoces" />
+
+    <TextView
+        android:id="@+id/textViewUmaLinhaEncomendaData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:text="dd/mm/aaaa"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewUmaLinhaEncomendaHora"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewUmaLinhaEncomendaData" />
+
+    <TextView
+        android:id="@+id/textViewUmaLinhaEncomendaHora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="88:88"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewUmaLinhaEncomendaHora" />
+
+    <ImageView
+        android:id="@+id/imageViewUmaLinhaEncomendaData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/textViewUmaLinhaEncomendaData"
+        app:layout_constraintStart_toStartOf="@+id/textViewUmaLinhaEncomendaData"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_calendar_month_24" />
+
+    <ImageView
+        android:id="@+id/imageViewUmaLinhaEncomendaHora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/textViewUmaLinhaEncomendaHora"
+        app:layout_constraintStart_toStartOf="@+id/textViewUmaLinhaEncomendaHora"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_access_time_24" />
+
+    <ImageView
+        android:id="@+id/imageViewUmaLinhaEncomendaAvisoObs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:src="@drawable/ic_baseline_info_24"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewUmaLinhaEncomendaQtdDoces"
+        app:layout_constraintStart_toEndOf="@+id/textViewUmaLinhaEncomendaValor"
+        app:layout_constraintTop_toTopOf="@+id/textViewUmaLinhaEncomendaQtdDoces"
+        app:layout_constraintVertical_bias="0.0"
+        tools:visibility="visible" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewUmaLinhaEncomendaQtdDoces" />
+</androidx.constraintlayout.widget.ConstraintLayout>

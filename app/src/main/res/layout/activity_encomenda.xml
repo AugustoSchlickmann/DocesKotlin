@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".telas.ActivityEncomenda">
+
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayoutEncomenda"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarEncomenda"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/rosinha" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <EditText
+            android:id="@+id/editTextEncomendaNomeCliente"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/edit_text_empty"
+            android:drawableStart="@drawable/ic_baseline_person_24"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="Cliente"
+            android:inputType="textPersonName"
+            android:maxLength="40"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayoutEncomenda" />
+
+        <EditText
+            android:id="@+id/editTextEncomendaTelefoneCliente"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/edit_text_empty"
+            android:drawableStart="@drawable/ic_baseline_phone_24"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="Telefone"
+            android:inputType="phone"
+            android:maxLength="17"
+            android:textAlignment="center"
+            app:drawableTint="#388E3C"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextEncomendaNomeCliente" />
+
+        <EditText
+            android:id="@+id/editTextEncomendaData"
+            android:layout_width="155dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edit_text_empty"
+            android:drawableStart="@drawable/ic_baseline_calendar_month_24"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="Data"
+            android:inputType="date"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextEncomendaTelefoneCliente" />
+
+        <Spinner
+            android:id="@+id/spinnerEncomendaDoces"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/background_spinner"
+            android:dropDownVerticalOffset="65dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextEncomendaData">
+
+        </Spinner>
+
+
+        <Button
+            android:id="@+id/botaoEncomendaSalvar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/rosinha"
+            android:text="Salvar"
+            android:textColor="#FFFCFC"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewEncomenda"
+            tools:visibility="visible" />
+
+        <EditText
+            android:id="@+id/editTextEncomendaHora"
+            android:layout_width="155dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/edit_text_empty"
+            android:drawableEnd="@drawable/ic_baseline_access_time_24"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="Hora"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/editTextEncomendaData"
+            app:layout_constraintTop_toBottomOf="@+id/editTextEncomendaTelefoneCliente" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewEncomenda"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="8dp"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/botaoEncomendaSalvar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerEncomendaDoces"
+            app:layout_constraintVertical_bias="0.248"
+            tools:listitem="@layout/uma_linha_doce">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <ImageView
+            android:id="@+id/imageViewAvisoObs"
+            android:layout_width="36dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayoutEncomenda"
+            app:srcCompat="@drawable/ic_baseline_info_24" />
+
+        <TextView
+
+            android:id="@+id/textViewEncomendaObs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Obs"
+            android:textColor="#D32F2F"
+            android:textSize="16sp"
+            android:textStyle="bold|italic"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewAvisoObs"
+            app:layout_constraintStart_toStartOf="@+id/imageViewAvisoObs"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewAvisoObs">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/textViewEncomendaValorTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="R$: 9999.99"
+            android:textAlignment="center"
+            android:textColor="@color/verdin"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewEncomenda" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

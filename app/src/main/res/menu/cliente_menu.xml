@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/menu_Ver_Encomendas"
+        android:icon="@drawable/ic_baseline_list_24"
+        android:title="Ver Encomendas">
+
+    </item>
+
+    <item
+        android:id="@+id/menu_EditarCliente"
+        android:icon="@drawable/ic_baseline_edit_24"
+        android:title="Editar Cliente">
+
+    </item>
+
+    <item
+        android:id="@+id/menu_ExcluirCliente"
+        android:icon="@drawable/ic_baseline_delete_24"
+        android:title="Excluir Cliente">
+
+    </item>
+
+    <item
+        android:id="@+id/menu_CancelarEdicaoCliente"
+        android:icon="@drawable/ic_baseline_close_24"
+        android:title="Cancelar Edição"
+        app:showAsAction="ifRoom"
+        android:visible="false">
+
+    </item>
+
+</menu>

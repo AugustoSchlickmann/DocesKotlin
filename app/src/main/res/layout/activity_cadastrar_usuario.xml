@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_bg"
+    android:fillViewport="true"
+    tools:context=".activities.CadastrarUsuarioActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/CadastrarUsuarioActivityTextInputLayoutNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/CadastrarUsuarioActivityNome"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/CadastrarUsuarioActivityTextInputEditTextNome"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@drawable/edit_text_empty"
+                android:drawableEnd="@drawable/ic_baseline_person_24"
+                android:maxLength="40"
+                android:singleLine="true"
+                android:textSize="20sp"
+                android:autofillHints="name"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/CadastrarUsuarioActivityTextInputLayoutEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/CadastrarUsuarioActivityEmail"
+            app:boxBackgroundMode="filled"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/CadastrarUsuarioActivityTextInputLayoutNome"
+            app:passwordToggleEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/CadastrarUsuarioActivityTextInputEditTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@drawable/edit_text_empty"
+                android:drawableEnd="@drawable/ic_baseline_alternate_email_24"
+                android:inputType="textEmailAddress"
+                android:maxLength="40"
+                android:singleLine="true"
+                android:textSize="20sp"
+                android:autofillHints="emailAddress"/>
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/CadastrarUsuarioActivityTextInputLayoutSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/CadastrarUsuarioActivitySenha"
+            app:boxBackgroundMode="filled"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/CadastrarUsuarioActivityTextInputLayoutEmail"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/CadastrarUsuarioActivityTextInputEditTextSenha"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@drawable/edit_text_empty"
+                android:inputType="textPassword"
+                android:maxLength="32"
+                android:singleLine="true"
+                android:textSize="20sp"
+                android:autofillHints="password"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/CadastrarUsuarioActivityTextInputLayoutConfirmarSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/CadastrarUsuarioActivityConfirmarSenha"
+            app:boxBackgroundMode="filled"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/CadastrarUsuarioActivityTextInputLayoutSenha"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/CadastrarUsuarioActivityTextInputEditTextConfirmarSenha"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@drawable/edit_text_empty"
+                android:inputType="textPassword"
+                android:maxLength="32"
+                android:singleLine="true"
+                android:textSize="20sp"
+                android:autofillHints="password"/>
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/CadastrarUsuarioActivityBotaoCadastrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_rounded"
+            android:text="@string/CadastrarUsuarioActivityBotaoCadastrar"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/CadastrarUsuarioActivityTextViewVoltar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/CadastrarUsuarioActivityTextInputLayoutConfirmarSenha"
+            app:layout_constraintVertical_bias="0.586" />
+
+        <TextView
+            android:id="@+id/CadastrarUsuarioActivityTextViewVoltar"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="@string/CadastrarUsuarioActivityTextViewVoltar"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/CadastrarUsuarioActivityProgressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/CadastrarUsuarioActivityBotaoCadastrar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/CadastrarUsuarioActivityTextInputLayoutConfirmarSenha"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

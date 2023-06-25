@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="4dp"
+        android:textAlignment="center"
+        tools:context=".CadastrarEncomendaActivity">
+
+        <ImageView
+            android:id="@+id/FragmentCadastrarEncomendaImageViewObs"
+            android:layout_width="36dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_info_24" />
+
+        <TextView
+            android:id="@+id/FragmentCadastrarEncomendaTextViewObs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/FragmentCadastrarEncomendaTextViewObs"
+            android:textColor="#D32F2F"
+            android:textSize="16sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="@+id/FragmentCadastrarEncomendaImageViewObs"
+            app:layout_constraintStart_toStartOf="@+id/FragmentCadastrarEncomendaImageViewObs"
+            app:layout_constraintTop_toBottomOf="@+id/FragmentCadastrarEncomendaImageViewObs">
+
+        </TextView>
+
+        <EditText
+            android:id="@+id/FragmentCadastrarEncomendaEditTextNomeCliente"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:drawableStart="@drawable/ic_baseline_person_24"
+            android:ems="10"
+            android:hint="@string/FragmentCadastrarEncomendaHintCliente"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:maxLength="40"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/FragmentCadastrarEncomendaEditTextTelefoneCliente"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_baseline_phone_24"
+            android:ems="10"
+            android:hint="@string/FragmentCadastrarEncomendaHintTelefone"
+            android:importantForAutofill="no"
+            android:inputType="phone"
+            android:maxLength="17"
+            android:textAlignment="center"
+            app:drawableTint="#388E3C"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/FragmentCadastrarEncomendaEditTextNomeCliente" />
+
+        <EditText
+            android:id="@+id/FragmentCadastrarEncomendaEditTextData"
+            android:layout_width="155dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edit_text_empty"
+            android:drawableStart="@drawable/ic_baseline_calendar_month_24"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="@string/FragmentCadastrarEncomendaHintData"
+            android:importantForAutofill="no"
+            android:inputType="date"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/FragmentCadastrarEncomendaEditTextTelefoneCliente" />
+
+        <EditText
+            android:id="@+id/FragmentCadastrarEncomendaEditTextHora"
+            android:layout_width="155dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/edit_text_empty"
+            android:drawableEnd="@drawable/ic_baseline_access_time_24"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="@string/FragmentCadastrarEncomendaHintHora"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/FragmentCadastrarEncomendaEditTextData"
+            app:layout_constraintTop_toBottomOf="@+id/FragmentCadastrarEncomendaEditTextTelefoneCliente" />
+
+        <Spinner
+            android:id="@+id/FragmentCadastrarEncomendaSpinnerDoces"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="1dp"
+            android:background="@drawable/background_spinner"
+            android:dropDownVerticalOffset="65dp"
+            app:layout_constraintBottom_toTopOf="@+id/FragmentCadastrarEncomendaRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/FragmentCadastrarEncomendaEditTextData"
+            tools:listitem="@layout/uma_linha_spinner_doce">
+
+        </Spinner>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/FragmentCadastrarEncomendaRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="8dp"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/FragmentCadastrarEncomendaBotaoSalvar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/FragmentCadastrarEncomendaSpinnerDoces"
+            app:layout_constraintVertical_bias="0.248"
+            tools:listitem="@layout/uma_linha_doce">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/FragmentCadastrarEncomendaTextViewValorTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:textAlignment="center"
+            android:textColor="@color/verdin"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/FragmentCadastrarEncomendaRecyclerView"
+            tools:text="R$: 9999.99" />
+
+        <Button
+            android:id="@+id/FragmentCadastrarEncomendaBotaoSalvar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/FragmentCadastrarEncomendaBotaoSalvar"
+            android:textColor="#FFFCFC"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/FragmentCadastrarEncomendaRecyclerView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

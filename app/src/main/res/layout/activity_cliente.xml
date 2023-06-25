@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".telas.ActivityCliente">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayoutCliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarCliente"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/rosinha" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewCliente"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        app:cardCornerRadius="100dp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextClienteNomeCliente"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayoutCliente">
+
+        <ImageView
+            android:id="@+id/imageViewCliente"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_person_24" />
+
+    </androidx.cardview.widget.CardView>
+
+    <EditText
+        android:id="@+id/editTextClienteNomeCliente"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:drawableStart="@drawable/ic_baseline_person_24"
+        android:ems="10"
+        android:hint="Cliente"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:maxLength="40"
+        app:layout_constraintBottom_toTopOf="@+id/editTextClienteTelefoneCliente"
+        app:layout_constraintEnd_toEndOf="@+id/cardViewCliente"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="@+id/cardViewCliente"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewCliente" />
+
+    <EditText
+        android:id="@+id/editTextClienteTelefoneCliente"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:drawableStart="@drawable/ic_baseline_phone_24"
+        android:ems="10"
+        android:hint="Telefone"
+        android:inputType="phone"
+        app:drawableTint="#388E3C"
+        android:maxLength="17"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/botaoCadastrarEncomendaCliente"
+        app:layout_constraintEnd_toEndOf="@+id/editTextClienteNomeCliente"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="@+id/editTextClienteNomeCliente"
+        app:layout_constraintTop_toBottomOf="@+id/editTextClienteNomeCliente" />
+
+    <Button
+        android:id="@+id/botaoCadastrarEncomendaCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:background="@drawable/edit_text_rounded"
+        android:backgroundTint="@color/rosinha"
+        android:drawableEnd="@drawable/ic_baseline_playlist_add_24"
+        android:text="Cadastrar Encomenda"
+        android:textColor="#FFFCFC"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarCliente"
+        app:layout_constraintEnd_toEndOf="@+id/editTextClienteTelefoneCliente"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/editTextClienteTelefoneCliente"
+        app:layout_constraintTop_toBottomOf="@+id/editTextClienteTelefoneCliente" />
+
+    <Button
+        android:id="@+id/botaoClienteSalvar"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/edit_text_rounded"
+        android:backgroundTint="@color/rosinha"
+        android:text="Salvar"
+        android:textColor="#FFFCFC"
+        android:visibility="visible"
+        app:icon="@drawable/ic_baseline_check_24"
+        app:iconGravity="end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botaoCadastrarEncomendaCliente"
+        app:layout_constraintVertical_bias="0.983" />
+
+    <ProgressBar
+        android:id="@+id/progressBarCliente"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/botaoCadastrarEncomendaCliente"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/botaoCadastrarEncomendaCliente"
+        app:layout_constraintTop_toBottomOf="@+id/botaoCadastrarEncomendaCliente"
+        app:layout_constraintVertical_bias="0.414" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/rosinha"
+        android:src="@drawable/ic_baseline_camera_alt_24"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/cardViewCliente"
+        app:layout_constraintEnd_toEndOf="@+id/cardViewCliente" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

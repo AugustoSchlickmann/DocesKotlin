@@ -14,10 +14,10 @@ import com.augusto.doceskotlin.models.Doce
 class DialogoDoce {
 
     var imagem: ImageView? = null
-    var botao:Button?=null
-    var qtd:EditText?=null
+    var botao: Button? = null
+    var qtd: EditText? = null
 
-    fun adicionarDoce(doce: Doce, context: Context, ):Dialog{
+    fun adicionarDoce(doce: Doce, context: Context): Dialog {
         var dialog = Dialog(context)
         dialog.setContentView(R.layout.dialogo_doce)
         dialog.window!!.setBackgroundDrawableResource(R.drawable.edit_text_rounded)

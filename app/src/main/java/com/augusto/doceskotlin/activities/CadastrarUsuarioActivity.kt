@@ -42,9 +42,6 @@ class CadastrarUsuarioActivity : AppCompatActivity(), ValidarEntradas {
         }
     }
 
-    override fun validarEntradasLogin(dados: Array<TextInputEditText>): Boolean {
-        return super.validarEntradasLogin(dados)
-    }
 
     fun validarDados(
         nome: TextInputEditText,

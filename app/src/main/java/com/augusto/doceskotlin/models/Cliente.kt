@@ -1,7 +1,8 @@
 package com.augusto.doceskotlin.models
 
-class Cliente(var id: String?, var nome: String?) {
+class Cliente(var nome: String?) {
 
+    var id: String? = null
     var telefone : String? = null
 
     var imagem : String? = null

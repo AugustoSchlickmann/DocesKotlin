@@ -17,6 +17,7 @@ class Relogio {
                 calendario.set(Calendar.MINUTE, minute)
                 calendario.set(Calendar.SECOND, 0)
                 field.setText(formatador.format(calendario.timeInMillis))
+
                 println("Data: " + calendario.time)
             },
             0,

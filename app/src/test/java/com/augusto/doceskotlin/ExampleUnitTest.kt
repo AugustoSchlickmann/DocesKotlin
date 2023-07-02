@@ -61,45 +61,45 @@ class ExampleUnitTest {
     fun testandoCriacoes() {
         var docinho = Doce("id1", "ninho","imagem1",1.25,)
         var docinho2 = Doce("id2", "Beijinho","imagem2",1.10,)
-        docinho.quantidadeDoce=99
-        println(docinho.toString());
+        var docinhoClone = docinho2.copy()
+
 
         var listaDocinhos: MutableList<Doce> = ArrayList()
         listaDocinhos.add(docinho)
         listaDocinhos.add(docinho2)
+        if (listaDocinhos.contains(docinhoClone)){
+            println("Lista já tem esse doce");
+        }else{
+            listaDocinhos.add(docinhoClone)
+        }
+
 
         var hoje = Date()
 
         var encomenda : Encomenda
-        encomenda = Encomenda("idEncomenda", Cliente("idCliente","nomeClinete"),hoje ,listaDocinhos,null,null)
+        encomenda = Encomenda( Cliente("nomeClinete"),System.currentTimeMillis() ,listaDocinhos,null,null)
         println(encomenda.toString())
+        println()
     }
 
     @Test
     fun testandoDatas(){
         var dia = Date()
-        var format = SimpleDateFormat("dd/MM/yyyy")
+        val formatadorData = SimpleDateFormat("dd/MM/yyyy")
+        val formatadorHora = SimpleDateFormat("HH:mm")
+
         // var calendario = Calendar.getInstance()
         // calendar = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
 
-        println(dia.toString())
+        println(dia)
         println(Calendar.getInstance().time)
 
         println(dia.time)
-        println(System.currentTimeMillis())
-        println(Calendar.getInstance().timeInMillis)
-
-        println("Formatado: "+ format.format(Calendar.getInstance().timeInMillis))
-
-    }
-
-    @Test
-    fun printNumeros(){
-        var a = 2.50
-        var b = 1.2
-        println("%.2f".format(a))
+        println(formatadorData.format(System.currentTimeMillis()))
+        println(formatadorHora.format(System.currentTimeMillis()))
 
 
 
     }
+
 }

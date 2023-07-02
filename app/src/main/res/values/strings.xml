@@ -32,4 +32,11 @@
 
     <string name="DialogoDoceHintQuantidade">Quantidade</string>
     <string name="DialogoDoceBotaoOK">OK</string>
+
+    <string name="ToastDadosInvalidos">Dados Inválidos</string>
+
+    <string name="UmaLinhaEncomendaContentDescriptionImageViewCheck">Marcação de encomenda feita ou não</string>
+    <string name="UmaLinhaEncomendaContentDescriptionImageViewCalendario">Ícone calendário</string>
+    <string name="UmaLinhaEncomendaContentDescriptionImageViewRelogio">Ícone Relógio</string>
+    <string name="UmaLinhaEncomendaContentDescriptionImageViewObs">Ícone contém observação</string>
 </resources>

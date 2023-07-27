@@ -15,17 +15,18 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.augusto.doceskotlin.Calendario
 import com.augusto.doceskotlin.DialogoDoce
-import com.augusto.doceskotlin.EncomendasTeste
-import com.augusto.doceskotlin.ListaDeDoces
+import com.augusto.doceskotlin.EncomendaMapper
+import com.augusto.doceskotlin.singletons.EncomendasTeste
+import com.augusto.doceskotlin.singletons.ListaDeDoces
 import com.augusto.doceskotlin.R
 import com.augusto.doceskotlin.Relogio
 import com.augusto.doceskotlin.activities.MainActivity
 import com.augusto.doceskotlin.adapters.RecyclerViewCadastrarEncomendaAdapter
 import com.augusto.doceskotlin.adapters.SpinnerDocesAdapter
 import com.augusto.doceskotlin.databinding.FragmentCadastrarEncomendaBinding
-import com.augusto.doceskotlin.models.Cliente
-import com.augusto.doceskotlin.models.Doce
-import com.augusto.doceskotlin.models.Encomenda
+import com.augusto.doceskotlin.objetos.Cliente
+import com.augusto.doceskotlin.objetos.Doce
+import com.augusto.doceskotlin.objetos.Encomenda
 import java.lang.NullPointerException
 import java.util.Calendar
 
@@ -44,17 +45,18 @@ class CadastrarEncomendaFragment : Fragment(), AdapterView.OnItemSelectedListene
     private var param1: String? = null
     private var param2: String? = null
 
-    var bind: FragmentCadastrarEncomendaBinding? = null
+    private var bind: FragmentCadastrarEncomendaBinding? = null
     private var nomeCliente: EditText? = null
-    var telefoneCliente: EditText? = null
-    var data: EditText? = null
-    var hora: EditText? = null
-    var spinner: Spinner? = null
-    var recyclerView: RecyclerView? = null
+    private var telefoneCliente: EditText? = null
+    private var data: EditText? = null
+    private var hora: EditText? = null
+    private var spinner: Spinner? = null
+    private var recyclerView: RecyclerView? = null
     private var botaoSalvar: Button? = null
-    var textViewValorTotal: TextView? = null
-    var recyclerViewAdapter: RecyclerViewCadastrarEncomendaAdapter? = null
-    var valorTotal: Double = 0.0
+    private var textViewValorTotal: TextView? = null
+    private var recyclerViewAdapter: RecyclerViewCadastrarEncomendaAdapter? = null
+    private var valorTotal: Double = 0.0
+    private var encomendaMapper : EncomendaMapper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,12 +66,9 @@ class CadastrarEncomendaFragment : Fragment(), AdapterView.OnItemSelectedListene
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         bind = FragmentCadastrarEncomendaBinding.inflate(layoutInflater, container, false)
+        encomendaMapper = EncomendaMapper(bind!!)
         nomeCliente = bind!!.FragmentCadastrarEncomendaEditTextNomeCliente
         telefoneCliente = bind!!.FragmentCadastrarEncomendaEditTextTelefoneCliente
         data = bind!!.FragmentCadastrarEncomendaEditTextData
@@ -110,7 +109,7 @@ class CadastrarEncomendaFragment : Fragment(), AdapterView.OnItemSelectedListene
             botaoSalvar!!.isEnabled = false
             if (validarEntradas()) {
                 try {
-                    var novaEncomenda = Encomenda(
+                    val novaEncomenda = Encomenda(
                         Cliente(nomeCliente!!.text.toString()),
                         calendario.timeInMillis,
                         recyclerViewAdapter!!.lista,
@@ -118,10 +117,9 @@ class CadastrarEncomendaFragment : Fragment(), AdapterView.OnItemSelectedListene
                         false
                     )
                     EncomendasTeste.listaEncomendasTeste.add(novaEncomenda)
-                    var intent = Intent(activity, MainActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    val intent = Intent(activity, MainActivity::class.java)
                     requireActivity().startActivity(intent)
+                    activity?.finish()
                 } catch (e: Exception) {
                     Toast.makeText(context, "Erro Criando Encomenda", Toast.LENGTH_SHORT).show()
                 }
@@ -183,7 +181,7 @@ class CadastrarEncomendaFragment : Fragment(), AdapterView.OnItemSelectedListene
                                 criarDialogo.qtd!!.text.toString().toInt()
                             recyclerViewAdapter!!.lista.add(doceAdicionado)
                             recyclerViewAdapter!!.notifyItemInserted(recyclerViewAdapter!!.itemCount)
-                            valorTotal += doceAdicionado.valorDoce!! * doceAdicionado.quantidadeDoce
+                            valorTotal += doceAdicionado.valorDoce * doceAdicionado.quantidadeDoce
                             textViewValorTotal!!.text = "R$: " + "%.2f".format(valorTotal)
                             dialog.dismiss()
 
@@ -214,7 +212,6 @@ class CadastrarEncomendaFragment : Fragment(), AdapterView.OnItemSelectedListene
 
         }
     }
-
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
 

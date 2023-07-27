@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.augusto.doceskotlin.EncomendasTeste
-import com.augusto.doceskotlin.R
+import com.augusto.doceskotlin.singletons.EncomendasTeste
 import com.augusto.doceskotlin.adapters.RecyclerViewInicioAdapter
-import com.augusto.doceskotlin.databinding.FragmentCadastrarEncomendaBinding
 import com.augusto.doceskotlin.databinding.FragmentTelaInicialBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -29,12 +27,12 @@ class InicioFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    var bind : FragmentTelaInicialBinding? = null
-    var progressBar : ProgressBar? = null
-    var textViewSemEncomendas : TextView? = null
-    var textViewSomaValorTotal : TextView? = null
-    var recyclerView: RecyclerView? = null
-    var recyclerViewAdapter : RecyclerViewInicioAdapter? = null
+    private var bind : FragmentTelaInicialBinding? = null
+    private var progressBar : ProgressBar? = null
+    private var textViewSemEncomendas : TextView? = null
+    private var textViewSomaValorTotal : TextView? = null
+    private var recyclerView: RecyclerView? = null
+    private var recyclerViewAdapter : RecyclerViewInicioAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,18 +42,19 @@ class InicioFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         bind = FragmentTelaInicialBinding.inflate(layoutInflater, container, false)
         textViewSemEncomendas = bind!!.MainActivityTextViewSemEncomendas
         textViewSomaValorTotal = bind!!.MainActivityTextViewSomaValorTotal
         recyclerView = bind!!.MainActivityRecyclerView
-        recyclerViewAdapter = RecyclerViewInicioAdapter(requireContext(),EncomendasTeste.listaEncomendasTeste)
+        recyclerViewAdapter = RecyclerViewInicioAdapter(requireContext(), EncomendasTeste.listaEncomendasTeste)
         recyclerView!!.adapter = recyclerViewAdapter
 
         container!!.removeAllViews()
         return bind!!.root
     }
+
 
     override fun onResume() {
         super.onResume()

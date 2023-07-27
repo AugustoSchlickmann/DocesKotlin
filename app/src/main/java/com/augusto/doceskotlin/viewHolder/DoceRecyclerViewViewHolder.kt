@@ -1,10 +1,11 @@
-package com.augusto.doceskotlin
+package com.augusto.doceskotlin.viewHolder
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.augusto.doceskotlin.R
 
 class DoceRecyclerViewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -12,4 +13,6 @@ class DoceRecyclerViewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemV
     var imagem = itemView.findViewById<ImageView>(R.id.UmaLinhaDoceImageView)
     var nome = itemView.findViewById<TextView>(R.id.UmaLinhaDoceTextViewNomeDoce)
     var quantidade = itemView.findViewById<TextView>(R.id.UmaLinhaDoceTextViewValorDoce)
+
+
 }

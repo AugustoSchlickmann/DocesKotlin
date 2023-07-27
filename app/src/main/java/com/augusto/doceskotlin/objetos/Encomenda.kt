@@ -1,6 +1,4 @@
-package com.augusto.doceskotlin.models
-
-import java.util.Date
+package com.augusto.doceskotlin.objetos
 
 class Encomenda(var cliente:Cliente?, var data:Long?, var doces:MutableList<Doce>, var obs:String?, var feita:Boolean?) {
 

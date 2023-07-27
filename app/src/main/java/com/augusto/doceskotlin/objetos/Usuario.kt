@@ -1,22 +1,15 @@
-package com.augusto.doceskotlin.models
+package com.augusto.doceskotlin.objetos
 
 class Usuario {
 
     var idUsuario: String?
-        get() = field
-        set(value) {
-            field = value
-        }
 
     var nome: String?
 
     var email: String?
-        get() = field
-        set(email) {
-            field = email
-        }
 
     var senha: String? = null
+
     var imagem: String? = null
 
     constructor(idUsuario: String, nome: String, email: String) {

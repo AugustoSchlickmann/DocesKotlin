@@ -85,7 +85,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onDrawerClosed(drawerView: View) {
         if (fragmentSelecionado != null) {
-            println("Indo para o frag " + fragmentSelecionado.toString())
             supportFragmentManager.beginTransaction()
                 .replace(R.id.frameLayout, fragmentSelecionado!!).commitNow()
             fragmentSelecionado = null

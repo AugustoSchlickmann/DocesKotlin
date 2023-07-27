@@ -6,10 +6,7 @@ import android.text.InputType
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
-import com.augusto.doceskotlin.adapters.RecyclerViewCadastrarEncomendaAdapter
-import com.augusto.doceskotlin.models.Doce
+import com.augusto.doceskotlin.objetos.Doce
 
 class DialogoDoce {
 
@@ -18,7 +15,7 @@ class DialogoDoce {
     var qtd: EditText? = null
 
     fun adicionarDoce(doce: Doce, context: Context): Dialog {
-        var dialog = Dialog(context)
+        val dialog = Dialog(context)
         dialog.setContentView(R.layout.dialogo_doce)
         dialog.window!!.setBackgroundDrawableResource(R.drawable.edit_text_rounded)
 
@@ -29,6 +26,7 @@ class DialogoDoce {
         qtd!!.inputType = InputType.TYPE_CLASS_NUMBER
         qtd!!.hint = "Quantidade..."
         imagem!!.setImageResource(doce.imagemDoce!!.toInt())
+        qtd!!.requestFocus()
         dialog.show()
         return dialog
 

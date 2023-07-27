@@ -1,6 +1,7 @@
-package com.augusto.doceskotlin
+package com.augusto.doceskotlin.singletons
 
-import com.augusto.doceskotlin.models.Doce
+import com.augusto.doceskotlin.R
+import com.augusto.doceskotlin.objetos.Doce
 
 object ListaDeDoces {
 
@@ -18,11 +19,11 @@ object ListaDeDoces {
     }
 
     fun pegarLista(): MutableList<Doce>? {
-        if (doces == null) {
+        return if (doces == null) {
             criarDoces()
-            return doces
+            doces
         } else {
-            return doces
+            doces
         }
     }
 

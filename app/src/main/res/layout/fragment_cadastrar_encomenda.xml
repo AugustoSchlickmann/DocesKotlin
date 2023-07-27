@@ -10,9 +10,24 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="4dp"
         android:textAlignment="center"
         tools:context=".CadastrarEncomendaActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayoutEncomenda"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarEncomenda"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/rosinha" />
+        </com.google.android.material.appbar.AppBarLayout>
 
         <ImageView
             android:id="@+id/FragmentCadastrarEncomendaImageViewObs"
@@ -21,7 +36,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayoutEncomenda"
             app:srcCompat="@drawable/ic_baseline_info_24" />
 
         <TextView
@@ -42,6 +57,7 @@
             android:id="@+id/FragmentCadastrarEncomendaEditTextNomeCliente"
             android:layout_width="250dp"
             android:layout_height="50dp"
+            android:layout_marginTop="4dp"
             android:drawableStart="@drawable/ic_baseline_person_24"
             android:ems="10"
             android:hint="@string/FragmentCadastrarEncomendaHintCliente"
@@ -51,13 +67,13 @@
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayoutEncomenda" />
 
         <EditText
             android:id="@+id/FragmentCadastrarEncomendaEditTextTelefoneCliente"
             android:layout_width="250dp"
             android:layout_height="50dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:drawableStart="@drawable/ic_baseline_phone_24"
             android:ems="10"
             android:hint="@string/FragmentCadastrarEncomendaHintTelefone"
@@ -110,8 +126,7 @@
             android:id="@+id/FragmentCadastrarEncomendaSpinnerDoces"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="1dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/background_spinner"
             android:dropDownVerticalOffset="65dp"
             app:layout_constraintBottom_toTopOf="@+id/FragmentCadastrarEncomendaRecyclerView"

@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.augusto.doceskotlin.R
-import com.augusto.doceskotlin.models.Doce
+import com.augusto.doceskotlin.objetos.Doce
 
 class SpinnerDocesAdapter(val context: Context, val lista: MutableList<Doce>) : BaseAdapter() {
 

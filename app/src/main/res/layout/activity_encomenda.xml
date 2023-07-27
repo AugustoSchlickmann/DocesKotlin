@@ -60,11 +60,13 @@
             android:inputType="phone"
             android:maxLength="17"
             android:textAlignment="center"
+            android:visibility="gone"
             app:drawableTint="#388E3C"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextEncomendaNomeCliente" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextEncomendaNomeCliente"
+            tools:visibility="visible" />
 
         <EditText
             android:id="@+id/editTextEncomendaData"
@@ -83,6 +85,7 @@
             app:layout_constraintTop_toBottomOf="@+id/editTextEncomendaTelefoneCliente" />
 
         <Spinner
+            tools:listitem="@layout/uma_linha_spinner_doce"
             android:id="@+id/spinnerEncomendaDoces"
             android:layout_width="wrap_content"
             android:layout_height="44dp"
@@ -151,10 +154,11 @@
             android:layout_height="39dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayoutEncomenda"
-            app:srcCompat="@drawable/ic_baseline_info_24" />
+            app:srcCompat="@drawable/ic_baseline_info_24"
+            tools:visibility="visible" />
 
         <TextView
 
@@ -165,10 +169,11 @@
             android:textColor="#D32F2F"
             android:textSize="16sp"
             android:textStyle="bold|italic"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/imageViewAvisoObs"
             app:layout_constraintStart_toStartOf="@+id/imageViewAvisoObs"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewAvisoObs">
+            app:layout_constraintTop_toBottomOf="@+id/imageViewAvisoObs"
+            tools:visibility="visible">
 
         </TextView>
 

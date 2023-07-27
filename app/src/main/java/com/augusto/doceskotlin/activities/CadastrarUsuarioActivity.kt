@@ -6,9 +6,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.augusto.doceskotlin.R
-import com.augusto.doceskotlin.UsuarioSingleton
+import com.augusto.doceskotlin.singletons.UsuarioSingleton
 import com.augusto.doceskotlin.ValidarEntradas
-import com.augusto.doceskotlin.models.Usuario
+import com.augusto.doceskotlin.objetos.Usuario
 import com.google.android.material.textfield.TextInputEditText
 
 class CadastrarUsuarioActivity : AppCompatActivity(), ValidarEntradas {

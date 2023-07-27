@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.augusto.doceskotlin.R
-import com.augusto.doceskotlin.DoceRecyclerViewViewHolder
-import com.augusto.doceskotlin.models.Doce
+import com.augusto.doceskotlin.viewHolder.DoceRecyclerViewViewHolder
+import com.augusto.doceskotlin.objetos.Doce
 
 class RecyclerViewCadastrarEncomendaAdapter(val context: Context, val lista: MutableList<Doce>) :
     RecyclerView.Adapter<DoceRecyclerViewViewHolder>() {

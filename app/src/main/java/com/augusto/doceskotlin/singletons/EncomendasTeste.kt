@@ -1,6 +1,6 @@
-package com.augusto.doceskotlin
+package com.augusto.doceskotlin.singletons
 
-import com.augusto.doceskotlin.models.Encomenda
+import com.augusto.doceskotlin.objetos.Encomenda
 
 object EncomendasTeste {
 

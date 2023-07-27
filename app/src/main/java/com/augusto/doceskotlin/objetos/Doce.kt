@@ -1,4 +1,4 @@
-package com.augusto.doceskotlin.models
+package com.augusto.doceskotlin.objetos
 
 data class Doce(var idDoce: String, var nomeDoce: String, var imagemDoce: String,  var valorDoce: Double) {
 

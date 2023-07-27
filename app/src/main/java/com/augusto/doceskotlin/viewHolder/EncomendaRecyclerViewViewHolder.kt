@@ -1,10 +1,11 @@
-package com.augusto.doceskotlin
+package com.augusto.doceskotlin.viewHolder
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.augusto.doceskotlin.R
 
 class EncomendaRecyclerViewViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
 

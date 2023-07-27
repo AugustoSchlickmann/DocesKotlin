@@ -1,4 +1,4 @@
-package com.augusto.doceskotlin.models
+package com.augusto.doceskotlin.objetos
 
 class Cliente(var nome: String?) {
 

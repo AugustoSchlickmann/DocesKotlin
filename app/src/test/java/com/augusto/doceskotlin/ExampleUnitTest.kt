@@ -1,13 +1,13 @@
 package com.augusto.doceskotlin
 
-import com.augusto.doceskotlin.models.Cliente
-import com.augusto.doceskotlin.models.Doce
-import com.augusto.doceskotlin.models.Encomenda
-import com.augusto.doceskotlin.models.Usuario
+import com.augusto.doceskotlin.objetos.Cliente
+import com.augusto.doceskotlin.objetos.Doce
+import com.augusto.doceskotlin.objetos.Encomenda
+import com.augusto.doceskotlin.objetos.Usuario
+import com.augusto.doceskotlin.singletons.UsuarioSingleton
 import org.junit.Test
 
 import org.junit.Assert.*
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date

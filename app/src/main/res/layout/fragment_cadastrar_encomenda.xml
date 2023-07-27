@@ -20,7 +20,8 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarEncomenda"
@@ -57,7 +58,7 @@
             android:id="@+id/FragmentCadastrarEncomendaEditTextNomeCliente"
             android:layout_width="250dp"
             android:layout_height="50dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:drawableStart="@drawable/ic_baseline_person_24"
             android:ems="10"
             android:hint="@string/FragmentCadastrarEncomendaHintCliente"
@@ -73,7 +74,7 @@
             android:id="@+id/FragmentCadastrarEncomendaEditTextTelefoneCliente"
             android:layout_width="250dp"
             android:layout_height="50dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:drawableStart="@drawable/ic_baseline_phone_24"
             android:ems="10"
             android:hint="@string/FragmentCadastrarEncomendaHintTelefone"
@@ -147,10 +148,8 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/FragmentCadastrarEncomendaBotaoSalvar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/FragmentCadastrarEncomendaSpinnerDoces"
-            app:layout_constraintVertical_bias="0.248"
             tools:listitem="@layout/uma_linha_doce">
 
         </androidx.recyclerview.widget.RecyclerView>
@@ -159,30 +158,26 @@
             android:id="@+id/FragmentCadastrarEncomendaTextViewValorTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:textAlignment="center"
             android:textColor="@color/verdin"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/FragmentCadastrarEncomendaBotaoSalvar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/FragmentCadastrarEncomendaRecyclerView"
+            app:layout_constraintTop_toTopOf="@+id/FragmentCadastrarEncomendaBotaoSalvar"
             tools:text="R$: 9999.99" />
 
         <Button
             android:id="@+id/FragmentCadastrarEncomendaBotaoSalvar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/FragmentCadastrarEncomendaBotaoSalvar"
             android:textColor="#FFFCFC"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/FragmentCadastrarEncomendaRecyclerView" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

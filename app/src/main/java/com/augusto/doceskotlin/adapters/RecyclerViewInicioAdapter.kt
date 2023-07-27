@@ -56,7 +56,7 @@ class RecyclerViewInicioAdapter(val context: Context, val lista: MutableList<Enc
         holder.constraintLayout.setOnClickListener {
             //ir para a tela da encomenda
             var intent = Intent(context, EncomendaActivity::class.java)
-            intent.putExtra("posicao", position)
+            intent.putExtra("posicao", position.toString())
             context.startActivity(intent)
 
         }

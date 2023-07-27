@@ -3,37 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_EditarEncomenda"
+        android:id="@+id/EncomendaMenuEditarEncomenda"
         android:icon="@drawable/ic_baseline_edit_24"
-        android:title="Editar Encomenda">
+        android:title="@string/EncomendaMenuEditarEncomenda">
 
     </item>
 
     <item
-        android:id="@+id/menu_ExcluirEncomenda"
+        android:id="@+id/EncomendaMenuExcluirEncomenda"
         android:icon="@drawable/ic_baseline_delete_24"
-        android:title="Excluir Encomenda">
+        android:title="@string/EncomendaMenuExcluirEncomenda">
 
     </item>
 
     <item
-        android:id="@+id/menu_Obs"
+        android:id="@+id/EncomendaMenuAdicionarObs"
         android:icon="@drawable/ic_baseline_info_24"
-        android:title="Adicionar Observações">
+        android:title="@string/EncomendaMenuAdicionarObs">
 
     </item>
 
     <item
-        android:id="@+id/menu_feita"
+        android:id="@+id/EncomendaMenuMarcarComoFeita"
         android:icon="@drawable/ic_baseline_done_24"
-        android:title="Marcar como feita">
+        android:title="@string/EncomendaMenuMarcarComoFeita">
 
     </item>
 
     <item
-        android:id="@+id/menu_CancelarEdicao"
+        android:id="@+id/EncomendaMenuCancelarEdicao"
         android:icon="@drawable/ic_baseline_close_24"
-        android:title="Cancelar Edição"
+        android:title="@string/EncomendaMenuCancelarEdicao"
         android:visible="false"
         app:showAsAction="ifRoom">
 

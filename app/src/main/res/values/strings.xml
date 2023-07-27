@@ -39,4 +39,10 @@
     <string name="UmaLinhaEncomendaContentDescriptionImageViewCalendario">Ícone calendário</string>
     <string name="UmaLinhaEncomendaContentDescriptionImageViewRelogio">Ícone Relógio</string>
     <string name="UmaLinhaEncomendaContentDescriptionImageViewObs">Ícone contém observação</string>
+
+    <string name="EncomendaMenuEditarEncomenda">Editar Encomenda</string>
+    <string name="EncomendaMenuExcluirEncomenda">Excluir Encomenda</string>
+    <string name="EncomendaMenuAdicionarObs">Adicionar Observações</string>
+    <string name="EncomendaMenuMarcarComoFeita">Marcar como feita</string>
+    <string name="EncomendaMenuCancelarEdicao">Cancelar Edição</string>
 </resources>

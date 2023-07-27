@@ -40,22 +40,13 @@ private const val ARG_PARAM2 = "param2"
  * Use the [CadastrarEncomendaFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CadastrarEncomendaFragment : Fragment(), AdapterView.OnItemSelectedListener {
+class CadastrarEncomendaFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
     private var bind: FragmentCadastrarEncomendaBinding? = null
-    private var nomeCliente: EditText? = null
-    private var telefoneCliente: EditText? = null
-    private var data: EditText? = null
-    private var hora: EditText? = null
-    private var spinner: Spinner? = null
-    private var recyclerView: RecyclerView? = null
-    private var botaoSalvar: Button? = null
-    private var textViewValorTotal: TextView? = null
-    private var recyclerViewAdapter: RecyclerViewCadastrarEncomendaAdapter? = null
-    private var valorTotal: Double = 0.0
+
     private var encomendaMapper : EncomendaMapper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,154 +59,44 @@ class CadastrarEncomendaFragment : Fragment(), AdapterView.OnItemSelectedListene
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         bind = FragmentCadastrarEncomendaBinding.inflate(layoutInflater, container, false)
-        encomendaMapper = EncomendaMapper(bind!!)
-        nomeCliente = bind!!.FragmentCadastrarEncomendaEditTextNomeCliente
-        telefoneCliente = bind!!.FragmentCadastrarEncomendaEditTextTelefoneCliente
-        data = bind!!.FragmentCadastrarEncomendaEditTextData
-        hora = bind!!.FragmentCadastrarEncomendaEditTextHora
-        spinner = bind!!.FragmentCadastrarEncomendaSpinnerDoces
-        recyclerView = bind!!.FragmentCadastrarEncomendaRecyclerView
-        botaoSalvar = bind!!.FragmentCadastrarEncomendaBotaoSalvar
-        textViewValorTotal = bind!!.FragmentCadastrarEncomendaTextViewValorTotal
-
-        spinner!!.adapter = SpinnerDocesAdapter(requireContext(), ListaDeDoces.pegarLista()!!)
-        spinner!!.onItemSelectedListener = this
-        spinner!!.setSelection(spinner!!.adapter.count)
-        recyclerViewAdapter = RecyclerViewCadastrarEncomendaAdapter(requireContext(), ArrayList())
-        recyclerView!!.adapter = recyclerViewAdapter
-
+        encomendaMapper = EncomendaMapper(bind!!, requireContext())
+        encomendaMapper!!.setar()
+        encomendaMapper!!.recyclerViewAdapter!!.lista = ArrayList()
         container!!.removeAllViews()
         return bind!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val calendario = Calendar.getInstance()
 
-        data!!.setOnClickListener {
-            nomeCliente!!.clearFocus()
-            telefoneCliente!!.clearFocus()
-            Calendario().abrirCalendario(requireContext(), calendario, data!!)
-
-        }
-
-        hora!!.setOnClickListener {
-            nomeCliente!!.clearFocus()
-            telefoneCliente!!.clearFocus()
-            Relogio().abrirRelogio(requireContext(), calendario, hora!!)
-        }
-
-        botaoSalvar!!.setOnClickListener {
-            botaoSalvar!!.isEnabled = false
-            if (validarEntradas()) {
+        encomendaMapper!!.botaoSalvar!!.setOnClickListener {
+            encomendaMapper!!.botaoSalvar!!.isEnabled = false
+            if (encomendaMapper!!.validarEntradas()) {
                 try {
                     val novaEncomenda = Encomenda(
-                        Cliente(nomeCliente!!.text.toString()),
-                        calendario.timeInMillis,
-                        recyclerViewAdapter!!.lista,
+                        Cliente(encomendaMapper!!.nomeCliente!!.text.toString()),
+                        encomendaMapper!!.calendario.timeInMillis,
+                        encomendaMapper!!.recyclerViewAdapter!!.lista!!,
                         null,
                         false
                     )
                     EncomendasTeste.listaEncomendasTeste.add(novaEncomenda)
-                    val intent = Intent(activity, MainActivity::class.java)
+                    var intent = Intent(requireActivity(), MainActivity::class.java)
                     requireActivity().startActivity(intent)
-                    activity?.finish()
+                    requireActivity().finish()
                 } catch (e: Exception) {
                     Toast.makeText(context, "Erro Criando Encomenda", Toast.LENGTH_SHORT).show()
                 }
 
             } else {
-                botaoSalvar!!.isEnabled = true
+                encomendaMapper!!.botaoSalvar!!.isEnabled = true
             }
         }
 
-
     }
 
-    private fun validarEntradas(): Boolean {
-
-        try {
-            if (nomeCliente!!.text.isBlank()) {
-                Toast.makeText(context, "Cliente Vazio", Toast.LENGTH_SHORT)
-                    .show()
-                return false
-            }
-            if (data!!.text.isBlank()) {
-                Toast.makeText(context, "Selecione Data", Toast.LENGTH_SHORT)
-                    .show()
-                return false
-            }
-            if (hora!!.text.isBlank()) {
-                Toast.makeText(context, "Selecione Hora", Toast.LENGTH_SHORT)
-                    .show()
-                return false
-            }
-            if (recyclerViewAdapter!!.lista.size == 0) {
-                Toast.makeText(context, "Lista Vazia", Toast.LENGTH_SHORT)
-                    .show()
-                return false
-            }
 
 
-        } catch (e: NullPointerException) {
-            Toast.makeText(context, getString(R.string.ToastDadosInvalidos), Toast.LENGTH_SHORT)
-                .show()
-        }
-
-        return true
-    }
-
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        if (parent != null && position < parent.count) {
-            val doceSelecionado = parent.getItemAtPosition(position) as Doce
-            if (!recyclerViewAdapter!!.lista.contains(doceSelecionado)) {
-                val doceAdicionado = doceSelecionado.copy()
-                val criarDialogo = DialogoDoce()
-                val dialog = criarDialogo.adicionarDoce(doceAdicionado, requireContext())
-
-                criarDialogo.botao!!.setOnClickListener {
-                    try {
-                        if (criarDialogo.qtd!!.text.toString().toInt() > 0) {
-
-                            doceAdicionado.quantidadeDoce =
-                                criarDialogo.qtd!!.text.toString().toInt()
-                            recyclerViewAdapter!!.lista.add(doceAdicionado)
-                            recyclerViewAdapter!!.notifyItemInserted(recyclerViewAdapter!!.itemCount)
-                            valorTotal += doceAdicionado.valorDoce * doceAdicionado.quantidadeDoce
-                            textViewValorTotal!!.text = "R$: " + "%.2f".format(valorTotal)
-                            dialog.dismiss()
-
-                        } else {
-                            Toast.makeText(
-                                context,
-                                getString(R.string.ToastDadosInvalidos),
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
-                        }
-                    } catch (e: Exception) {
-                        Toast.makeText(
-                            context,
-                            getString(R.string.ToastDadosInvalidos),
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                    }
-                }
-            } else {
-                Toast.makeText(
-                    context,
-                    "Doce já adicionado",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-        }
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-
-    }
 
 
 }

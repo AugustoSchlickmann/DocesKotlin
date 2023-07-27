@@ -8,22 +8,28 @@ import com.augusto.doceskotlin.R
 import com.augusto.doceskotlin.viewHolder.DoceRecyclerViewViewHolder
 import com.augusto.doceskotlin.objetos.Doce
 
-class RecyclerViewCadastrarEncomendaAdapter(val context: Context, val lista: MutableList<Doce>) :
-    RecyclerView.Adapter<DoceRecyclerViewViewHolder>() {
+class RecyclerViewCadastrarEncomendaAdapter : RecyclerView.Adapter<DoceRecyclerViewViewHolder> {
+
+    var lista: MutableList<Doce>? = null
+    var context: Context?
+
+    constructor(context: Context){
+        this.context = context
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoceRecyclerViewViewHolder {
-        var view = LayoutInflater.from(context).inflate(R.layout.uma_linha_doce, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.uma_linha_doce, parent, false)
         return DoceRecyclerViewViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return lista.size
+        return lista!!.size
     }
 
     override fun onBindViewHolder(holder: DoceRecyclerViewViewHolder, position: Int) {
-        holder.imagem.setImageResource(lista[position].imagemDoce!!.toInt())
-        holder.nome.text = lista[position].nomeDoce
-        holder.quantidade.text = lista[position].quantidadeDoce.toString()
+        holder.imagem.setImageResource(lista!![position].imagemDoce!!.toInt())
+        holder.nome.text = lista!![position].nomeDoce
+        holder.quantidade.text = lista!![position].quantidadeDoce.toString()
 
     }
 

@@ -7,13 +7,15 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.augusto.doceskotlin.EDITAR_DOCES
 import com.augusto.doceskotlin.R
+import com.augusto.doceskotlin.VER_DOCES_SEMANA
 import com.augusto.doceskotlin.databinding.ActivityCarregandoBinding
 import com.augusto.doceskotlin.fragments.CadastrarEncomendaFragment
 import com.augusto.doceskotlin.fragments.InicioFragment
+import com.augusto.doceskotlin.fragments.ListaDocesFragment
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
@@ -58,15 +60,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (navigationView!!.checkedItem!!.itemId != item.itemId) {
             when (item.itemId) {
 
-                R.id.nav_telaInicial -> {
-                    fragmentSelecionado = InicioFragment()
-                }
-
-                R.id.nav_cadastrarEncomenda -> {
-                    fragmentSelecionado = CadastrarEncomendaFragment()
-                }
+                R.id.nav_telaInicial -> fragmentSelecionado = InicioFragment()
+                R.id.nav_cadastrarEncomenda -> fragmentSelecionado = CadastrarEncomendaFragment()
+                R.id.nav_doces -> fragmentSelecionado = ListaDocesFragment.newInstance(EDITAR_DOCES)
+                R.id.nav_semana -> fragmentSelecionado = ListaDocesFragment.newInstance(VER_DOCES_SEMANA)
 
             }
+
             container!!.removeAllViews()
             container!!.addView(ActivityCarregandoBinding.inflate(layoutInflater).root)
 

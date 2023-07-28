@@ -45,4 +45,23 @@
     <string name="EncomendaMenuAdicionarObs">Adicionar Observações</string>
     <string name="EncomendaMenuMarcarComoFeita">Marcar como feita</string>
     <string name="EncomendaMenuCancelarEdicao">Cancelar Edição</string>
+
+    <string name="FragmentListaDocesNenhumDoceAFazer">Nenhum Doce a Fazer...</string>
+
+    <string name="NavigationDrawerMenuProximasEncomendas">Próximas Encomendas</string>
+    <string name="NavigationDrawerMenuDocesAFazer">Doces a Fazer</string>
+    <string name="NavigationDrawerMenuCadastrarEncomenda">Cadastrar Encomenda</string>
+    <string name="NavigationDrawerMenuCadastrarBandejinha">Cadastrar Bandejinha</string>
+    <string name="NavigationDrawerMenuFecharSemana">Fechar Semana</string>
+    <string name="NavigationDrawerMenuProcurarEncomendas">Procurar Encomendas</string>
+    <string name="NavigationDrawerMenuProcurarPorData">Procurar por Data</string>
+    <string name="NavigationDrawerMenuProcurarPorNome">Procurar por Nome</string>
+    <string name="NavigationDrawerMenuDadosSalvos">Dados Salvos</string>
+    <string name="NavigationDrawerMenuDoces">Preço Doces</string>
+    <string name="NavigationDrawerMenuClientes">Clientes</string>
+    <string name="NavigationDrawerMenuPerfil">Perfil</string>
+
+    <string name="DialogoRemoverDoceBotaoCancelar">Cancelar</string>
+    <string name="DialogoRemoverDoceBotaoOk">Ok</string>
+
 </resources>

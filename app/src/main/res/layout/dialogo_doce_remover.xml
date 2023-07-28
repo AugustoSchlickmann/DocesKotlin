@@ -7,7 +7,7 @@
     android:padding="8dp">
 
     <Button
-        android:id="@+id/buttonDialogoRemoverDoceCancelar"
+        android:id="@+id/DialogoRemoverDoceBotaoCancelar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -15,19 +15,19 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="#D32F2F"
-        android:text="Cancelar"
+        android:text="@string/DialogoRemoverDoceBotaoCancelar"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:icon="@drawable/ic_baseline_close_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonDialogoRemoverDoceOK"
+        app:layout_constraintEnd_toStartOf="@+id/DialogoRemoverDoceBotaoOk"
         app:layout_constraintHorizontal_bias="0.259"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDialogoRemoverDoce"
+        app:layout_constraintTop_toBottomOf="@+id/DialogoRemoverDoceTextView"
         app:layout_constraintVertical_bias="0.077" />
 
     <Button
-        android:id="@+id/buttonDialogoRemoverDoceOK"
+        android:id="@+id/DialogoRemoverDoceBotaoOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -35,38 +35,39 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="#689F38"
-        android:text="Ok"
+        android:text="@string/DialogoRemoverDoceBotaoOk"
         android:textAllCaps="false"
         app:icon="@drawable/ic_baseline_check_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonDialogoRemoverDoceCancelar"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDialogoRemoverDoce"
+        app:layout_constraintStart_toEndOf="@+id/DialogoRemoverDoceBotaoCancelar"
+        app:layout_constraintTop_toBottomOf="@+id/DialogoRemoverDoceTextView"
         app:layout_constraintVertical_bias="0.075" />
 
     <TextView
-        android:id="@+id/textViewDialogoRemoverDoce"
+        android:id="@+id/DialogoRemoverDoceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Remover?"
+        tools:text="Remover?"
         android:textAlignment="center"
         android:textColor="@color/rosinha"
         android:textSize="20sp"
         android:textStyle="italic|bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewDialogoRemoverDoce" />
+        app:layout_constraintEnd_toEndOf="@+id/DialogoRemoverDoceImageView"
+        app:layout_constraintStart_toStartOf="@+id/DialogoRemoverDoceImageView"
+        app:layout_constraintTop_toBottomOf="@+id/DialogoRemoverDoceImageView" />
 
 
     <ImageView
-        android:id="@+id/imageViewDialogoRemoverDoce"
+        android:id="@+id/DialogoRemoverDoceImageView"
         android:layout_width="66dp"
         android:layout_height="66dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/beijinho" />
+        app:srcCompat="@drawable/beijinho"
+        android:contentDescription="@string/UmLinhaSpinnerDoceImageViewContentDescription"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

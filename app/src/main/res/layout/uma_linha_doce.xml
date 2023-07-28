@@ -19,30 +19,33 @@
 
     <TextView
         android:id="@+id/UmaLinhaDoceTextViewNomeDoce"
-        android:layout_width="150dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textColor="@color/rosinha"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/UmaLinhaDoceImageView"
         app:layout_constraintEnd_toStartOf="@+id/UmaLinhaDoceTextViewValorDoce"
-        app:layout_constraintHorizontal_bias="0.184"
         app:layout_constraintStart_toEndOf="@+id/UmaLinhaDoceImageView"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Nome Doce" />
+        app:layout_constraintTop_toTopOf="@+id/UmaLinhaDoceImageView"
+        tools:text="Nome Doce Bem Grande Que Quebra Linha e até passa" />
 
     <TextView
         android:id="@+id/UmaLinhaDoceTextViewValorDoce"
-        android:layout_width="66dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:textColor="@color/roxinho"
         android:textSize="16sp"
         android:textStyle="bold|italic"
 
+        app:layout_constraintBottom_toBottomOf="@+id/UmaLinhaDoceTextViewNomeDoce"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/UmaLinhaDoceTextViewNomeDoce"
         tools:text="99.99" />
 
     <View

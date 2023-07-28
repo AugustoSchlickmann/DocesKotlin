@@ -1,5 +1,7 @@
 package com.augusto.doceskotlin
 
+import com.augusto.doceskotlin.fragments.EDITAR_DOCES
+import com.augusto.doceskotlin.fragments.VER_DOCES_SEMANA
 import com.augusto.doceskotlin.objetos.Cliente
 import com.augusto.doceskotlin.objetos.Doce
 import com.augusto.doceskotlin.objetos.Encomenda
@@ -59,31 +61,32 @@ class ExampleUnitTest {
 
     @Test
     fun testandoCriacoes() {
-        var docinho = Doce("id1", "ninho","imagem1",1.25,)
-        var docinho2 = Doce("id2", "Beijinho","imagem2",1.10,)
+        var docinho = Doce("id1", "ninho", "imagem1", 1.25)
+        var docinho2 = Doce("id2", "Beijinho", "imagem2", 1.10)
         var docinhoClone = docinho2.copy()
 
 
         var listaDocinhos: MutableList<Doce> = ArrayList()
         listaDocinhos.add(docinho)
         listaDocinhos.add(docinho2)
-        if (listaDocinhos.contains(docinhoClone)){
+        if (listaDocinhos.contains(docinhoClone)) {
             println("Lista já tem esse doce");
-        }else{
+        } else {
             listaDocinhos.add(docinhoClone)
         }
 
 
         var hoje = Date()
 
-        var encomenda : Encomenda
-        encomenda = Encomenda( Cliente("nomeClinete"),System.currentTimeMillis() ,listaDocinhos,null,null)
+        var encomenda: Encomenda
+        encomenda =
+            Encomenda(Cliente("nomeClinete"), System.currentTimeMillis(), listaDocinhos, null, null)
         println(encomenda.toString())
         println()
     }
 
     @Test
-    fun testandoDatas(){
+    fun testandoDatas() {
         var dia = Date()
         val formatadorData = SimpleDateFormat("dd/MM/yyyy")
         val formatadorHora = SimpleDateFormat("HH:mm")
@@ -98,8 +101,20 @@ class ExampleUnitTest {
         println(formatadorData.format(System.currentTimeMillis()))
         println(formatadorHora.format(System.currentTimeMillis()))
 
+    }
 
 
+    @Test
+    fun testandoSwitch() {
+       var tipoLista = 0
+        when (tipoLista) {
+            2 -> println("$tipoLista De novo")
+            EDITAR_DOCES -> println(tipoLista)
+            VER_DOCES_SEMANA -> println(tipoLista)
+            2 -> println("$tipoLista De novo 2")
+            1 -> println("$tipoLista De novo 1")
+            else -> println("Não entrou em nenhum")
+        }
     }
 
 }

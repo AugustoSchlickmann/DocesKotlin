@@ -5,30 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
-import com.augusto.doceskotlin.Calendario
-import com.augusto.doceskotlin.DialogoDoce
 import com.augusto.doceskotlin.EncomendaMapper
 import com.augusto.doceskotlin.singletons.EncomendasTeste
-import com.augusto.doceskotlin.singletons.ListaDeDoces
-import com.augusto.doceskotlin.R
-import com.augusto.doceskotlin.Relogio
 import com.augusto.doceskotlin.activities.MainActivity
-import com.augusto.doceskotlin.adapters.RecyclerViewCadastrarEncomendaAdapter
-import com.augusto.doceskotlin.adapters.SpinnerDocesAdapter
 import com.augusto.doceskotlin.databinding.FragmentCadastrarEncomendaBinding
 import com.augusto.doceskotlin.objetos.Cliente
-import com.augusto.doceskotlin.objetos.Doce
 import com.augusto.doceskotlin.objetos.Encomenda
-import java.lang.NullPointerException
-import java.util.Calendar
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,8 +43,8 @@ class CadastrarEncomendaFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         bind = FragmentCadastrarEncomendaBinding.inflate(layoutInflater, container, false)
-        encomendaMapper = EncomendaMapper(bind!!, requireContext())
-        encomendaMapper!!.setar()
+        encomendaMapper = EncomendaMapper(bind!!)
+
         encomendaMapper!!.recyclerViewAdapter!!.lista = ArrayList()
         container!!.removeAllViews()
         return bind!!.root

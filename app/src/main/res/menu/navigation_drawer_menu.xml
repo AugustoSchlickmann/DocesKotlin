@@ -8,67 +8,67 @@
         <item
             android:id="@+id/nav_telaInicial"
             android:icon="@drawable/ic_baseline_home_24"
-            android:title="Próximas Encomendas"></item>
+            android:title="@string/NavigationDrawerMenuProximasEncomendas" />
 
         <item
             android:id="@+id/nav_docesAfazer"
             android:icon="@drawable/logo"
-            android:title="Doces a Fazer"></item>
+            android:title="@string/NavigationDrawerMenuDocesAFazer"/>
 
         <item
             android:id="@+id/nav_cadastrarEncomenda"
             android:icon="@drawable/ic_baseline_cake_24"
-            android:title="Cadastrar Encomenda"></item>
+            android:title="@string/NavigationDrawerMenuCadastrarEncomenda" />
 
         <item
             android:id="@+id/nav_cadastrarBandejinha"
             android:icon="@drawable/ic_baseline_cruelty_free_24"
-            android:title="Cadastrar Bandejinha"></item>
+            android:title="@string/NavigationDrawerMenuCadastrarBandejinha"/>
 
         <item
             android:id="@+id/nav_semana"
             android:icon="@drawable/ic_baseline_attach_money_24"
-            android:title="Fechar Semana"></item>
+            android:title="@string/NavigationDrawerMenuFecharSemana"/>
     </group>
 
 
-    <item android:title="Procurar Encomendas">
+    <item android:title="@string/NavigationDrawerMenuProcurarEncomendas">
 
         <menu>
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_listaPorData"
                     android:icon="@drawable/ic_baseline_calendar_month_24"
-                    android:title="Procurar por Data"></item>
+                    android:title="@string/NavigationDrawerMenuProcurarPorData"/>
 
                 <item
                     android:id="@+id/nav_listaPorCliente"
                     android:icon="@drawable/ic_baseline_person_search_24"
-                    android:title="Procurar por Nome"></item>
+                    android:title="@string/NavigationDrawerMenuProcurarPorNome"/>
             </group>
         </menu>
 
     </item>
 
 
-    <item android:title="Dados Salvos">
+    <item android:title="@string/NavigationDrawerMenuDadosSalvos">
 
         <menu>
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_doces"
                     android:icon="@drawable/ic_baseline_settings_24"
-                    android:title="Doces"></item>
+                    android:title="@string/NavigationDrawerMenuDoces"/>
 
                 <item
                     android:id="@+id/nav_clientes"
                     android:icon="@drawable/ic_baseline_people_24"
-                    android:title="Clientes"></item>
+                    android:title="@string/NavigationDrawerMenuClientes"/>
 
                 <item
-                    android:id="@+id/nav_usuario"
+                    android:id="@+id/nav_perfil"
                     android:icon="@drawable/ic_baseline_person_24"
-                    android:title="Meu Perfil"></item>
+                    android:title="@string/NavigationDrawerMenuPerfil"/>
 
 
             </group>

@@ -5,9 +5,11 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.Toolbar
+import com.augusto.doceskotlin.ARG_PARAM_ID_ENCOMENDA
 import com.augusto.doceskotlin.EncomendaMapper
+import com.augusto.doceskotlin.FORMATADOR_DATA
+import com.augusto.doceskotlin.FORMATADOR_HORA
 import com.augusto.doceskotlin.R
 import com.augusto.doceskotlin.databinding.FragmentCadastrarEncomendaBinding
 import com.augusto.doceskotlin.objetos.Encomenda
@@ -17,9 +19,8 @@ import java.text.SimpleDateFormat
 
 class EncomendaActivity : AppCompatActivity() {
 
-    private var bind: FragmentCadastrarEncomendaBinding? = null
-
     private var encomendaMapper: EncomendaMapper? = null
+    var bind : FragmentCadastrarEncomendaBinding? = null
 
     var idEncomenda: String? = null
 
@@ -32,10 +33,10 @@ class EncomendaActivity : AppCompatActivity() {
         bind = FragmentCadastrarEncomendaBinding.inflate(layoutInflater)
         setContentView(bind!!.root)
 
-        idEncomenda = intent.getStringExtra("posicao")
+        idEncomenda = intent.getStringExtra(ARG_PARAM_ID_ENCOMENDA)
 
-        encomendaMapper = EncomendaMapper(bind!!, this)
-        encomendaMapper!!.setar()
+        encomendaMapper = EncomendaMapper(bind!!)
+
 
         toolBar = bind!!.toolbarEncomenda
         setSupportActionBar(toolBar)
@@ -69,7 +70,7 @@ class EncomendaActivity : AppCompatActivity() {
     }
 
     private fun vendo() {
-        cancelarEdicao!!.setVisible(false)
+        cancelarEdicao!!.isVisible = false
         if (EncomendasTeste.listaEncomendasTeste[idEncomenda!!.toInt()].feita == true){
             toolBar!!.title="Encomenda Feita"
         }else{
@@ -86,7 +87,7 @@ class EncomendaActivity : AppCompatActivity() {
     }
 
     private fun editando() {
-        cancelarEdicao!!.setVisible(true)
+        cancelarEdicao!!.isVisible = true
         toolBar!!.title="Editando Encomenda..."
 
         if (EncomendasTeste.listaEncomendasTeste[idEncomenda!!.toInt()].cliente!!.telefone == null){
@@ -100,16 +101,16 @@ class EncomendaActivity : AppCompatActivity() {
 
     private fun colocarDados(encomenda: Encomenda) {
         encomendaMapper!!.nomeCliente.setText(encomenda.cliente!!.nome)
-        encomendaMapper!!.data.setText(SimpleDateFormat("dd/MM/yyyy").format(encomenda.data))
-        encomendaMapper!!.hora.setText(SimpleDateFormat("HH:mm").format(encomenda.data))
-        encomendaMapper!!.recyclerViewAdapter!!.lista = encomenda.doces
+        encomendaMapper!!.data.setText(FORMATADOR_DATA.format(encomenda.data))
+        encomendaMapper!!.hora.setText(FORMATADOR_HORA.format(encomenda.data))
+        encomendaMapper!!.recyclerViewAdapter.lista = encomenda.doces
         encomendaMapper!!.recyclerViewAdapter!!.notifyDataSetChanged()
 
         for (doce in encomenda.doces) {
             encomendaMapper!!.valorTotal += doce.valorDoce * doce.quantidadeDoce
         }
-        encomendaMapper!!.textViewValorTotal.text =
-            "R$: " + "%.2f".format(encomendaMapper!!.valorTotal)
+
+        encomendaMapper!!.textViewValorTotal.text = "R$: " + "%.2f".format(encomendaMapper!!.valorTotal)
 
     }
 }

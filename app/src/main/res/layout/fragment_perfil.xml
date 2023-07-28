@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".UsuarioActivity">
+    android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewUsuario"
+        android:id="@+id/FragmentPerfilCardViewUsuario"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
@@ -18,133 +17,129 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageViewUsuario"
+            android:id="@+id/FragmentPerfilImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/FragmentPerfil_imagem_do_perfil_do_usuario"
             android:scaleType="centerCrop"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_person_24" />
+            app:srcCompat="@drawable/ic_baseline_person_24"
+            tools:visibility="visible" />
 
     </androidx.cardview.widget.CardView>
 
 
     <TextView
-        android:id="@+id/textViewUsuarioNome"
+        android:id="@+id/FragmentPerfilTextViewNome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nome"
+        android:layout_marginTop="16dp"
+        android:text="@string/FragmentPerfil_nome"
         android:textColor="@color/roxinho"
         android:textSize="20sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/editTextUsuarioNome"
-        app:layout_constraintEnd_toEndOf="@+id/editTextUsuarioNome"
-        app:layout_constraintStart_toStartOf="@+id/editTextUsuarioNome"
-        app:layout_constraintTop_toBottomOf="@+id/cardViewUsuario" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FragmentPerfilCardViewUsuario" />
 
     <EditText
-        android:id="@+id/editTextUsuarioNome"
+        android:id="@+id/FragmentPerfilEditTextNome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:autofillHints="name"
+        android:background="@drawable/edit_text_empty"
+        android:drawableStart="@drawable/ic_baseline_person_24"
+        android:focusable="false"
+        android:maxLength="40"
+        android:inputType="textMultiLine"
+        android:minHeight="48dp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FragmentPerfilTextViewNome"
+        tools:text="Nome de um usuário "
+
+        />
+
+    <TextView
+        android:id="@+id/FragmentPerfilTextViewEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/FragmentPerfil_email_text_view"
+        android:textColor="@color/roxinho"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FragmentPerfilEditTextNome" />
+
+    <EditText
+        android:id="@+id/FragmentPerfilEditTextEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/edit_text_empty"
-        android:drawableStart="@drawable/ic_baseline_person_24"
-        android:focusable="false"
-        android:inputType="textMultiLine"
-        android:maxLength="40"
-        android:minHeight="48dp"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/textViewEmailUsuario"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewUsuarioNome" />
-
-    <TextView
-        android:id="@+id/textViewEmailUsuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="E-mail"
-        android:textColor="@color/roxinho"
-        android:textSize="20sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/editTextUsuarioEmail"
-        app:layout_constraintEnd_toEndOf="@+id/editTextUsuarioEmail"
-        app:layout_constraintStart_toStartOf="@+id/editTextUsuarioEmail"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUsuarioNome" />
-
-    <EditText
-        android:id="@+id/editTextUsuarioEmail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:autofillHints="emailAddress"
         android:background="@drawable/edit_text_empty"
         android:drawableStart="@drawable/ic_baseline_alternate_email_24"
         android:focusable="false"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:maxLength="40"
         android:minHeight="48dp"
-        android:singleLine="true"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/progressBarUsuario"
-        app:layout_constraintEnd_toEndOf="@+id/editTextUsuarioNome"
-        app:layout_constraintStart_toStartOf="@+id/editTextUsuarioNome"
-        app:layout_constraintTop_toBottomOf="@+id/textViewEmailUsuario" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FragmentPerfilTextViewEmail"
+        tools:text="email123.example@gmail.com" />
+
 
     <Button
-        android:id="@+id/botaoSair"
+        android:id="@+id/FragmentPerfilBotaoAtualizar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/edit_text_rounded"
         android:backgroundTint="@color/rosinha"
-        android:text="Sair"
+        android:text="@string/FragmentPerfil_atualizar_button"
         android:textAllCaps="false"
-        android:textSize="20dp"
-        app:icon="@drawable/ic_baseline_logout_24"
-        app:iconGravity="end"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/botaoAtualizarUsuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/edit_text_rounded"
-        android:backgroundTint="@color/rosinha"
-        android:text="Atualizar"
-        android:textAllCaps="false"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:visibility="invisible"
         app:icon="@drawable/ic_baseline_check_24"
         app:iconGravity="end"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible" />
 
     <ProgressBar
-        android:id="@+id/progressBarUsuario"
+        android:id="@+id/FragmentPerfilProgressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/botaoAtualizarUsuario"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextUsuarioEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/FragmentPerfilEditTextEmail"
+        tools:visibility="visible" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButtonUsuario"
+        android:id="@+id/FragmentPerfilFloatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/rosinha"
+        android:importantForAccessibility="no"
         android:src="@drawable/ic_baseline_camera_alt_24"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/cardViewUsuario"
-        app:layout_constraintEnd_toEndOf="@+id/cardViewUsuario" />
+        app:layout_constraintBottom_toBottomOf="@+id/FragmentPerfilCardViewUsuario"
+        app:layout_constraintEnd_toEndOf="@+id/FragmentPerfilCardViewUsuario"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

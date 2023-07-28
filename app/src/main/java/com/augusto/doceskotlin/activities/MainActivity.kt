@@ -16,6 +16,7 @@ import com.augusto.doceskotlin.databinding.ActivityCarregandoBinding
 import com.augusto.doceskotlin.fragments.CadastrarEncomendaFragment
 import com.augusto.doceskotlin.fragments.InicioFragment
 import com.augusto.doceskotlin.fragments.ListaDocesFragment
+import com.augusto.doceskotlin.fragments.PerfilFragment
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
@@ -64,6 +65,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.nav_cadastrarEncomenda -> fragmentSelecionado = CadastrarEncomendaFragment()
                 R.id.nav_doces -> fragmentSelecionado = ListaDocesFragment.newInstance(EDITAR_DOCES)
                 R.id.nav_semana -> fragmentSelecionado = ListaDocesFragment.newInstance(VER_DOCES_SEMANA)
+                R.id.nav_perfil -> fragmentSelecionado = PerfilFragment()
 
             }
 
@@ -85,8 +87,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onDrawerClosed(drawerView: View) {
         if (fragmentSelecionado != null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.frameLayout, fragmentSelecionado!!).commitNow()
+            supportFragmentManager.beginTransaction().replace(R.id.frameLayout, fragmentSelecionado!!).commitNow()
             fragmentSelecionado = null
 
         }

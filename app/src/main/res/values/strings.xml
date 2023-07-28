@@ -64,4 +64,16 @@
     <string name="DialogoRemoverDoceBotaoCancelar">Cancelar</string>
     <string name="DialogoRemoverDoceBotaoOk">Ok</string>
 
+    <string name="FragmentPerfil_imagem_do_perfil_do_usuario">Imagem do perfil do usuário</string>
+    <string name="FragmentPerfil_nome">Nome</string>
+    <string name="FragmentPerfil_email_text_view">E-mail</string>
+    <string name="FragmentPerfil_sair_button">Sair</string>
+    <string name="FragmentPerfil_atualizar_button">Atualizar</string>
+
+    <string name="PerfilMenu_editar_perfil">Editar Perfil</string>
+    <string name="PerfilMenu_mudar_senha">Mudar Senha</string>
+    <string name="perfilMenu_sair">Sair</string>
+    <string name="PerfilMenu_excluir_conta">Excluir Conta</string>
+    <string name="PerfilMenu_cancelar_edicao">Cancelar Edição</string>
+
 </resources>

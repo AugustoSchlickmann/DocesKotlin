@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.Toast
 import com.augusto.doceskotlin.activities.EncomendaActivity
 import com.augusto.doceskotlin.activities.MainActivity
+import com.augusto.doceskotlin.adapters.RecyclerViewDocesAdapter
 import com.augusto.doceskotlin.adapters.RecyclerViewInicioAdapter
 import com.augusto.doceskotlin.fragments.InicioFragment
 import com.augusto.doceskotlin.fragments.ListaDocesFragment
@@ -106,12 +107,13 @@ object OperacoesFirebase {
         }
     }
 
-    fun pegarDocesAFazer(listaDocesFragment: ListaDocesFragment) {
+    fun pegarDocesAFazer(recyclerViewAdapter: RecyclerViewDocesAdapter, listaDocesFragment: ListaDocesFragment) {
+
         val hoje = Calendar.getInstance()
         hoje.set(Calendar.HOUR_OF_DAY, 0)
         hoje.set(Calendar.MINUTE, 0)
         hoje.set(Calendar.SECOND, 0)
-        var docesAFazer: MutableList<Doce> = ArrayList()
+
         var quantidadeDoces = 0
         var valorTotal = 0.0
 
@@ -121,24 +123,18 @@ object OperacoesFirebase {
             .orderBy("data").get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     for (document in task.result) {
-
-                        println(document.data)
-                        println(document.data.get("doces"))
-                        println(document.data.get("doces")!!.javaClass)
-//                        document.data.get("doces").let { docesDaEncomenda ->
-//                            for (doce in docesDaEncomenda as ArrayList<Doce>) {
-//                                if (docesAFazer.contains(doce)) {
-//                                    docesAFazer[docesAFazer.indexOf(doce)].quantidadeDoce += doce.quantidadeDoce
-//                                } else {
-//                                    docesAFazer.add(doce)
-//                                }
-//                                quantidadeDoces += doce.quantidadeDoce
-//                                valorTotal += doce.quantidadeDoce * doce.valorDoce!!
-//                            }
-//
-//                        }
+                        val encomenda: Encomenda = document.toObject()
+                        for (doce in encomenda.doces!!) {
+                            if (recyclerViewAdapter.lista!!.contains(doce)) {
+                                recyclerViewAdapter.lista!![recyclerViewAdapter.lista!!.indexOf(doce)].quantidadeDoce += doce.quantidadeDoce
+                            } else {
+                                recyclerViewAdapter.lista!!.add(doce)
+                            }
+                            quantidadeDoces += doce.quantidadeDoce
+                            valorTotal += doce.quantidadeDoce * doce.valorDoce!!
+                        }
                     }
-                  //  listaDocesFragment.mostrarDocesAFazer(docesAFazer, quantidadeDoces, valorTotal)
+                    listaDocesFragment.mostrarDocesAFazer(quantidadeDoces, valorTotal)
                 }
             }
 

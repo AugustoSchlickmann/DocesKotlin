@@ -2,7 +2,11 @@ package com.augusto.doceskotlin
 
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import com.augusto.doceskotlin.objetos.Doce
 import com.augusto.doceskotlin.objetos.Encomenda
+import com.augusto.doceskotlin.singletons.ListaDeDoces
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import org.junit.Test
 import org.junit.Assert.*
 import java.util.Calendar
@@ -62,6 +66,30 @@ class ExampleUnitTest {
         println("Hoje: ${selecionado.time}")
         println("Inicio: ${inicio.time}")
         println("Fim: ${fim.time}")
+    }
+
+    @Test
+    fun criandoDoces(){
+        ListaDeDoces.doces = ArrayList()
+        ListaDeDoces.doces!!.add(Doce(1, "Beijinho", R.drawable.ninho.toString(), 1.30))
+        ListaDeDoces.doces!!.add(Doce(2, "Brigadeiro", R.drawable.brigadeiro.toString(), 1.30))
+        ListaDeDoces.doces!!.add(Doce(3, "Brigadeiro Branco", R.drawable.brigadeiro_branco.toString(), 1.30))
+        ListaDeDoces.doces!!.add(Doce(4, "Caju", R.drawable.caju.toString(), 1.30))
+        ListaDeDoces.doces!!.add(Doce(5, "Casadinho", R.drawable.casadinho.toString(), 1.30))
+        ListaDeDoces.doces!!.add(Doce(6, "Churros", R.drawable.churros.toString(), 1.30))
+        ListaDeDoces.doces!!.add(Doce(7, "Morango", R.drawable.morango.toString(), 1.30))
+        ListaDeDoces.doces!!.add(Doce(8, "Rosado", R.drawable.rosado.toString(), 1.30))
+        ListaDeDoces.doces!!.add(Doce(9, "Ninho", R.drawable.ninho.toString(), 1.70))
+        ListaDeDoces.doces!!.add(Doce(10, "Nozes", R.drawable.nozes.toString(), 1.70))
+        ListaDeDoces.doces!!.add(Doce(11, "Olho de Sogra", R.drawable.olho_sogra.toString(), 1.70))
+        ListaDeDoces.doces!!.add(Doce(12, "Olho de Sogro", R.drawable.olho_sogro.toString(), 1.70))
+        ListaDeDoces.doces!!.add(Doce(13, "Bandejinha", R.drawable.bandejinha.toString(), 13.00))
+        ListaDeDoces.doces!!.add(Doce(99, "Selecione", R.drawable.logo.toString(), 0.0))
+
+//        for (doce in ListaDeDoces.doces!!) {
+//            Firebase.firestore.collection("DocesKotlin").document(doce.nomeDoce!!).set(doce)
+//        }
+
     }
 
 }

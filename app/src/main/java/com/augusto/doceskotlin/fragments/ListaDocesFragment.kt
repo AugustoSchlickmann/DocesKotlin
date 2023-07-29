@@ -12,7 +12,6 @@ import com.augusto.doceskotlin.EDITAR_DOCES
 import com.augusto.doceskotlin.VER_DOCES_A_FAZER
 import com.augusto.doceskotlin.adapters.RecyclerViewDocesAdapter
 import com.augusto.doceskotlin.databinding.FragmentListaDocesBinding
-import com.augusto.doceskotlin.objetos.Doce
 import com.augusto.doceskotlin.singletons.ListaDeDoces
 import com.augusto.doceskotlin.singletons.OperacoesFirebase
 
@@ -35,11 +34,12 @@ class ListaDocesFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View{
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         bind = FragmentListaDocesBinding.inflate(layoutInflater, container, false)
         textViewNenhumDoceAFazer = bind!!.FragmentListaDocesTextViewNenhumDoceAFazer
         textViewSomaValorTotal = bind!!.FragmentListaDocesTextViewListaDocesValorTotal
         recyclerView = bind!!.FragmentListaDocesRecycleViewDoces
+        recyclerViewAdapter = RecyclerViewDocesAdapter(bind!!.root.context, param1!!)
         recyclerView!!.adapter = recyclerViewAdapter
         container!!.removeAllViews()
         return bind!!.root
@@ -48,17 +48,18 @@ class ListaDocesFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         when (param1) {
-            EDITAR_DOCES -> RecyclerViewDocesAdapter(bind!!.root.context, ListaDeDoces.pegarLista()!!, EDITAR_DOCES)
-            VER_DOCES_A_FAZER -> OperacoesFirebase.pegarDocesAFazer(this)
+            EDITAR_DOCES -> ListaDeDoces.pegarDocesFirebase(recyclerViewAdapter!!)
+            VER_DOCES_A_FAZER -> OperacoesFirebase.pegarDocesAFazer(recyclerViewAdapter!!, this)
         }
     }
 
-    fun mostrarDocesAFazer(lista: MutableList<Doce>, quantidadeDoces: Int, valorTotal: Double) {
-        if (lista.size < 1) {
+    fun mostrarDocesAFazer(quantidadeDoces: Int, valorTotal: Double) {
+        if (recyclerViewAdapter!!.lista!!.size < 1) {
             textViewNenhumDoceAFazer!!.visibility = View.VISIBLE
+            textViewSomaValorTotal!!.visibility = View.GONE
         } else {
-            RecyclerViewDocesAdapter(bind!!.root.context, lista, VER_DOCES_A_FAZER)
             textViewSomaValorTotal!!.text = valorTotal.toString()
+            textViewSomaValorTotal!!.visibility = View.VISIBLE
             (requireActivity() as AppCompatActivity).supportActionBar?.title = "$quantidadeDoces Doces"
         }
     }

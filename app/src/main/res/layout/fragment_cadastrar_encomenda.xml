@@ -130,11 +130,13 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/background_spinner"
             android:dropDownVerticalOffset="65dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/FragmentCadastrarEncomendaRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/FragmentCadastrarEncomendaEditTextData"
-            tools:listitem="@layout/uma_linha_spinner_doce">
+            tools:listitem="@layout/uma_linha_spinner_doce"
+            tools:visibility="visible">
 
         </Spinner>
 

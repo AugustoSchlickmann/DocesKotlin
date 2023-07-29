@@ -69,6 +69,20 @@ class InicioFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        progressBar!!.visibility = View.VISIBLE
+        recyclerViewAdapter!!.lista = ArrayList()
+        when (param1) {
+            PROCURAR_PROXIMAS_ENCOMENDAS -> OperacoesFirebase.pegarProximasEncomendas(recyclerViewAdapter!!,this)
+            PROCURAR_ENCOMENDAS_DA_SEMANA -> Calendario().pegarSemana(recyclerViewAdapter!!,this)
+            PROCURAR_PROXIMAS_ENCOMENDAS_COM_DOCE_SELECIONADO -> pegarProximasEncomendasComDoceSelecionado()
+            PROCURAR_ENCOMENDAS_POR_DATA -> pegarEncomendasPorData()
+            PROCURAR_ENCOMENDAS_POR_NOME_CLIENTE -> pegarEncomendasPorNomeCliente()
+            PROCURAR_ENCOMENDAS_POR_ID_CLIENTE -> pegarEncomendasPorIdCliente()
+            else -> OperacoesFirebase.pegarProximasEncomendas(recyclerViewAdapter!!, this)
+        }
+    }
 
     fun somarValoresEncomendas(){
         var valorTotal = 0.0
@@ -86,21 +100,6 @@ class InicioFragment : Fragment() {
             textViewSomaValorTotal!!.visibility = View.VISIBLE
         }
         progressBar!!.visibility = View.GONE
-    }
-
-    override fun onResume() {
-        super.onResume()
-        progressBar!!.visibility = View.VISIBLE
-        recyclerViewAdapter!!.lista = ArrayList()
-        when (param1) {
-            PROCURAR_PROXIMAS_ENCOMENDAS -> OperacoesFirebase.pegarProximasEncomendas(recyclerViewAdapter!!,this)
-            PROCURAR_ENCOMENDAS_DA_SEMANA -> Calendario().pegarSemana(recyclerViewAdapter!!,this)
-            PROCURAR_PROXIMAS_ENCOMENDAS_COM_DOCE_SELECIONADO -> pegarProximasEncomendasComDoceSelecionado()
-            PROCURAR_ENCOMENDAS_POR_DATA -> pegarEncomendasPorData()
-            PROCURAR_ENCOMENDAS_POR_NOME_CLIENTE -> pegarEncomendasPorNomeCliente()
-            PROCURAR_ENCOMENDAS_POR_ID_CLIENTE -> pegarEncomendasPorIdCliente()
-            else -> OperacoesFirebase.pegarProximasEncomendas(recyclerViewAdapter!!, this)
-        }
     }
 
     companion object {

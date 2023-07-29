@@ -1,30 +1,50 @@
 package com.augusto.doceskotlin.singletons
 
-import com.augusto.doceskotlin.R
+import android.annotation.SuppressLint
+import com.augusto.doceskotlin.SpinnerDoces
+import com.augusto.doceskotlin.adapters.RecyclerViewDocesAdapter
 import com.augusto.doceskotlin.objetos.Doce
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 
 object ListaDeDoces {
 
-    private var doces: MutableList<Doce>? = null
+    var doces: MutableList<Doce>? = null
 
-    private fun criarDoces() {
-        doces = ArrayList()
+    fun pegarDocesFirebaseSpinner(spinnerDoces: SpinnerDoces) {
+        if(doces == null){
+            doces = ArrayList()
+            Firebase.firestore.collection("DocesKotlin").orderBy("idDoce").get().addOnCompleteListener { task ->
+                for (document in task.result) {
+                    val doce: Doce = document.toObject()
+                    doces?.add(doce)
+                }
+                spinnerDoces.popularizarSpinner()
+            }
+        }else{
+            spinnerDoces.popularizarSpinner()
+        }
 
-        doces!!.add(Doce("id1", "Ninho", R.drawable.ninho.toString(), 1.50))
-        doces!!.add(Doce("id2", "Beijinho", R.drawable.beijinho.toString(), 1.20))
-        doces!!.add(Doce("id3", "Nozes", R.drawable.nozes.toString(), 1.50))
-        doces!!.add(Doce("id4", "Brigadeiro", R.drawable.brigadeiro.toString(), 1.20))
-        doces!!.add(Doce("id5", "Morango", R.drawable.morango.toString(), 1.20))
-        doces!!.add(Doce("id99", "Selecione", R.drawable.logo.toString(), 1.20))
     }
 
-    fun pegarLista(): MutableList<Doce>? {
-        return if (doces == null) {
-            criarDoces()
-            doces
-        } else {
-            doces
+    @SuppressLint("NotifyDataSetChanged")
+    fun pegarDocesFirebase(recyclerViewAdapter: RecyclerViewDocesAdapter) {
+        if(doces == null){
+            doces = ArrayList()
+            Firebase.firestore.collection("DocesKotlin").orderBy("idDoce").get().addOnCompleteListener { task ->
+                for (document in task.result) {
+                    val doce: Doce = document.toObject()
+                    doces?.add(doce)
+                }
+                recyclerViewAdapter.lista = doces
+                recyclerViewAdapter.notifyDataSetChanged()
+            }
+        }else{
+            recyclerViewAdapter.lista = doces
+            recyclerViewAdapter.notifyDataSetChanged()
         }
     }
+
 
 }

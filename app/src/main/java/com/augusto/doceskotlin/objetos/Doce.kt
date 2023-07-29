@@ -1,6 +1,6 @@
 package com.augusto.doceskotlin.objetos
 
-data class Doce(var idDoce: String?, var nomeDoce: String?, var imagemDoce: String?,  var valorDoce: Double?) {
+data class Doce(var idDoce: Int?, var nomeDoce: String?, var imagemDoce: String?,  var valorDoce: Double?) {
 
     var quantidadeDoce = 0
 

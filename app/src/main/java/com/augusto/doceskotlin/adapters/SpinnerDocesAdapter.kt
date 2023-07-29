@@ -1,5 +1,6 @@
 package com.augusto.doceskotlin.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -17,27 +18,24 @@ class SpinnerDocesAdapter(val context: Context, val lista: MutableList<Doce>) : 
     }
 
     override fun getItem(position: Int): Any {
-        return lista.get(position)
+        return lista[position]
     }
 
     override fun getItemId(position: Int): Long {
         return lista[position].hashCode().toLong()
     }
 
+    @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var rootView =
-            LayoutInflater.from(context).inflate(R.layout.uma_linha_spinner_doce, parent, false)
+        val rootView = LayoutInflater.from(context).inflate(R.layout.uma_linha_spinner_doce, parent, false)
 
-        //var constraintLayout = rootView.findViewById<ConstraintLayout>(R.id.UmaLinhaSpinnerDoceConstraintLayout)
-        var imagem = rootView.findViewById<ImageView>(R.id.UmaLinhaSpinnerDoceImageView)
-        var nome: TextView = rootView.findViewById(R.id.UmaLinhaSpinnerDoceTextViewNomeDoce)
-        var valor = rootView.findViewById<TextView>(R.id.UmaLinhaSpinnerDoceTextViewValorDoce)
+        val imagem = rootView.findViewById<ImageView>(R.id.UmaLinhaSpinnerDoceImageView)
+        val nome: TextView = rootView.findViewById(R.id.UmaLinhaSpinnerDoceTextViewNomeDoce)
+        val valor = rootView.findViewById<TextView>(R.id.UmaLinhaSpinnerDoceTextViewValorDoce)
 
         imagem.setImageResource(lista[position].imagemDoce!!.toInt())
         nome.text = lista[position].nomeDoce
         valor.text = lista[position].valorDoce.toString()
-
-        //constraintLayout.setOnClickListener { println("Doce Selecionado "+ lista[position].toString()) }
 
         return rootView
     }

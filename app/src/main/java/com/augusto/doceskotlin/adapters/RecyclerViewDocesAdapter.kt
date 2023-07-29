@@ -19,7 +19,7 @@ import com.augusto.doceskotlin.objetos.Doce
 
 class RecyclerViewDocesAdapter : RecyclerView.Adapter<DoceRecyclerViewViewHolder> {
 
-    var lista: MutableList<Doce>? = null
+    var lista: MutableList<Doce>? = ArrayList()
     var context: Context?
     var tipoLista : Int = 0
     var encomendaMapper : EncomendaMapper? = null
@@ -29,10 +29,9 @@ class RecyclerViewDocesAdapter : RecyclerView.Adapter<DoceRecyclerViewViewHolder
         this.context = encomendaMapper.bind.root.context
     }
 
-    constructor(context: Context, lista : MutableList<Doce>, tipoLista : Int){
+    constructor(context: Context?, param1: Int){
         this.context = context
-        this.lista = lista
-        this.tipoLista = tipoLista
+        this.tipoLista = param1
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DoceRecyclerViewViewHolder {

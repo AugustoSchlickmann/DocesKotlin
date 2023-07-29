@@ -6,11 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.augusto.doceskotlin.EDITAR_DOCES
 import com.augusto.doceskotlin.EncomendaMapper
+import com.augusto.doceskotlin.PROCURAR_PROXIMAS_ENCOMENDAS
+import com.augusto.doceskotlin.PROCURAR_PROXIMAS_ENCOMENDAS_COM_DOCE_SELECIONADO
 import com.augusto.doceskotlin.dialogos.DialogoRemoverDoce
 import com.augusto.doceskotlin.R
-import com.augusto.doceskotlin.VER_DOCES_SEMANA
+import com.augusto.doceskotlin.VER_DOCES_A_FAZER
 import com.augusto.doceskotlin.dialogos.DialogoDoceAlterarQuantidade
 import com.augusto.doceskotlin.dialogos.DialogoDoceAlterarValor
+import com.augusto.doceskotlin.fragments.InicioFragment
 import com.augusto.doceskotlin.viewHolder.DoceRecyclerViewViewHolder
 import com.augusto.doceskotlin.objetos.Doce
 
@@ -48,7 +51,7 @@ class RecyclerViewDocesAdapter : RecyclerView.Adapter<DoceRecyclerViewViewHolder
 
         when (tipoLista) {
             EDITAR_DOCES -> editandoValorDoces(holder, position)
-            VER_DOCES_SEMANA -> vendoDocesDaSemana(holder, position)
+            VER_DOCES_A_FAZER -> vendoDocesAFazer(holder, position)
             else -> cadastrandoEncomenda(holder, position)
         }
 
@@ -75,10 +78,11 @@ class RecyclerViewDocesAdapter : RecyclerView.Adapter<DoceRecyclerViewViewHolder
 
     }
 
-    private fun vendoDocesDaSemana(holder: DoceRecyclerViewViewHolder, position: Int) {
+    private fun vendoDocesAFazer(holder: DoceRecyclerViewViewHolder, position: Int) {
         holder.quantidade.text = lista!![position].quantidadeDoce.toString()
         holder.constraintLayout.setOnClickListener{
             //IR PARA TELA QUE MOSTRA ENCOMENDAS QUE TEM O DOCE SELECIONADO
+            //InicioFragment.newInstance(PROCURAR_PROXIMAS_ENCOMENDAS_COM_DOCE_SELECIONADO)
         }
 
     }

@@ -1,89 +1,114 @@
 package com.augusto.doceskotlin.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.augusto.doceskotlin.singletons.EncomendasTeste
+import com.augusto.doceskotlin.Calendario
+import com.augusto.doceskotlin.PROCURAR_ENCOMENDAS_DA_SEMANA
+import com.augusto.doceskotlin.PROCURAR_ENCOMENDAS_POR_DATA
+import com.augusto.doceskotlin.PROCURAR_ENCOMENDAS_POR_ID_CLIENTE
+import com.augusto.doceskotlin.PROCURAR_ENCOMENDAS_POR_NOME_CLIENTE
+import com.augusto.doceskotlin.PROCURAR_PROXIMAS_ENCOMENDAS
+import com.augusto.doceskotlin.PROCURAR_PROXIMAS_ENCOMENDAS_COM_DOCE_SELECIONADO
 import com.augusto.doceskotlin.adapters.RecyclerViewInicioAdapter
 import com.augusto.doceskotlin.databinding.FragmentTelaInicialBinding
+import com.augusto.doceskotlin.singletons.OperacoesFirebase
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val TIPO_DA_LISTA_DE_ENCOMENDAS = "TipoDaListaDeEncomendas"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [InicioFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class InicioFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    private var bind : FragmentTelaInicialBinding? = null
-    private var progressBar : ProgressBar? = null
-    private var textViewSemEncomendas : TextView? = null
-    private var textViewSomaValorTotal : TextView? = null
+    private var param1: Int? = null
+
+    private var bind: FragmentTelaInicialBinding? = null
+    private var progressBar: ProgressBar? = null
+    private var textViewSemEncomendas: TextView? = null
+    private var textViewSomaValorTotal: TextView? = null
     private var recyclerView: RecyclerView? = null
-    private var recyclerViewAdapter : RecyclerViewInicioAdapter? = null
+    private var recyclerViewAdapter: RecyclerViewInicioAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            param1 = it.getInt(TIPO_DA_LISTA_DE_ENCOMENDAS)
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-
         bind = FragmentTelaInicialBinding.inflate(layoutInflater, container, false)
-        textViewSemEncomendas = bind!!.MainActivityTextViewSemEncomendas
-        textViewSomaValorTotal = bind!!.MainActivityTextViewSomaValorTotal
-        recyclerView = bind!!.MainActivityRecyclerView
-        recyclerViewAdapter = RecyclerViewInicioAdapter(requireContext(), EncomendasTeste.listaEncomendasTeste)
+        progressBar = bind!!.FragmentTelaInicialProgressBar
+        textViewSemEncomendas = bind!!.FragmentTelaInicialTextViewSemEncomendas
+        textViewSomaValorTotal = bind!!.FragmentTelaInicialTextViewSomaValorTotal
+        recyclerView = bind!!.FragmentTelaInicialRecyclerView
+
+        recyclerViewAdapter = RecyclerViewInicioAdapter(requireContext())
         recyclerView!!.adapter = recyclerViewAdapter
 
         container!!.removeAllViews()
         return bind!!.root
     }
 
+    private fun pegarEncomendasPorIdCliente() {
+
+    }
+
+    private fun pegarEncomendasPorNomeCliente() {
+
+    }
+
+    private fun pegarEncomendasPorData() {
+
+    }
+
+    private fun pegarProximasEncomendasComDoceSelecionado() {
+
+    }
+
+
+    fun somarValoresEncomendas(){
+        var valorTotal = 0.0
+        var quantidadeTotalDoces = 0
+        if (recyclerViewAdapter!!.lista?.size == 0) {
+            textViewSemEncomendas!!.visibility = View.VISIBLE
+            textViewSomaValorTotal!!.visibility = View.GONE
+        }else{
+            textViewSemEncomendas!!.visibility = View.GONE
+            for (encomenda in recyclerViewAdapter!!.lista!!) {
+                valorTotal += encomenda.getValorEncomenda()
+                quantidadeTotalDoces += encomenda.getQuantidadeDocesEncomenda()
+            }
+            textViewSomaValorTotal!!.text = "R$: " + "%.2f".format(valorTotal)
+            textViewSomaValorTotal!!.visibility = View.VISIBLE
+        }
+        progressBar!!.visibility = View.GONE
+    }
 
     override fun onResume() {
         super.onResume()
-        if(recyclerViewAdapter!!.lista.size>0){
-            textViewSemEncomendas!!.visibility = View.GONE
-            textViewSomaValorTotal!!.text= "R$: " + "%.2f".format(recyclerViewAdapter!!.somaValorTotal)
-            textViewSomaValorTotal!!.visibility = View.VISIBLE
-        }else{
-            textViewSemEncomendas!!.visibility = View.VISIBLE
-            textViewSomaValorTotal!!.visibility = View.GONE
+        progressBar!!.visibility = View.VISIBLE
+        recyclerViewAdapter!!.lista = ArrayList()
+        when (param1) {
+            PROCURAR_PROXIMAS_ENCOMENDAS -> OperacoesFirebase.pegarProximasEncomendas(recyclerViewAdapter!!,this)
+            PROCURAR_ENCOMENDAS_DA_SEMANA -> Calendario().pegarSemana(recyclerViewAdapter!!,this)
+            PROCURAR_PROXIMAS_ENCOMENDAS_COM_DOCE_SELECIONADO -> pegarProximasEncomendasComDoceSelecionado()
+            PROCURAR_ENCOMENDAS_POR_DATA -> pegarEncomendasPorData()
+            PROCURAR_ENCOMENDAS_POR_NOME_CLIENTE -> pegarEncomendasPorNomeCliente()
+            PROCURAR_ENCOMENDAS_POR_ID_CLIENTE -> pegarEncomendasPorIdCliente()
+            else -> OperacoesFirebase.pegarProximasEncomendas(recyclerViewAdapter!!, this)
         }
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment InicioFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(param1: Int) =
             InicioFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putInt(TIPO_DA_LISTA_DE_ENCOMENDAS, param1)
                 }
             }
     }

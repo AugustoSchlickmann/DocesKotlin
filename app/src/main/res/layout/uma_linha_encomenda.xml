@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/UmaLinhaEncomendaConstraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="2dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/UmaLinhaEncomendaImageViewCheckFeita"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/UmaLinhaEncomendaContentDescriptionImageViewCheck"
         android:src="@drawable/ic_baseline_done_24"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/UmaLinhaEncomendaTextViewNomeCliente"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/verdin"
-        tools:visibility="visible"
-        android:contentDescription="@string/UmaLinhaEncomendaContentDescriptionImageViewCheck"/>
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/UmaLinhaEncomendaTextViewNomeCliente"
@@ -39,7 +39,7 @@
         android:id="@+id/UmaLinhaEncomendaTextViewQtdDoces"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:textAlignment="center"
         android:textColor="@color/rosinha"
@@ -55,74 +55,76 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        tools:text="R$: 9999.99"
         android:textAlignment="center"
         android:textColor="@color/verdin"
         android:textSize="16sp"
         android:textStyle="bold|italic"
         android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/UmaLinhaEncomendaTextViewQtdDoces"
         app:layout_constraintStart_toEndOf="@+id/UmaLinhaEncomendaTextViewQtdDoces"
-        app:layout_constraintTop_toTopOf="@+id/UmaLinhaEncomendaTextViewQtdDoces" />
+        app:layout_constraintTop_toTopOf="@+id/UmaLinhaEncomendaTextViewQtdDoces"
+        tools:text="R$: 9999.99" />
 
     <TextView
         android:id="@+id/UmaLinhaEncomendaTextViewData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        tools:text="dd/mm/aaaa"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/UmaLinhaEncomendaTextViewValor"
         app:layout_constraintEnd_toStartOf="@+id/UmaLinhaEncomendaTextViewHora"
-        app:layout_constraintTop_toBottomOf="@+id/UmaLinhaEncomendaImageViewCalendario" />
+        app:layout_constraintTop_toTopOf="@+id/UmaLinhaEncomendaTextViewValor"
+        tools:text="dd/mm/aaaa" />
 
     <TextView
         android:id="@+id/UmaLinhaEncomendaTextViewHora"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/UmaLinhaEncomendaTextViewData"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/UmaLinhaEncomendaImageViewRelogio"
+        app:layout_constraintTop_toTopOf="@+id/UmaLinhaEncomendaTextViewData"
         tools:text="88:88" />
 
     <ImageView
         android:id="@+id/UmaLinhaEncomendaImageViewCalendario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/UmaLinhaEncomendaContentDescriptionImageViewCalendario"
+        app:layout_constraintBottom_toBottomOf="@+id/UmaLinhaEncomendaTextViewNomeCliente"
         app:layout_constraintEnd_toEndOf="@+id/UmaLinhaEncomendaTextViewData"
         app:layout_constraintStart_toStartOf="@+id/UmaLinhaEncomendaTextViewData"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_calendar_month_24"
-        android:contentDescription="@string/UmaLinhaEncomendaContentDescriptionImageViewCalendario"/>
+        app:layout_constraintTop_toTopOf="@+id/UmaLinhaEncomendaTextViewNomeCliente"
+        app:srcCompat="@drawable/ic_baseline_calendar_month_24" />
 
     <ImageView
         android:id="@+id/UmaLinhaEncomendaImageViewRelogio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/UmaLinhaEncomendaContentDescriptionImageViewRelogio"
+        app:layout_constraintBottom_toBottomOf="@+id/UmaLinhaEncomendaImageViewCalendario"
         app:layout_constraintEnd_toEndOf="@+id/UmaLinhaEncomendaTextViewHora"
         app:layout_constraintStart_toStartOf="@+id/UmaLinhaEncomendaTextViewHora"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_access_time_24"
-        android:contentDescription="@string/UmaLinhaEncomendaContentDescriptionImageViewRelogio"/>
+        app:layout_constraintTop_toTopOf="@+id/UmaLinhaEncomendaImageViewCalendario"
+        app:srcCompat="@drawable/ic_baseline_access_time_24" />
 
     <ImageView
         android:id="@+id/UmaLinhaEncomendaImageViewAvisoObs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:contentDescription="@string/UmaLinhaEncomendaContentDescriptionImageViewObs"
         android:src="@drawable/ic_baseline_info_24"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/UmaLinhaEncomendaTextViewQtdDoces"
         app:layout_constraintStart_toEndOf="@+id/UmaLinhaEncomendaTextViewValor"
         app:layout_constraintTop_toTopOf="@+id/UmaLinhaEncomendaTextViewQtdDoces"
-        app:layout_constraintVertical_bias="0.0"
-        tools:visibility="visible"
-        android:contentDescription="@string/UmaLinhaEncomendaContentDescriptionImageViewObs"/>
+        tools:visibility="visible" />
 
     <View
         android:id="@+id/UmaLinhaEncomendaDivider"

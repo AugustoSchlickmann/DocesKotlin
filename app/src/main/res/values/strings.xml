@@ -18,7 +18,7 @@
     <string name="CadastrarUsuarioActivityBotaoCadastrar">Cadastrar</string>
     <string name="CadastrarUsuarioActivityTextViewVoltar">Voltar</string>
 
-    <string name="MainActivityTextViewSemEncomendas">Sem Encomendas...</string>
+    <string name="FragmentTelaInicialTextViewSemEncomendas">Sem Encomendas...</string>
 
     <string name="FragmentCadastrarEncomendaHintCliente">Cliente</string>
     <string name="FragmentCadastrarEncomendaHintTelefone">Telefone</string>

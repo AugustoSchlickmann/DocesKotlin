@@ -52,26 +52,25 @@ open class EncomendaMapper(var bind: FragmentCadastrarEncomendaBinding){
     fun adicionouDoce(doceAdicionado : Doce){
         recyclerViewAdapter.lista!!.add(doceAdicionado)
         recyclerViewAdapter.notifyItemInserted(recyclerViewAdapter.itemCount)
-        valorTotal+= doceAdicionado.valorDoce * doceAdicionado.quantidadeDoce
+        valorTotal+= doceAdicionado.valorDoce!! * doceAdicionado.quantidadeDoce
         textViewValorTotal.text = "R$: " + "%.2f".format(valorTotal)
     }
 
     fun removeuDoce(doceRemovido : Doce){
-        val posicaoDoceRemovido = recyclerViewAdapter.lista!!.indexOf(doceRemovido)
+        //val posicaoDoceRemovido = recyclerViewAdapter.lista!!.indexOf(doceRemovido)
         recyclerViewAdapter.lista!!.remove(doceRemovido)
-        recyclerViewAdapter.notifyItemRemoved(posicaoDoceRemovido)
-        valorTotal-= doceRemovido.valorDoce * doceRemovido.quantidadeDoce
+        //recyclerViewAdapter.notifyItemRemoved(posicaoDoceRemovido)
+        recyclerViewAdapter.notifyDataSetChanged()
+        valorTotal-= doceRemovido.valorDoce!! * doceRemovido.quantidadeDoce
         textViewValorTotal.text = "R$: " + "%.2f".format(valorTotal)
     }
 
     fun alterouDoce(doceAlterado : Doce, quantidadeAnterior : Int){
         recyclerViewAdapter.notifyItemChanged(recyclerViewAdapter.lista!!.indexOf(doceAlterado))
-        valorTotal-= quantidadeAnterior * doceAlterado.valorDoce
-        valorTotal+= doceAlterado.valorDoce * doceAlterado.quantidadeDoce
+        valorTotal-= quantidadeAnterior * doceAlterado.valorDoce!!
+        valorTotal+= doceAlterado.valorDoce!! * doceAlterado.quantidadeDoce
         textViewValorTotal.text = "R$: " + "%.2f".format(valorTotal)
     }
-
-
 
     fun validarEntradas(): Boolean {
 
@@ -91,14 +90,14 @@ open class EncomendaMapper(var bind: FragmentCadastrarEncomendaBinding){
                     .show()
                 return false
             }
-            if (recyclerViewAdapter!!.lista!!.size == 0) {
+            if (recyclerViewAdapter.lista!!.size == 0) {
                 Toast.makeText(bind.root.context, "Lista Vazia", Toast.LENGTH_SHORT)
                     .show()
                 return false
             }
 
 
-        } catch (e: NullPointerException) {
+        } catch (e: Exception) {
             Toast.makeText(
                 bind.root.context,
                 bind.root.context.getString(R.string.ToastDadosInvalidos),

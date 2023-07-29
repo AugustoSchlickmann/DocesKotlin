@@ -18,24 +18,24 @@ import com.google.firebase.ktx.Firebase
 
 class PerfilFragment : Fragment() {
 
-    var bind : FragmentPerfilBinding? = null
-    var editTextNome : EditText? = null
-    var editTextEmail : EditText? = null
-    var cancelarEdicao : MenuItem? = null
-    var buttonAtualizar : Button? = null
+    var bind: FragmentPerfilBinding? = null
+    var editTextNome: EditText? = null
+    var editTextEmail: EditText? = null
+    var cancelarEdicao: MenuItem? = null
+    var buttonAtualizar: Button? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         setHasOptionsMenu(true)
         bind = FragmentPerfilBinding.inflate(layoutInflater, container, false)
         editTextNome = bind!!.FragmentPerfilEditTextNome
         editTextEmail = bind!!.FragmentPerfilEditTextEmail
         buttonAtualizar = bind!!.FragmentPerfilBotaoAtualizar
 
-        buttonAtualizar!!.setOnClickListener{
+        buttonAtualizar!!.setOnClickListener {
             atualizarPerfil()
         }
 
-        if(Firebase.auth.currentUser != null){
+        if (Firebase.auth.currentUser != null) {
             editTextNome!!.setText(Firebase.auth.currentUser!!.displayName)
             editTextEmail!!.setText(Firebase.auth.currentUser!!.email)
         }
@@ -47,7 +47,7 @@ class PerfilFragment : Fragment() {
         val profileUpdates = userProfileChangeRequest {
             displayName = editTextNome!!.text.toString()
         }
-        Firebase.auth.currentUser!!.updateProfile(profileUpdates).addOnCompleteListener{
+        Firebase.auth.currentUser!!.updateProfile(profileUpdates).addOnCompleteListener {
             vendo()
         }
     }
@@ -58,12 +58,12 @@ class PerfilFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.perfil_menu,menu)
+        inflater.inflate(R.menu.perfil_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.perfil_menu_Editar -> editando()
             R.id.perfil_menu_CancelarEdicao -> vendo()
             R.id.perfil_menu_Sair -> sair()
@@ -74,12 +74,12 @@ class PerfilFragment : Fragment() {
 
     private fun editando() {
         editTextNome!!.isFocusableInTouchMode = true
-        buttonAtualizar!!.visibility= View.VISIBLE
+        buttonAtualizar!!.visibility = View.VISIBLE
     }
 
     private fun vendo() {
         editTextNome!!.isFocusableInTouchMode = false
-        buttonAtualizar!!.visibility= View.GONE
+        buttonAtualizar!!.visibility = View.GONE
     }
 
     private fun sair() {

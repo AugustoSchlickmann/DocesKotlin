@@ -26,7 +26,7 @@
             android:title="@string/NavigationDrawerMenuCadastrarBandejinha"/>
 
         <item
-            android:id="@+id/nav_semana"
+            android:id="@+id/nav_fecharSemana"
             android:icon="@drawable/ic_baseline_attach_money_24"
             android:title="@string/NavigationDrawerMenuFecharSemana"/>
     </group>
@@ -37,12 +37,12 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/nav_listaPorData"
+                    android:id="@+id/nav_procurarPorData"
                     android:icon="@drawable/ic_baseline_calendar_month_24"
                     android:title="@string/NavigationDrawerMenuProcurarPorData"/>
 
                 <item
-                    android:id="@+id/nav_listaPorCliente"
+                    android:id="@+id/nav_procurarPorCliente"
                     android:icon="@drawable/ic_baseline_person_search_24"
                     android:title="@string/NavigationDrawerMenuProcurarPorNome"/>
             </group>

@@ -2,7 +2,7 @@ package com.augusto.doceskotlin.singletons
 
 import android.annotation.SuppressLint
 import com.augusto.doceskotlin.SpinnerDoces
-import com.augusto.doceskotlin.adapters.RecyclerViewDocesAdapter
+import com.augusto.doceskotlin.adapters.DocesRecyclerViewAdapter
 import com.augusto.doceskotlin.objetos.Doce
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -29,7 +29,7 @@ object ListaDeDoces {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun pegarDocesFirebase(recyclerViewAdapter: RecyclerViewDocesAdapter) {
+    fun pegarDocesFirebase(recyclerViewAdapter: DocesRecyclerViewAdapter) {
         if(doces == null){
             doces = ArrayList()
             Firebase.firestore.collection("DocesKotlin").orderBy("idDoce").get().addOnCompleteListener { task ->

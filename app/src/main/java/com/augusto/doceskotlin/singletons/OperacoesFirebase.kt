@@ -3,15 +3,18 @@ package com.augusto.doceskotlin.singletons
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import com.augusto.doceskotlin.activities.ClienteActivity
 import com.augusto.doceskotlin.activities.EncomendaActivity
 import com.augusto.doceskotlin.activities.MainActivity
-import com.augusto.doceskotlin.adapters.RecyclerViewDocesAdapter
-import com.augusto.doceskotlin.adapters.RecyclerViewInicioAdapter
+import com.augusto.doceskotlin.adapters.ClientesRecyclerViewAdapter
+import com.augusto.doceskotlin.adapters.DocesRecyclerViewAdapter
+import com.augusto.doceskotlin.adapters.InicioRecyclerViewAdapter
 import com.augusto.doceskotlin.fragments.InicioFragment
 import com.augusto.doceskotlin.fragments.ListaDocesFragment
-import com.augusto.doceskotlin.objetos.Doce
+import com.augusto.doceskotlin.objetos.Cliente
 import com.augusto.doceskotlin.objetos.Encomenda
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.QuerySnapshot
@@ -41,7 +44,7 @@ object OperacoesFirebase {
             }
     }
 
-    fun pegarProximasEncomendas(recyclerViewAdapter: RecyclerViewInicioAdapter, inicioFragment: InicioFragment) {
+    fun pegarProximasEncomendas(recyclerViewAdapter: InicioRecyclerViewAdapter, inicioFragment: InicioFragment) {
         val hoje = Calendar.getInstance()
         hoje.set(Calendar.HOUR_OF_DAY, 0)
         hoje.set(Calendar.MINUTE, 0)
@@ -59,7 +62,7 @@ object OperacoesFirebase {
     fun pegarEncomendasSemana(
         inicio: Calendar,
         fim: Calendar,
-        recyclerViewAdapter: RecyclerViewInicioAdapter,
+        recyclerViewAdapter: InicioRecyclerViewAdapter,
         inicioFragment: InicioFragment
     ) {
         Firebase.firestore.collection("EncomendasKotlin").whereGreaterThanOrEqualTo("data", inicio.time)
@@ -74,8 +77,9 @@ object OperacoesFirebase {
     private fun juntarEncomendas(
         task: Task<QuerySnapshot>,
         inicioFragment: InicioFragment,
-        recyclerViewAdapter: RecyclerViewInicioAdapter
+        recyclerViewAdapter: InicioRecyclerViewAdapter
     ) {
+        recyclerViewAdapter.lista?.clear()
         for (document in task.result) {
             var quantidadeDocesEncomenda = 0
             var valorEncomenda = 0.0
@@ -107,7 +111,7 @@ object OperacoesFirebase {
         }
     }
 
-    fun pegarDocesAFazer(recyclerViewAdapter: RecyclerViewDocesAdapter, listaDocesFragment: ListaDocesFragment) {
+    fun pegarDocesAFazer(recyclerViewAdapter: DocesRecyclerViewAdapter, listaDocesFragment: ListaDocesFragment) {
 
         val hoje = Calendar.getInstance()
         hoje.set(Calendar.HOUR_OF_DAY, 0)
@@ -138,6 +142,18 @@ object OperacoesFirebase {
                 }
             }
 
+    }
+
+    fun pegarClientes(recyclerViewAdapter: ClientesRecyclerViewAdapter?) {
+        Firebase.firestore.collection("ClientesKotlin").orderBy("nome").get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                for (document in task.result) {
+                    val cliente : Cliente = document.toObject()
+                    recyclerViewAdapter?.clientes!!.add(cliente)
+                    recyclerViewAdapter.notifyItemInserted(recyclerViewAdapter.itemCount)
+                }
+            }
+        }
     }
 
 }

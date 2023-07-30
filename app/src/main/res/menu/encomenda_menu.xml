@@ -3,35 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/EncomendaMenuEditarEncomenda"
+        android:id="@+id/encomenda_menu_EditarEncomenda"
         android:icon="@drawable/ic_baseline_edit_24"
         android:title="@string/EncomendaMenuEditarEncomenda">
 
     </item>
 
     <item
-        android:id="@+id/EncomendaMenuExcluirEncomenda"
+        android:id="@+id/encomenda_menu_ExcluirEncomenda"
         android:icon="@drawable/ic_baseline_delete_24"
         android:title="@string/EncomendaMenuExcluirEncomenda">
 
     </item>
 
     <item
-        android:id="@+id/EncomendaMenuAdicionarObs"
+        android:id="@+id/encomenda_menu_AdicionarObs"
         android:icon="@drawable/ic_baseline_info_24"
         android:title="@string/EncomendaMenuAdicionarObs">
 
     </item>
 
     <item
-        android:id="@+id/EncomendaMenuMarcarComoFeita"
+        android:id="@+id/encomenda_menu_MarcarComoFeita"
         android:icon="@drawable/ic_baseline_done_24"
         android:title="@string/EncomendaMenuMarcarComoFeita">
 
     </item>
 
     <item
-        android:id="@+id/EncomendaMenuCancelarEdicao"
+        android:id="@+id/encomenda_menu_CancelarEdicao"
         android:icon="@drawable/ic_baseline_close_24"
         android:title="@string/EncomendaMenuCancelarEdicao"
         android:visible="false"

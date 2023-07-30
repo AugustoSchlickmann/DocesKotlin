@@ -1,8 +1,17 @@
 package com.augusto.doceskotlin.objetos
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import java.util.Date
 
-class Encomenda(var cliente: Cliente?, var data: Date?, var doces: MutableList<Doce>?, var obs: String?, var feita: Boolean?) {
+@Parcelize
+data class Encomenda(
+    var cliente: Cliente?,
+    var data: Date?,
+    var doces: MutableList<Doce>?,
+    var obs: String?,
+    var feita: Boolean?
+) : Parcelable {
 
     private var id: String? = null
     private var valorEncomenda: Double = 0.0
@@ -14,26 +23,28 @@ class Encomenda(var cliente: Cliente?, var data: Date?, var doces: MutableList<D
         return "Encomenda(id=$id, cliente=$cliente, data=$data, doces=$doces, obs=$obs, feita=$feita)"
     }
 
-    fun setId(id : String){
+    fun setId(id: String) {
         this.id = id
     }
+
     fun getId(): String {
         return id.toString()
     }
 
-    fun setValorEncomenda(valor:Double){
+    fun setValorEncomenda(valor: Double) {
         this.valorEncomenda = valor
     }
 
-    fun getValorEncomenda():Double{
+    fun getValorEncomenda(): Double {
         return this.valorEncomenda
     }
 
-    fun setQuantidadeDocesEncomenda(quantidade:Int){
+    fun setQuantidadeDocesEncomenda(quantidade: Int) {
         this.quantidadeDocesEncomenda = quantidade
     }
 
-   fun getQuantidadeDocesEncomenda():Int{
-       return this.quantidadeDocesEncomenda
-   }
+    fun getQuantidadeDocesEncomenda(): Int {
+        return this.quantidadeDocesEncomenda
+    }
+
 }

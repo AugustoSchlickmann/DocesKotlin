@@ -7,7 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.augusto.doceskotlin.R
 
-class EncomendaRecyclerViewViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
+class EncomendaRecyclerViewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     var constraintLayout = itemView.findViewById<ConstraintLayout>(R.id.UmaLinhaEncomendaConstraintLayout)
     var nomeCliente = itemView.findViewById<TextView>(R.id.UmaLinhaEncomendaTextViewNomeCliente)

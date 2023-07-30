@@ -4,28 +4,28 @@
 
 
     <item
-        android:id="@+id/menu_Ver_Encomendas"
+        android:id="@+id/cliente_menu_VerEncomendas"
         android:icon="@drawable/ic_baseline_list_24"
         android:title="Ver Encomendas">
 
     </item>
 
     <item
-        android:id="@+id/menu_EditarCliente"
+        android:id="@+id/cliente_menu_EditarCliente"
         android:icon="@drawable/ic_baseline_edit_24"
         android:title="Editar Cliente">
 
     </item>
 
     <item
-        android:id="@+id/menu_ExcluirCliente"
+        android:id="@+id/cliente_menu_ExcluirCliente"
         android:icon="@drawable/ic_baseline_delete_24"
         android:title="Excluir Cliente">
 
     </item>
 
     <item
-        android:id="@+id/menu_CancelarEdicaoCliente"
+        android:id="@+id/cliente_menu_CancelarEdicaoCliente"
         android:icon="@drawable/ic_baseline_close_24"
         android:title="Cancelar Edição"
         app:showAsAction="ifRoom"

@@ -21,6 +21,7 @@ const val PROCURAR_ENCOMENDAS_POR_DATA = 4
 const val PROCURAR_ENCOMENDAS_POR_NOME_CLIENTE = 5
 const val PROCURAR_ENCOMENDAS_POR_ID_CLIENTE = 6
 
+const val ARG_PARAM_CLIENTE_PARCELABLE = "ClienteParcelable"
+const val ARG_PARAM_ENCOMENDA_PARCELABLE = "EncomendaParcelable"
+
 const val ARG_PARAM_ID_ENCOMENDA = "IDEncomenda"
-const val ARG_PARAM_ID_CLIENTE = "IDCliente"
-const val ARG_PARAM_ID_DOCE = "IDEncomenda"

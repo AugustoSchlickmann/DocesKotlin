@@ -6,18 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.augusto.doceskotlin.EDITAR_DOCES
 import com.augusto.doceskotlin.EncomendaMapper
-import com.augusto.doceskotlin.PROCURAR_PROXIMAS_ENCOMENDAS
-import com.augusto.doceskotlin.PROCURAR_PROXIMAS_ENCOMENDAS_COM_DOCE_SELECIONADO
 import com.augusto.doceskotlin.dialogos.DialogoRemoverDoce
 import com.augusto.doceskotlin.R
 import com.augusto.doceskotlin.VER_DOCES_A_FAZER
 import com.augusto.doceskotlin.dialogos.DialogoDoceAlterarQuantidade
 import com.augusto.doceskotlin.dialogos.DialogoDoceAlterarValor
-import com.augusto.doceskotlin.fragments.InicioFragment
 import com.augusto.doceskotlin.viewHolder.DoceRecyclerViewViewHolder
 import com.augusto.doceskotlin.objetos.Doce
 
-class RecyclerViewDocesAdapter : RecyclerView.Adapter<DoceRecyclerViewViewHolder> {
+class DocesRecyclerViewAdapter : RecyclerView.Adapter<DoceRecyclerViewViewHolder> {
 
     var lista: MutableList<Doce>? = ArrayList()
     var context: Context?

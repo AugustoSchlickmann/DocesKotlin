@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.augusto.doceskotlin.ARG_PARAM_ENCOMENDA_PARCELABLE
 import com.augusto.doceskotlin.ARG_PARAM_ID_ENCOMENDA
 import com.augusto.doceskotlin.FORMATADOR_DATA
 import com.augusto.doceskotlin.FORMATADOR_HORA
@@ -14,19 +15,16 @@ import com.augusto.doceskotlin.R
 import com.augusto.doceskotlin.activities.EncomendaActivity
 import com.augusto.doceskotlin.objetos.Encomenda
 
-class RecyclerViewInicioAdapter(val context: Context) :
-    RecyclerView.Adapter<EncomendaRecyclerViewViewHolder>() {
+class InicioRecyclerViewAdapter(val context: Context) : RecyclerView.Adapter<EncomendaRecyclerViewViewHolder>() {
 
-    var lista: MutableList<Encomenda>? = null
+    var lista: MutableList<Encomenda>? = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EncomendaRecyclerViewViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.uma_linha_encomenda, parent, false)
         return EncomendaRecyclerViewViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return  lista!!.size
-    }
+    override fun getItemCount(): Int = lista!!.size
 
     override fun onBindViewHolder(holder: EncomendaRecyclerViewViewHolder, position: Int) {
         holder.nomeCliente.text = lista!![position].cliente!!.nome
@@ -42,10 +40,10 @@ class RecyclerViewInicioAdapter(val context: Context) :
         }
 
         holder.constraintLayout.setOnClickListener {
-            //ir para a tela da encomenda
-            val intent = Intent(context, EncomendaActivity::class.java)
-            intent.putExtra(ARG_PARAM_ID_ENCOMENDA, lista!![position].getId())
-            context.startActivity(intent)
+            val irParaEncomendaActivity = Intent(context, EncomendaActivity::class.java)
+            //irParaEncomendaActivity.putExtra(ARG_PARAM_ID_ENCOMENDA, lista!![position].getId())
+            irParaEncomendaActivity.putExtra(ARG_PARAM_ENCOMENDA_PARCELABLE, lista!![position])
+            context.startActivity(irParaEncomendaActivity)
         }
     }
 

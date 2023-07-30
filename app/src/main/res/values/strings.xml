@@ -76,4 +76,10 @@
     <string name="PerfilMenu_excluir_conta">Excluir Conta</string>
     <string name="PerfilMenu_cancelar_edicao">Cancelar Edição</string>
 
+    <string name="ClienteActivityBotaoCadastrarEncomenda">Cadastrar Encomenda</string>
+    <string name="ClienteActivityEditTextNomeHint">Cliente</string>
+    <string name="ClienteActivityEditTextTelefoneHint">Telefone</string>
+    <string name="ClienteActivityBotaoSalvar">Salvar</string>
+    <string name="FragmentListaClientesTextViewSemClientes">Nenhum Cliente Encontrado</string>
+
 </resources>

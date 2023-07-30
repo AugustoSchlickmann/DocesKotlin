@@ -3,13 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ListaClientesActivity"
-    android:padding="4dp">
+    android:layout_height="match_parent">
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleViewClientes"
+        android:id="@+id/FragmentListaClientesRecycleViewClientes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
@@ -20,15 +18,16 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
-        android:id="@+id/textViewListaClientes"
+        android:id="@+id/FragmentListaClientesTextViewSemClientes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Nenhum Cliente Encontrado"
+        android:text="@string/FragmentListaClientesTextViewSemClientes"
         android:textAlignment="center"
         android:textColor="@color/rosinha"
         android:textSize="20sp"
         android:textStyle="bold|italic"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

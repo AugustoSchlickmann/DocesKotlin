@@ -32,7 +32,6 @@ class CadastrarEncomendaFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         bind = FragmentCadastrarEncomendaBinding.inflate(layoutInflater, container, false)
         encomendaMapper = EncomendaMapper(bind!!)
-
         encomendaMapper!!.recyclerViewAdapter.lista = ArrayList()
         container!!.removeAllViews()
         return bind!!.root

@@ -19,6 +19,7 @@ import com.augusto.doceskotlin.VER_DOCES_A_FAZER
 import com.augusto.doceskotlin.databinding.ActivityCarregandoBinding
 import com.augusto.doceskotlin.fragments.CadastrarEncomendaFragment
 import com.augusto.doceskotlin.fragments.InicioFragment
+import com.augusto.doceskotlin.fragments.ListaClientesFragment
 import com.augusto.doceskotlin.fragments.ListaDocesFragment
 import com.augusto.doceskotlin.fragments.PerfilFragment
 import com.google.android.material.navigation.NavigationView
@@ -70,10 +71,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.nav_cadastrarEncomenda -> fragmentSelecionado = CadastrarEncomendaFragment()
                 //R.id.nav_cadastrarBandejinha -> fragmentSelecionado = CadastrarEncomendaFragment()
                 R.id.nav_fecharSemana -> fragmentSelecionado = InicioFragment.newInstance(PROCURAR_ENCOMENDAS_DA_SEMANA)
-                //R.id.nav_procurarPorData -> fragmentSelecionado = InicioFragment.newInstance(PROCURAR_ENCOMENDAS_POR_DATA)
+                R.id.nav_procurarPorData -> fragmentSelecionado = InicioFragment.newInstance(PROCURAR_ENCOMENDAS_POR_DATA)
                 //R.id.nav_procurarPorCliente -> fragmentSelecionado = InicioFragment.newInstance(PROCURAR_ENCOMENDAS_POR_NOME_CLIENTE)
                 R.id.nav_doces -> fragmentSelecionado = ListaDocesFragment.newInstance(EDITAR_DOCES)
-                //R.id.nav_clientes ->
+                R.id.nav_clientes -> fragmentSelecionado = ListaClientesFragment()
                 R.id.nav_perfil -> fragmentSelecionado = PerfilFragment()
 
             }

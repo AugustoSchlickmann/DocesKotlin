@@ -6,10 +6,9 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.augusto.doceskotlin.adapters.RecyclerViewDocesAdapter
+import com.augusto.doceskotlin.adapters.DocesRecyclerViewAdapter
 import com.augusto.doceskotlin.databinding.FragmentCadastrarEncomendaBinding
 import com.augusto.doceskotlin.objetos.Doce
-import java.lang.NullPointerException
 import java.util.Calendar
 
 open class EncomendaMapper(var bind: FragmentCadastrarEncomendaBinding){
@@ -26,7 +25,7 @@ open class EncomendaMapper(var bind: FragmentCadastrarEncomendaBinding){
     var spinner: Spinner = bind.FragmentCadastrarEncomendaSpinnerDoces
 
     var recyclerView: RecyclerView = bind.FragmentCadastrarEncomendaRecyclerView
-    var recyclerViewAdapter: RecyclerViewDocesAdapter = RecyclerViewDocesAdapter(this)
+    var recyclerViewAdapter: DocesRecyclerViewAdapter = DocesRecyclerViewAdapter(this)
 
     val calendario = Calendar.getInstance()
 

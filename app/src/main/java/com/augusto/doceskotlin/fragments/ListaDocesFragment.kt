@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.augusto.doceskotlin.EDITAR_DOCES
 import com.augusto.doceskotlin.VER_DOCES_A_FAZER
-import com.augusto.doceskotlin.adapters.RecyclerViewDocesAdapter
+import com.augusto.doceskotlin.adapters.DocesRecyclerViewAdapter
 import com.augusto.doceskotlin.databinding.FragmentListaDocesBinding
 import com.augusto.doceskotlin.singletons.ListaDeDoces
 import com.augusto.doceskotlin.singletons.OperacoesFirebase
@@ -25,7 +25,7 @@ class ListaDocesFragment : Fragment() {
     private var textViewNenhumDoceAFazer: TextView? = null
     private var textViewSomaValorTotal: TextView? = null
     private var recyclerView: RecyclerView? = null
-    private var recyclerViewAdapter: RecyclerViewDocesAdapter? = null
+    private var recyclerViewAdapter: DocesRecyclerViewAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +39,7 @@ class ListaDocesFragment : Fragment() {
         textViewNenhumDoceAFazer = bind!!.FragmentListaDocesTextViewNenhumDoceAFazer
         textViewSomaValorTotal = bind!!.FragmentListaDocesTextViewListaDocesValorTotal
         recyclerView = bind!!.FragmentListaDocesRecycleViewDoces
-        recyclerViewAdapter = RecyclerViewDocesAdapter(bind!!.root.context, param1!!)
+        recyclerViewAdapter = DocesRecyclerViewAdapter(bind!!.root.context, param1!!)
         recyclerView!!.adapter = recyclerViewAdapter
         container!!.removeAllViews()
         return bind!!.root

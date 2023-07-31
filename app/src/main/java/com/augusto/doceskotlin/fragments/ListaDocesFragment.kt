@@ -58,9 +58,9 @@ class ListaDocesFragment : Fragment() {
             textViewNenhumDoceAFazer!!.visibility = View.VISIBLE
             textViewSomaValorTotal!!.visibility = View.GONE
         } else {
-            textViewSomaValorTotal!!.text = valorTotal.toString()
+            textViewSomaValorTotal!!.text = "R$: " + "%.2f".format(valorTotal)
             textViewSomaValorTotal!!.visibility = View.VISIBLE
-            (requireActivity() as AppCompatActivity).supportActionBar?.title = "$quantidadeDoces Doces"
+            (requireActivity() as AppCompatActivity).supportActionBar?.title = "Doces a fazer: $quantidadeDoces"
         }
     }
 

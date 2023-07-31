@@ -1,14 +1,10 @@
 package com.augusto.doceskotlin
 
-import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.Resources
 import com.augusto.doceskotlin.objetos.Doce
-import com.augusto.doceskotlin.objetos.Encomenda
 import com.augusto.doceskotlin.singletons.ListaDeDoces
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import org.junit.Test
 import org.junit.Assert.*
+import org.junit.Test
 import java.util.Calendar
 
 /**
@@ -37,7 +33,7 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun testandoNulo(){
+    fun testandoNulo() {
         var lista: MutableList<Int>? = null
         lista = ArrayList()
         lista?.add(2)
@@ -47,7 +43,7 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun testandoSemana(){
+    fun testandoSemana() {
 
         val selecionado = Calendar.getInstance()
         val inicio = Calendar.getInstance()
@@ -56,12 +52,14 @@ class ExampleUnitTest {
         inicio.set(
             selecionado.get(Calendar.YEAR),
             selecionado.get(Calendar.MONTH),
-            selecionado.get(Calendar.DAY_OF_MONTH)-5,0,0,0)
+            selecionado.get(Calendar.DAY_OF_MONTH) - 5, 0, 0, 0
+        )
 
         fim.set(
             selecionado.get(Calendar.YEAR),
             selecionado.get(Calendar.MONTH),
-            selecionado.get(Calendar.DAY_OF_MONTH)+1, 23,59,59)
+            selecionado.get(Calendar.DAY_OF_MONTH) + 1, 23, 59, 59
+        )
 
         println("Hoje: ${selecionado.time}")
         println("Inicio: ${inicio.time}")
@@ -69,9 +67,9 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun criandoDoces(){
+    fun criandoDoces() {
         ListaDeDoces.doces = ArrayList()
-        ListaDeDoces.doces!!.add(Doce(1, "Beijinho", R.drawable.ninho.toString(), 1.30))
+        ListaDeDoces.doces!!.add(Doce(1, "Beijinho", R.drawable.beijinho.toString(), 1.30))
         ListaDeDoces.doces!!.add(Doce(2, "Brigadeiro", R.drawable.brigadeiro.toString(), 1.30))
         ListaDeDoces.doces!!.add(Doce(3, "Brigadeiro Branco", R.drawable.brigadeiro_branco.toString(), 1.30))
         ListaDeDoces.doces!!.add(Doce(4, "Caju", R.drawable.caju.toString(), 1.30))
@@ -91,5 +89,12 @@ class ExampleUnitTest {
 //        }
 
     }
-
+    @Test
+    fun strings() {
+        println("abcdef".trimStart().replaceFirstChar { it.uppercase() })
+        println("ab cd ef".trimStart().replaceFirstChar { it.uppercase() })
+        println("  ab cd ef  ".trimStart().replaceFirstChar { it.uppercase() })
+        println("  ab cd ef  g".trimStart().replaceFirstChar { it.uppercase() })
+        println("  a b c d e f  g".replaceFirstChar { it.uppercase() })
+    }
 }

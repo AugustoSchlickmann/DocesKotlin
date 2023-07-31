@@ -18,18 +18,11 @@
     </item>
 
     <item
-        android:id="@+id/cliente_menu_ExcluirCliente"
-        android:icon="@drawable/ic_baseline_delete_24"
-        android:title="Excluir Cliente">
-
-    </item>
-
-    <item
         android:id="@+id/cliente_menu_CancelarEdicaoCliente"
         android:icon="@drawable/ic_baseline_close_24"
         android:title="Cancelar Edição"
-        app:showAsAction="ifRoom"
-        android:visible="false">
+        android:visible="false"
+        app:showAsAction="ifRoom">
 
     </item>
 

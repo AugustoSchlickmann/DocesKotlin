@@ -18,7 +18,6 @@ class ListaClientesFragment : Fragment() {
     private var recyclerView: RecyclerView? = null
     private var recyclerViewAdapter: ClientesRecyclerViewAdapter? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {

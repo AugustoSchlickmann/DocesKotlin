@@ -22,12 +22,10 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/FragmentPerfil_imagem_do_perfil_do_usuario"
             android:scaleType="centerCrop"
-            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_person_24"
-            tools:visibility="visible" />
+            app:srcCompat="@drawable/ic_baseline_person_24" />
 
     </androidx.cardview.widget.CardView>
 
@@ -137,9 +135,7 @@
         android:backgroundTint="@color/rosinha"
         android:importantForAccessibility="no"
         android:src="@drawable/ic_baseline_camera_alt_24"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/FragmentPerfilCardViewUsuario"
-        app:layout_constraintEnd_toEndOf="@+id/FragmentPerfilCardViewUsuario"
-        tools:visibility="visible" />
+        app:layout_constraintEnd_toEndOf="@+id/FragmentPerfilCardViewUsuario" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

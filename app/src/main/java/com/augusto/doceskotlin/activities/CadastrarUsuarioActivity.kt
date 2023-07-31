@@ -9,7 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.augusto.doceskotlin.R
-import com.augusto.doceskotlin.ValidarEntradas
+import com.augusto.doceskotlin.singletons.ValidarEntradas
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -36,7 +36,7 @@ class CadastrarUsuarioActivity : AppCompatActivity(){
 
 
         botaoCadastrar.setOnClickListener {
-            if (ValidarEntradas().validar(nome, email, senha, confirmarSenha)) {
+            if (ValidarEntradas.doCadastroUsuario(nome, email, senha, confirmarSenha)) {
                 progressBar.visibility = View.VISIBLE
                 Firebase.auth.createUserWithEmailAndPassword(email.text.toString(), senha.text.toString()).addOnCompleteListener(this){task ->
                     if (task.isSuccessful){

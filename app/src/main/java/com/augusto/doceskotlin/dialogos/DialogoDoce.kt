@@ -21,7 +21,7 @@ abstract class DialogoDoce(doce: Doce, context: Context) {
         imagem = dialog.findViewById(R.id.DialogoDoceImageView)
         botao = dialog.findViewById(R.id.DialogoDoceButton)
         qtd = dialog.findViewById(R.id.DialogoDoceEditTextNumero)
-        imagem!!.setImageResource(doce.imagemDoce!!.toInt())
+        imagem?.setImageResource(imagem?.resources!!.getIdentifier(doce.imagemDoce,null,null))
         qtd!!.requestFocus()
     }
 

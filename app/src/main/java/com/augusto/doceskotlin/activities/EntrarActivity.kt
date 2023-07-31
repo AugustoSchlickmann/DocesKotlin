@@ -8,7 +8,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.augusto.doceskotlin.R
-import com.augusto.doceskotlin.ValidarEntradas
+import com.augusto.doceskotlin.singletons.ValidarEntradas
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -29,7 +29,7 @@ class EntrarActivity : AppCompatActivity() {
             val progressBar : ProgressBar = findViewById(R.id.EntrarActivityProgressBar)
 
             botaoEntrar.setOnClickListener{
-                if(ValidarEntradas().validar(email,senha)){
+                if(ValidarEntradas.doLogin(email,senha)){
                     progressBar.visibility= View.VISIBLE
                     Firebase.auth.signInWithEmailAndPassword(email.text.toString(), senha.text.toString()).addOnCompleteListener(this) { task ->
                         if (task.isSuccessful){

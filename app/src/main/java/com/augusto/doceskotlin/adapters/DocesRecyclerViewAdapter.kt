@@ -18,8 +18,8 @@ class DocesRecyclerViewAdapter : RecyclerView.Adapter<DoceRecyclerViewViewHolder
 
     var lista: MutableList<Doce>? = ArrayList()
     var context: Context?
-    var tipoLista : Int = 0
-    var encomendaMapper : EncomendaMapper? = null
+    private var tipoLista : Int = 0
+    private var encomendaMapper : EncomendaMapper? = null
 
     constructor(encomendaMapper : EncomendaMapper){
         this.encomendaMapper  = encomendaMapper
@@ -42,7 +42,8 @@ class DocesRecyclerViewAdapter : RecyclerView.Adapter<DoceRecyclerViewViewHolder
 
 
     override fun onBindViewHolder(holder: DoceRecyclerViewViewHolder, position: Int) {
-        holder.imagem.setImageResource(lista!![position].imagemDoce!!.toInt())
+        holder.imagem.setImageResource(holder.imagem.resources.getIdentifier(lista!![position].imagemDoce!!,null,null))
+        //Glide.with(context!!).load(lista!![position].imagemDoce!!).into(holder.imagem)
         holder.nome.text = lista!![position].nomeDoce
 
         when (tipoLista) {

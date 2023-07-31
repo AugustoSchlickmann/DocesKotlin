@@ -38,12 +38,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_person_24"
-            tools:visibility="visible" />
+            app:srcCompat="@drawable/ic_baseline_person_24" />
 
     </androidx.cardview.widget.CardView>
 
@@ -105,7 +103,7 @@
         android:id="@+id/ClienteActivityBotaoSalvar"
         android:layout_width="wrap_content"
         android:layout_height="55dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/edit_text_rounded"
         android:backgroundTint="@color/rosinha"
@@ -115,7 +113,7 @@
         app:icon="@drawable/ic_baseline_check_24"
         app:iconGravity="end"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ClienteActivityBotaoCadastrarEncomenda"
         app:layout_constraintVertical_bias="0.983"
         tools:visibility="visible" />
@@ -140,10 +138,8 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/rosinha"
         android:src="@drawable/ic_baseline_camera_alt_24"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/ClienteActivityCardView"
-        app:layout_constraintEnd_toEndOf="@+id/ClienteActivityCardView"
-        tools:visibility="visible" />
+        app:layout_constraintEnd_toEndOf="@+id/ClienteActivityCardView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

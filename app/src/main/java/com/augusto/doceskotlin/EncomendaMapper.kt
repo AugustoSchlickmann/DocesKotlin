@@ -1,5 +1,6 @@
 package com.augusto.doceskotlin
 
+import android.annotation.SuppressLint
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
@@ -9,28 +10,32 @@ import androidx.recyclerview.widget.RecyclerView
 import com.augusto.doceskotlin.adapters.DocesRecyclerViewAdapter
 import com.augusto.doceskotlin.databinding.FragmentCadastrarEncomendaBinding
 import com.augusto.doceskotlin.objetos.Doce
+import com.augusto.doceskotlin.objetos.Encomenda
+import com.augusto.doceskotlin.singletons.OperacoesFirebase
+import com.augusto.doceskotlin.singletons.ValidarEntradas
 import java.util.Calendar
 
-open class EncomendaMapper(var bind: FragmentCadastrarEncomendaBinding){
+class EncomendaMapper(var bind: FragmentCadastrarEncomendaBinding, criarSpinner: Boolean) {
 
     var nomeCliente: EditText = bind.FragmentCadastrarEncomendaEditTextNomeCliente
     var telefoneCliente: EditText = bind.FragmentCadastrarEncomendaEditTextTelefoneCliente
     var data: EditText = bind.FragmentCadastrarEncomendaEditTextData
-    var hora: EditText = bind.FragmentCadastrarEncomendaEditTextHora
+    private var hora: EditText = bind.FragmentCadastrarEncomendaEditTextHora
     var botaoSalvar: Button = bind.FragmentCadastrarEncomendaBotaoSalvar
-
-    var textViewValorTotal: TextView = bind.FragmentCadastrarEncomendaTextViewValorTotal
-    var valorTotal: Double = 0.0
-
+    private var textViewValorTotal: TextView = bind.FragmentCadastrarEncomendaTextViewValorTotal
     var spinner: Spinner = bind.FragmentCadastrarEncomendaSpinnerDoces
+    private var recyclerView: RecyclerView = bind.FragmentCadastrarEncomendaRecyclerView
 
-    var recyclerView: RecyclerView = bind.FragmentCadastrarEncomendaRecyclerView
     var recyclerViewAdapter: DocesRecyclerViewAdapter = DocesRecyclerViewAdapter(this)
 
-    val calendario = Calendar.getInstance()
+    private val calendario: Calendar = Calendar.getInstance()
+    var encomenda : Encomenda? = null
 
     init {
-        SpinnerDoces(this)
+        if (criarSpinner) {
+            SpinnerDoces(this)
+        }
+
         recyclerView.adapter = recyclerViewAdapter
 
         data.setOnClickListener {
@@ -45,67 +50,70 @@ open class EncomendaMapper(var bind: FragmentCadastrarEncomendaBinding){
             telefoneCliente.clearFocus()
             Relogio().abrirRelogio(bind.root.context, calendario, hora)
         }
+
     }
 
-
-    fun adicionouDoce(doceAdicionado : Doce){
+    fun adicionouDoce(doceAdicionado: Doce) {
         recyclerViewAdapter.lista!!.add(doceAdicionado)
         recyclerViewAdapter.notifyItemInserted(recyclerViewAdapter.itemCount)
-        valorTotal+= doceAdicionado.valorDoce!! * doceAdicionado.quantidadeDoce
-        textViewValorTotal.text = "R$: " + "%.2f".format(valorTotal)
+        encomenda!!.valorEncomenda += doceAdicionado.valorDoce!! * doceAdicionado.quantidadeDoce
+        encomenda!!.quantidadeDocesEncomenda += doceAdicionado.quantidadeDoce
+        textViewValorTotal.text = "R$: " + "%.2f".format(encomenda!!.valorEncomenda)
     }
 
-    fun removeuDoce(doceRemovido : Doce){
-        //val posicaoDoceRemovido = recyclerViewAdapter.lista!!.indexOf(doceRemovido)
+    @SuppressLint("NotifyDataSetChanged")
+    fun removeuDoce(doceRemovido: Doce) {
         recyclerViewAdapter.lista!!.remove(doceRemovido)
-        //recyclerViewAdapter.notifyItemRemoved(posicaoDoceRemovido)
         recyclerViewAdapter.notifyDataSetChanged()
-        valorTotal-= doceRemovido.valorDoce!! * doceRemovido.quantidadeDoce
-        textViewValorTotal.text = "R$: " + "%.2f".format(valorTotal)
+        encomenda!!.valorEncomenda -= doceRemovido.valorDoce!! * doceRemovido.quantidadeDoce
+        encomenda!!.quantidadeDocesEncomenda -= doceRemovido.quantidadeDoce
+        textViewValorTotal.text = "R$: " + "%.2f".format(encomenda!!.valorEncomenda)
     }
 
-    fun alterouDoce(doceAlterado : Doce, quantidadeAnterior : Int){
+    fun alterouDoce(doceAlterado: Doce, quantidadeAnterior: Int) {
         recyclerViewAdapter.notifyItemChanged(recyclerViewAdapter.lista!!.indexOf(doceAlterado))
-        valorTotal-= quantidadeAnterior * doceAlterado.valorDoce!!
-        valorTotal+= doceAlterado.valorDoce!! * doceAlterado.quantidadeDoce
-        textViewValorTotal.text = "R$: " + "%.2f".format(valorTotal)
+        encomenda!!.valorEncomenda -= doceAlterado.valorDoce!! * quantidadeAnterior
+        encomenda!!.valorEncomenda += doceAlterado.valorDoce!! * doceAlterado.quantidadeDoce
+        encomenda!!.quantidadeDocesEncomenda -= quantidadeAnterior
+        encomenda!!.quantidadeDocesEncomenda += doceAlterado.quantidadeDoce
+        textViewValorTotal.text = "R$: " + "%.2f".format(encomenda!!.valorEncomenda)
     }
 
-    fun validarEntradas(): Boolean {
+    fun colocarDadosNaTela() {
+        nomeCliente.setText(encomenda!!.cliente!!.nome)
+        telefoneCliente.setText(encomenda!!.cliente!!.telefone)
+        data.setText(FORMATADOR_DATA.format(encomenda!!.data!!))
+        hora.setText(FORMATADOR_HORA.format(encomenda!!.data!!))
+        recyclerViewAdapter.lista = encomenda!!.doces
+        textViewValorTotal.text = "R$: " + "%.2f".format(encomenda!!.valorEncomenda)
 
-        try {
-            if (nomeCliente.text.isBlank()) {
-                Toast.makeText(bind.root.context, "Cliente Vazio", Toast.LENGTH_SHORT)
-                    .show()
-                return false
-            }
-            if (data.text.isBlank()) {
-                Toast.makeText(bind.root.context, "Selecione Data", Toast.LENGTH_SHORT)
-                    .show()
-                return false
-            }
-            if (hora.text.isBlank()) {
-                Toast.makeText(bind.root.context, "Selecione Hora", Toast.LENGTH_SHORT)
-                    .show()
-                return false
-            }
-            if (recyclerViewAdapter.lista!!.size == 0) {
-                Toast.makeText(bind.root.context, "Lista Vazia", Toast.LENGTH_SHORT)
-                    .show()
-                return false
+    }
+
+    fun salvarEncomenda(trocaTela : String?) {
+        botaoSalvar.isEnabled = false
+        if (ValidarEntradas.daEncomenda(nomeCliente, data, hora, recyclerViewAdapter.lista!!, bind.root.context)) {
+            try {
+
+                encomenda!!.cliente?.nome = nomeCliente.text.toString().trimStart().replaceFirstChar { it.uppercase() }
+                encomenda!!.cliente?.telefone = telefoneCliente.text.toString()
+                encomenda!!.data = calendario.time
+                encomenda!!.doces = recyclerViewAdapter.lista!!
+
+                if(trocaTela == null){
+                    OperacoesFirebase.salvarNovaEncomenda(encomenda!!, bind.root.context, botaoSalvar)
+                }else{
+                    OperacoesFirebase.atualizarEncomenda(encomenda!!, bind.root.context, botaoSalvar)
+                }
+
+            } catch (e: Exception) {
+                Toast.makeText(bind.root.context,"Erro montando encomenda", Toast.LENGTH_SHORT).show()
+                botaoSalvar.isEnabled = true
             }
 
-
-        } catch (e: Exception) {
-            Toast.makeText(
-                bind.root.context,
-                bind.root.context.getString(R.string.ToastDadosInvalidos),
-                Toast.LENGTH_SHORT
-            )
-                .show()
+        } else {
+            Toast.makeText(bind.root.context, R.string.ToastDadosInvalidos, Toast.LENGTH_SHORT).show()
+            botaoSalvar.isEnabled = true
         }
-
-        return true
     }
 
 }

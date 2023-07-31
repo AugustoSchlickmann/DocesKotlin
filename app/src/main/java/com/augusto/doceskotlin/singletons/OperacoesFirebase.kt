@@ -24,22 +24,41 @@ import com.google.firebase.ktx.Firebase
 import java.util.Calendar
 
 object OperacoesFirebase {
+
     fun salvarNovaEncomenda(novaEncomenda: Encomenda, context: Context?, button: Button) {
         Firebase.firestore.collection("ClientesKotlin").document(novaEncomenda.cliente!!.nome!!)
             .set(novaEncomenda.cliente!!)
             .addOnCompleteListener {
                 Firebase.firestore.collection("EncomendasKotlin").add(novaEncomenda).addOnCompleteListener {
-                    Toast.makeText(context, "Encomenda Salva", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Encomenda salva", Toast.LENGTH_SHORT).show()
                     val intent = Intent(context, MainActivity::class.java)
                     context!!.startActivity(intent)
                     (context as Activity).finish()
-                    button.isEnabled = true
+
                 }.addOnFailureListener {
-                    Toast.makeText(context, "Falha", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Falha no banco de dados", Toast.LENGTH_SHORT).show()
                     button.isEnabled = true
                 }
             }.addOnFailureListener {
-                Toast.makeText(context, "Falha", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Falha no banco de dados", Toast.LENGTH_SHORT).show()
+                button.isEnabled = true
+            }
+    }
+
+    fun atualizarEncomenda(encomenda: Encomenda, context: Context?, button: Button) {
+        Firebase.firestore.collection("ClientesKotlin").document(encomenda.cliente!!.nome!!)
+            .set(encomenda.cliente!!)
+            .addOnCompleteListener {
+                Firebase.firestore.collection("EncomendasKotlin").document(encomenda.id!!).set(encomenda)
+                    .addOnCompleteListener {
+                        Toast.makeText(context, "Encomenda atualizada", Toast.LENGTH_SHORT).show()
+
+                    }.addOnFailureListener {
+                    Toast.makeText(context, "Falha no banco de dados", Toast.LENGTH_SHORT).show()
+                    button.isEnabled = true
+                }
+            }.addOnFailureListener {
+                Toast.makeText(context, "Falha no banco de dados", Toast.LENGTH_SHORT).show()
                 button.isEnabled = true
             }
     }
@@ -49,14 +68,13 @@ object OperacoesFirebase {
         hoje.set(Calendar.HOUR_OF_DAY, 0)
         hoje.set(Calendar.MINUTE, 0)
         hoje.set(Calendar.SECOND, 0)
-
+        inicioFragment.progressBar?.visibility = View.VISIBLE
         Firebase.firestore.collection("EncomendasKotlin").whereGreaterThanOrEqualTo("data", hoje.time)
             .orderBy("data").get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     juntarEncomendas(task, inicioFragment, recyclerViewAdapter)
                 }
             }
-
     }
 
     fun pegarEncomendasSemana(
@@ -65,13 +83,27 @@ object OperacoesFirebase {
         recyclerViewAdapter: InicioRecyclerViewAdapter,
         inicioFragment: InicioFragment
     ) {
+        inicioFragment.progressBar?.visibility = View.VISIBLE
         Firebase.firestore.collection("EncomendasKotlin").whereGreaterThanOrEqualTo("data", inicio.time)
             .whereLessThanOrEqualTo("data", fim.time).orderBy("data").get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     juntarEncomendas(task, inicioFragment, recyclerViewAdapter)
                 }
             }
+    }
 
+    fun pegarEncomendasDoCliente(
+        recyclerViewAdapter: InicioRecyclerViewAdapter,
+        inicioFragment: InicioFragment,
+        cliente: Cliente?
+    ) {
+        inicioFragment.progressBar?.visibility = View.VISIBLE
+        Firebase.firestore.collection("EncomendasKotlin").whereEqualTo("cliente.nome", cliente?.nome).orderBy("data").get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    juntarEncomendas(task, inicioFragment, recyclerViewAdapter)
+                }
+            }
     }
 
     private fun juntarEncomendas(
@@ -79,36 +111,15 @@ object OperacoesFirebase {
         inicioFragment: InicioFragment,
         recyclerViewAdapter: InicioRecyclerViewAdapter
     ) {
-        recyclerViewAdapter.lista?.clear()
+        recyclerViewAdapter.lista.clear()
         for (document in task.result) {
-            var quantidadeDocesEncomenda = 0
-            var valorEncomenda = 0.0
             val encomenda: Encomenda = document.toObject()
-            for (doces in encomenda.doces!!) {
-                quantidadeDocesEncomenda += doces.quantidadeDoce
-                valorEncomenda += doces.quantidadeDoce * doces.valorDoce!!
-            }
-            encomenda.setValorEncomenda(valorEncomenda)
-            encomenda.setQuantidadeDocesEncomenda(quantidadeDocesEncomenda)
-            encomenda.setId(document.id)
-            recyclerViewAdapter.lista?.add(encomenda)
+            encomenda.id = document.id
+            recyclerViewAdapter.lista.add(encomenda)
+            recyclerViewAdapter.notifyItemInserted(recyclerViewAdapter.itemCount)
+
         }
         inicioFragment.somarValoresEncomendas()
-    }
-
-    fun pegarEncomendoPorId(idEncomenda: String, encomendaActivity: EncomendaActivity) {
-        Firebase.firestore.collection("EncomendasKotlin").document(idEncomenda).get().addOnSuccessListener { task ->
-            if (task.exists()) {
-                val encomenda: Encomenda = task.toObject()!!
-                encomendaActivity.colocarDados(encomenda)
-            } else {
-                Toast.makeText(encomendaActivity, "Erro procurando encomenda", Toast.LENGTH_SHORT).show()
-                encomendaActivity.finish()
-            }
-        }.addOnFailureListener {
-            Toast.makeText(encomendaActivity, "Erro procurando encomenda", Toast.LENGTH_SHORT).show()
-            encomendaActivity.finish()
-        }
     }
 
     fun pegarDocesAFazer(recyclerViewAdapter: DocesRecyclerViewAdapter, listaDocesFragment: ListaDocesFragment) {
@@ -133,10 +144,11 @@ object OperacoesFirebase {
                                 recyclerViewAdapter.lista!![recyclerViewAdapter.lista!!.indexOf(doce)].quantidadeDoce += doce.quantidadeDoce
                             } else {
                                 recyclerViewAdapter.lista!!.add(doce)
+                                recyclerViewAdapter.notifyItemInserted(recyclerViewAdapter.itemCount)
                             }
-                            quantidadeDoces += doce.quantidadeDoce
-                            valorTotal += doce.quantidadeDoce * doce.valorDoce!!
                         }
+                        quantidadeDoces += encomenda.quantidadeDocesEncomenda
+                        valorTotal += encomenda.valorEncomenda
                     }
                     listaDocesFragment.mostrarDocesAFazer(quantidadeDoces, valorTotal)
                 }
@@ -148,10 +160,51 @@ object OperacoesFirebase {
         Firebase.firestore.collection("ClientesKotlin").orderBy("nome").get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 for (document in task.result) {
-                    val cliente : Cliente = document.toObject()
+                    val cliente: Cliente = document.toObject()
                     recyclerViewAdapter?.clientes!!.add(cliente)
                     recyclerViewAdapter.notifyItemInserted(recyclerViewAdapter.itemCount)
                 }
+            }
+        }
+    }
+
+    fun marcarEncomendaFeita(encomenda: Encomenda, context: Context) {
+        if (encomenda.feita == false) {
+            encomenda.feita = true
+            Firebase.firestore.collection("EncomendasKotlin").document(encomenda.id!!).update("feita", true)
+                .addOnCompleteListener {
+                    Toast.makeText(context, "Encomenda Feita", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            encomenda.feita = false
+            Firebase.firestore.collection("EncomendasKotlin").document(encomenda.id!!).update("feita", false)
+                .addOnCompleteListener {
+                    Toast.makeText(context, "Encomenda Não Feita", Toast.LENGTH_SHORT).show()
+                }
+        }
+
+    }
+
+    fun excluirEncomenda(encomenda: Encomenda, encomendaActivity: EncomendaActivity) {
+        Firebase.firestore.collection("EncomendasKotlin").document(encomenda.id!!).delete()
+            .addOnCompleteListener {
+                Toast.makeText(encomendaActivity, "Encomenda Deletada", Toast.LENGTH_SHORT).show()
+                encomendaActivity.finish()
+            }.addOnFailureListener {
+                Toast.makeText(encomendaActivity, "Erro ao Deletar", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    fun atualizarCliente(cliente: Cliente, clienteActivity: ClienteActivity) {
+        Firebase.firestore.collection("ClientesKotlin").document(cliente.nome!!).set(cliente).addOnCompleteListener {
+            Toast.makeText(clienteActivity, "Cliente atualizado", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun pegarEncomendasPorNomeCliente(recyclerViewAdapter: InicioRecyclerViewAdapter, inicioFragment: InicioFragment, nome: String) {
+        Firebase.firestore.collection("EncomendasKotlin").whereEqualTo("cliente.nome",nome).get().addOnCompleteListener{
+            task -> if (task.isSuccessful) {
+                juntarEncomendas(task, inicioFragment, recyclerViewAdapter)
             }
         }
     }

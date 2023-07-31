@@ -8,48 +8,47 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.augusto.doceskotlin.ARG_PARAM_ENCOMENDA_PARCELABLE
-import com.augusto.doceskotlin.ARG_PARAM_ID_ENCOMENDA
 import com.augusto.doceskotlin.EncomendaMapper
-import com.augusto.doceskotlin.FORMATADOR_DATA
-import com.augusto.doceskotlin.FORMATADOR_HORA
 import com.augusto.doceskotlin.R
+import com.augusto.doceskotlin.SpinnerDoces
 import com.augusto.doceskotlin.databinding.FragmentCadastrarEncomendaBinding
-import com.augusto.doceskotlin.objetos.Encomenda
+import com.augusto.doceskotlin.singletons.OperacoesFirebase
 import com.google.android.material.appbar.AppBarLayout
 
 class EncomendaActivity : AppCompatActivity() {
 
     private var encomendaMapper: EncomendaMapper? = null
     var bind: FragmentCadastrarEncomendaBinding? = null
-
-    var idEncomenda: String? = null
-
-    var toolBar: Toolbar? = null
-    var appBarLayout: AppBarLayout? = null
-    var cancelarEdicao: MenuItem? = null
-    var encomenda: Encomenda? = null
+    private var toolBar: Toolbar? = null
+    private var appBarLayout: AppBarLayout? = null
+    private var cancelarEdicao: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_carregando)
 
+        bind = FragmentCadastrarEncomendaBinding.inflate(layoutInflater)
+        encomendaMapper = EncomendaMapper(bind!!, false)
+        encomendaMapper!!.encomenda = intent.getParcelableExtra(ARG_PARAM_ENCOMENDA_PARCELABLE)
 
-        idEncomenda = intent.getStringExtra(ARG_PARAM_ID_ENCOMENDA)
-        encomenda = intent.getParcelableExtra(ARG_PARAM_ENCOMENDA_PARCELABLE)
-
-        if (encomenda == null) {
-            Toast.makeText(this, "Encomenda sem identificador", Toast.LENGTH_SHORT).show()
+        if (encomendaMapper!!.encomenda == null) {
+            Toast.makeText(this, "Encomenda não encontrada", Toast.LENGTH_SHORT).show()
             finish()
         } else {
-            bind = FragmentCadastrarEncomendaBinding.inflate(layoutInflater)
-            encomendaMapper = EncomendaMapper(bind!!)
             toolBar = bind!!.toolbarEncomenda
             setSupportActionBar(toolBar)
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
             appBarLayout = bind!!.appBarLayoutEncomenda
             appBarLayout!!.visibility = View.VISIBLE
-            //OperacoesFirebase.pegarEncomendoPorId(idEncomenda!!, this)
-            colocarDados(encomenda!!)
+
+            encomendaMapper!!.botaoSalvar.setOnClickListener {
+                encomendaMapper!!.salvarEncomenda(encomendaMapper!!.encomenda!!.id!!)
+                vendo()
+            }
+
+            encomendaMapper!!.colocarDadosNaTela()
+            vendo()
+            setContentView(bind!!.root)
         }
     }
 
@@ -68,57 +67,49 @@ class EncomendaActivity : AppCompatActivity() {
             android.R.id.home -> finish()
             R.id.encomenda_menu_EditarEncomenda -> editando()
             R.id.encomenda_menu_CancelarEdicao -> vendo()
-            //R.id.EncomendaMenuExcluirEncomenda ->
-            R.id.encomenda_menu_MarcarComoFeita -> encomenda!!.feita = true
+            R.id.encomenda_menu_ExcluirEncomenda -> OperacoesFirebase.excluirEncomenda(
+                encomendaMapper!!.encomenda!!,
+                this
+            )
+
+            R.id.encomenda_menu_MarcarComoFeita -> OperacoesFirebase.marcarEncomendaFeita(
+                encomendaMapper!!.encomenda!!,
+                this
+            )
         }
 
         return super.onOptionsItemSelected(item)
     }
 
+
     private fun vendo() {
-        cancelarEdicao?.isVisible = false
-        if (encomenda!!.feita == true) {
-            toolBar!!.title = "Encomenda Feita"
+        if (encomendaMapper!!.encomenda!!.feita == true) {
+            supportActionBar!!.title = "Encomenda Feita"
         } else {
-            toolBar!!.title = "Encomenda"
+            supportActionBar!!.title = "Encomenda ${encomendaMapper!!.encomenda?.quantidadeDocesEncomenda} Doces"
         }
-        if (encomenda!!.cliente!!.telefone!!.isBlank()) {
+        if (encomendaMapper!!.telefoneCliente.text.isBlank()) {
             encomendaMapper!!.telefoneCliente.visibility = View.GONE
-        } else {
-            encomendaMapper!!.telefoneCliente.visibility = View.VISIBLE
         }
         encomendaMapper!!.botaoSalvar.visibility = View.INVISIBLE
         encomendaMapper!!.nomeCliente.isFocusableInTouchMode = false
         encomendaMapper!!.telefoneCliente.isFocusableInTouchMode = false
+        cancelarEdicao?.isVisible = false
+        encomendaMapper!!.spinner.visibility = View.INVISIBLE
     }
 
     private fun editando() {
-        cancelarEdicao!!.isVisible = true
-        toolBar!!.title = "Editando Encomenda..."
-
-        if (encomenda!!.cliente!!.telefone == null) {
-            encomendaMapper!!.telefoneCliente.visibility = View.VISIBLE
-        }
+        supportActionBar!!.title = "Editando Encomenda..."
+        encomendaMapper!!.telefoneCliente.visibility = View.VISIBLE
         encomendaMapper!!.botaoSalvar.visibility = View.VISIBLE
         encomendaMapper!!.nomeCliente.isFocusableInTouchMode = true
         encomendaMapper!!.telefoneCliente.isFocusableInTouchMode = true
-
-    }
-
-    fun colocarDados(encomendaRemota: Encomenda) {
-        this.encomenda = encomendaRemota
-        encomendaMapper!!.nomeCliente.setText(encomenda!!.cliente!!.nome)
-        encomendaMapper!!.data.setText(FORMATADOR_DATA.format(encomenda!!.data!!))
-        encomendaMapper!!.hora.setText(FORMATADOR_HORA.format(encomenda!!.data!!))
-        encomendaMapper!!.recyclerViewAdapter.lista = encomenda!!.doces
-
-        for (doce in encomenda!!.doces!!) {
-            encomendaMapper!!.valorTotal += doce.valorDoce!! * doce.quantidadeDoce
+        cancelarEdicao?.isVisible = true
+        if (encomendaMapper!!.spinner.adapter == null) {
+            SpinnerDoces(encomendaMapper!!)
+        } else {
+            encomendaMapper!!.spinner.visibility = View.VISIBLE
         }
-
-        encomendaMapper!!.textViewValorTotal.text = "R$: " + "%.2f".format(encomendaMapper!!.valorTotal)
-        setContentView(bind!!.root)
-        vendo()
 
     }
 

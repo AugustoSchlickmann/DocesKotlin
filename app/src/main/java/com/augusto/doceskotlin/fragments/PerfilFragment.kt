@@ -1,5 +1,6 @@
 package com.augusto.doceskotlin.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -11,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.augusto.doceskotlin.R
+import com.augusto.doceskotlin.activities.EntrarActivity
 import com.augusto.doceskotlin.databinding.FragmentPerfilBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
@@ -19,10 +21,10 @@ import com.google.firebase.ktx.Firebase
 class PerfilFragment : Fragment() {
 
     var bind: FragmentPerfilBinding? = null
-    var editTextNome: EditText? = null
-    var editTextEmail: EditText? = null
-    var cancelarEdicao: MenuItem? = null
-    var buttonAtualizar: Button? = null
+    private var editTextNome: EditText? = null
+    private var editTextEmail: EditText? = null
+    private var cancelarEdicao: MenuItem? = null
+    private var buttonAtualizar: Button? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         setHasOptionsMenu(true)
@@ -32,6 +34,7 @@ class PerfilFragment : Fragment() {
         buttonAtualizar = bind!!.FragmentPerfilBotaoAtualizar
 
         buttonAtualizar!!.setOnClickListener {
+            buttonAtualizar!!.isEnabled = false
             atualizarPerfil()
         }
 
@@ -44,12 +47,16 @@ class PerfilFragment : Fragment() {
     }
 
     private fun atualizarPerfil() {
-        val profileUpdates = userProfileChangeRequest {
-            displayName = editTextNome!!.text.toString()
+        if(editTextNome!!.text.isNotBlank()){
+            val profileUpdates = userProfileChangeRequest {
+                displayName = editTextNome!!.text.toString()
+            }
+            Firebase.auth.currentUser!!.updateProfile(profileUpdates).addOnCompleteListener {
+                vendo()
+                buttonAtualizar!!.isEnabled = true
+            }
         }
-        Firebase.auth.currentUser!!.updateProfile(profileUpdates).addOnCompleteListener {
-            vendo()
-        }
+
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
@@ -67,26 +74,26 @@ class PerfilFragment : Fragment() {
             R.id.perfil_menu_Editar -> editando()
             R.id.perfil_menu_CancelarEdicao -> vendo()
             R.id.perfil_menu_Sair -> sair()
-            R.id.perfil_menu_ExcluirConta -> excluirConta()
         }
         return super.onOptionsItemSelected(item)
     }
 
     private fun editando() {
+        cancelarEdicao?.isVisible = true
         editTextNome!!.isFocusableInTouchMode = true
         buttonAtualizar!!.visibility = View.VISIBLE
     }
 
     private fun vendo() {
+        cancelarEdicao?.isVisible = false
         editTextNome!!.isFocusableInTouchMode = false
         buttonAtualizar!!.visibility = View.GONE
     }
 
     private fun sair() {
-
-    }
-
-    private fun excluirConta() {
-
+        Firebase.auth.signOut()
+        val intent = Intent(activity, EntrarActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
     }
 }

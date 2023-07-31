@@ -39,7 +39,6 @@ class Calendario {
             fim.set(year, month, dayOfMonth + 1, 23, 59, 59)
 
             OperacoesFirebase.pegarEncomendasSemana(inicio, fim, recyclerViewAdapter, inicioFragment)
-            inicioFragment.progressBar?.visibility = View.VISIBLE
 
         }
     }
@@ -56,7 +55,6 @@ class Calendario {
             fim.set(year, month, dayOfMonth, 23, 59, 59)
 
             OperacoesFirebase.pegarEncomendasSemana(calendario, fim, recyclerViewAdapter, inicioFragment)
-            inicioFragment.progressBar?.visibility = View.VISIBLE
         }
     }
 

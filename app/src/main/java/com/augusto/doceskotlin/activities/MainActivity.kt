@@ -9,10 +9,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.augusto.doceskotlin.ARG_PARAM_CLIENTE_PARCELABLE
+import com.augusto.doceskotlin.CADASTRANDO_ENCOMENDA_BANDEJINHA
 import com.augusto.doceskotlin.EDITAR_DOCES
+import com.augusto.doceskotlin.FRAGMENT_CADASTRAR_ENCOMENDA_COM_CLIENTE
+import com.augusto.doceskotlin.MAIN_ACTIVITY_QUAL_FRAGMENTO_CRIAR
 import com.augusto.doceskotlin.PROCURAR_ENCOMENDAS_DA_SEMANA
+import com.augusto.doceskotlin.PROCURAR_ENCOMENDAS_DO_CLIENTE
 import com.augusto.doceskotlin.PROCURAR_ENCOMENDAS_POR_DATA
-import com.augusto.doceskotlin.PROCURAR_ENCOMENDAS_POR_NOME_CLIENTE
+import com.augusto.doceskotlin.PROCURAR_ENCOMENDAS_POR_NOME_CLIENTE_DIGITADO
 import com.augusto.doceskotlin.PROCURAR_PROXIMAS_ENCOMENDAS
 import com.augusto.doceskotlin.R
 import com.augusto.doceskotlin.VER_DOCES_A_FAZER
@@ -24,13 +29,13 @@ import com.augusto.doceskotlin.fragments.ListaDocesFragment
 import com.augusto.doceskotlin.fragments.PerfilFragment
 import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    DrawerLayout.DrawerListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, DrawerLayout.DrawerListener {
 
-    var fragmentSelecionado: Fragment? = null
-    var drawerLayout: DrawerLayout? = null
-    var navigationView: NavigationView? = null
-    var container: FrameLayout? = null
+    private var param: Int? = null
+    private var fragmentSelecionado: Fragment? = null
+    private var drawerLayout: DrawerLayout? = null
+    private var navigationView: NavigationView? = null
+    private var container: FrameLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,23 +47,41 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView = findViewById(R.id.drawerLayoutNavigationView)
         navigationView!!.setNavigationItemSelectedListener(this)
         drawerLayout = findViewById(R.id.drawerLayout)
-        val toggle = ActionBarDrawerToggle(
-            this,
-            drawerLayout,
-            toolbar,
-            R.string.menu_drawer_open,
-            R.string.menu_drawer_close
-        )
-
-
+        val toggle =
+            ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.menu_drawer_open, R.string.menu_drawer_close)
         drawerLayout!!.addDrawerListener(this)
         toggle.syncState()
 
-        navigationView!!.setCheckedItem(R.id.nav_telaInicial)
+        param = intent.getIntExtra(MAIN_ACTIVITY_QUAL_FRAGMENTO_CRIAR, 0)
 
-        supportActionBar?.title = "Encomendas"
-        supportFragmentManager.beginTransaction().replace(R.id.frameLayout, InicioFragment())
-            .commitNow()
+        when (param) {
+            0 -> {
+                supportActionBar?.title = "Encomendas"
+                navigationView!!.setCheckedItem(R.id.nav_telaInicial)
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frameLayout, InicioFragment.newInstance(PROCURAR_PROXIMAS_ENCOMENDAS)).commitNow()
+            }
+
+            FRAGMENT_CADASTRAR_ENCOMENDA_COM_CLIENTE -> {
+                supportActionBar?.title = "Cadastrar Encomenda"
+                navigationView!!.setCheckedItem(R.id.nav_cadastrarEncomenda)
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.frameLayout,
+                    CadastrarEncomendaFragment.cadastrandoComCliente(
+                        intent.getParcelableExtra(ARG_PARAM_CLIENTE_PARCELABLE)!!)).commitNow()
+            }
+
+            PROCURAR_ENCOMENDAS_DO_CLIENTE -> {
+                supportActionBar?.title = "Encomendas do Cliente"
+                navigationView!!.setCheckedItem(R.id.nav_telaInicial)
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.frameLayout, InicioFragment.encomendasDoCliente(
+                        PROCURAR_ENCOMENDAS_DO_CLIENTE,
+                        intent.getParcelableExtra(ARG_PARAM_CLIENTE_PARCELABLE)!!
+                    )
+                ).commitNow()
+            }
+        }
 
     }
 
@@ -66,16 +89,56 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (navigationView!!.checkedItem!!.itemId != item.itemId) {
             when (item.itemId) {
 
-                R.id.nav_telaInicial -> fragmentSelecionado = InicioFragment.newInstance(PROCURAR_PROXIMAS_ENCOMENDAS)
-                R.id.nav_docesAfazer -> fragmentSelecionado = ListaDocesFragment.newInstance(VER_DOCES_A_FAZER)
-                R.id.nav_cadastrarEncomenda -> fragmentSelecionado = CadastrarEncomendaFragment()
-                //R.id.nav_cadastrarBandejinha -> fragmentSelecionado = CadastrarEncomendaFragment()
-                R.id.nav_fecharSemana -> fragmentSelecionado = InicioFragment.newInstance(PROCURAR_ENCOMENDAS_DA_SEMANA)
-                R.id.nav_procurarPorData -> fragmentSelecionado = InicioFragment.newInstance(PROCURAR_ENCOMENDAS_POR_DATA)
-                //R.id.nav_procurarPorCliente -> fragmentSelecionado = InicioFragment.newInstance(PROCURAR_ENCOMENDAS_POR_NOME_CLIENTE)
-                R.id.nav_doces -> fragmentSelecionado = ListaDocesFragment.newInstance(EDITAR_DOCES)
-                R.id.nav_clientes -> fragmentSelecionado = ListaClientesFragment()
-                R.id.nav_perfil -> fragmentSelecionado = PerfilFragment()
+                R.id.nav_telaInicial -> {
+                    supportActionBar?.title = "Encomendas"
+                    fragmentSelecionado = InicioFragment.newInstance(PROCURAR_PROXIMAS_ENCOMENDAS)
+                }
+
+                R.id.nav_docesAfazer -> {
+                    supportActionBar?.title = "Doces a fazer"
+                    fragmentSelecionado = ListaDocesFragment.newInstance(VER_DOCES_A_FAZER)
+                }
+
+                R.id.nav_cadastrarEncomenda -> {
+                    supportActionBar?.title = "Cadastrar Encomenda"
+                    fragmentSelecionado = CadastrarEncomendaFragment()
+                }
+
+                R.id.nav_cadastrarBandejinha -> {
+                    supportActionBar?.title = "Cadastrar Bandejinha"
+                    fragmentSelecionado =
+                        CadastrarEncomendaFragment.cadastrandoBandejinha(CADASTRANDO_ENCOMENDA_BANDEJINHA)
+                }
+
+                R.id.nav_fecharSemana -> {
+                    supportActionBar?.title = "Fechar semana"
+                    fragmentSelecionado = InicioFragment.newInstance(PROCURAR_ENCOMENDAS_DA_SEMANA)
+                }
+
+                R.id.nav_procurarPorData -> {
+                    supportActionBar?.title = "Seleciona uma data"
+                    fragmentSelecionado = InicioFragment.newInstance(PROCURAR_ENCOMENDAS_POR_DATA)
+                }
+
+                R.id.nav_procurarPorCliente -> {
+                    supportActionBar?.title = "Digite um nome"
+                    fragmentSelecionado = InicioFragment.newInstance(PROCURAR_ENCOMENDAS_POR_NOME_CLIENTE_DIGITADO)
+                }
+
+                R.id.nav_doces -> {
+                    supportActionBar?.title = "Doces"
+                    fragmentSelecionado = ListaDocesFragment.newInstance(EDITAR_DOCES)
+                }
+
+                R.id.nav_clientes -> {
+                    supportActionBar?.title = "Clientes"
+                    fragmentSelecionado = ListaClientesFragment()
+                }
+
+                R.id.nav_perfil -> {
+                    supportActionBar?.title = "Perfil"
+                    fragmentSelecionado = PerfilFragment()
+                }
 
             }
 
@@ -87,14 +150,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-
-    }
-
-    override fun onDrawerOpened(drawerView: View) {
-
-    }
-
     override fun onDrawerClosed(drawerView: View) {
         if (fragmentSelecionado != null) {
             supportFragmentManager.beginTransaction().replace(R.id.frameLayout, fragmentSelecionado!!).commitNow()
@@ -103,8 +158,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    override fun onDrawerStateChanged(newState: Int) {
+    //SOLID Interface Segregation???
+    override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
 
-    }
+    override fun onDrawerOpened(drawerView: View) {}
+
+    override fun onDrawerStateChanged(newState: Int) {}
 
 }

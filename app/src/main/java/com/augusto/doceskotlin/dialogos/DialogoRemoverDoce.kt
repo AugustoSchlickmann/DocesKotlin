@@ -24,7 +24,7 @@ class DialogoRemoverDoce(doce: Doce, context: Context, encomendaMapper: Encomend
         botaoOk = dialog.findViewById(R.id.DialogoRemoverDoceBotaoOk)
         botaoCancelar = dialog.findViewById(R.id.DialogoRemoverDoceBotaoCancelar)
         textView =  dialog.findViewById(R.id.DialogoRemoverDoceTextView)
-        imagem!!.setImageResource(doce.imagemDoce!!.toInt())
+        imagem?.setImageResource(imagem?.resources!!.getIdentifier(doce.imagemDoce,null,null))
 
         textView!!.text = "Remover ${doce.nomeDoce}?"
 

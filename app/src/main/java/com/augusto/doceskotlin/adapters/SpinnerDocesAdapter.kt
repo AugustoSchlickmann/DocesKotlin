@@ -32,8 +32,7 @@ class SpinnerDocesAdapter(val context: Context, val lista: MutableList<Doce>) : 
         val imagem = rootView.findViewById<ImageView>(R.id.UmaLinhaSpinnerDoceImageView)
         val nome: TextView = rootView.findViewById(R.id.UmaLinhaSpinnerDoceTextViewNomeDoce)
         val valor = rootView.findViewById<TextView>(R.id.UmaLinhaSpinnerDoceTextViewValorDoce)
-
-        imagem.setImageResource(lista[position].imagemDoce!!.toInt())
+        imagem.setImageResource(imagem?.resources!!.getIdentifier(lista[position].imagemDoce!!,null,null))
         nome.text = lista[position].nomeDoce
         valor.text = lista[position].valorDoce.toString()
 

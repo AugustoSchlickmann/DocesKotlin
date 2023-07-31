@@ -8,19 +8,9 @@
         android:title="@string/PerfilMenu_editar_perfil" />
 
     <item
-        android:id="@+id/perfil_menu_MudarSenha"
-        android:icon="@drawable/ic_baseline_lock_24"
-        android:title="@string/PerfilMenu_mudar_senha" />
-
-    <item
         android:id="@+id/perfil_menu_Sair"
         android:icon="@drawable/ic_baseline_delete_24"
         android:title="@string/perfilMenu_sair" />
-
-    <item
-        android:id="@+id/perfil_menu_ExcluirConta"
-        android:icon="@drawable/ic_baseline_delete_24"
-        android:title="@string/PerfilMenu_excluir_conta" />
 
     <item
         android:id="@+id/perfil_menu_CancelarEdicao"

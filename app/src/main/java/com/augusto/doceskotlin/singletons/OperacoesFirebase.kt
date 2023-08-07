@@ -1,5 +1,6 @@
 package com.augusto.doceskotlin.singletons
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -106,12 +107,14 @@ object OperacoesFirebase {
             }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun juntarEncomendas(
         task: Task<QuerySnapshot>,
         inicioFragment: InicioFragment,
         recyclerViewAdapter: InicioRecyclerViewAdapter
     ) {
         recyclerViewAdapter.lista.clear()
+        recyclerViewAdapter.notifyDataSetChanged()
         for (document in task.result) {
             val encomenda: Encomenda = document.toObject()
             encomenda.id = document.id
@@ -157,7 +160,18 @@ object OperacoesFirebase {
     }
 
     fun pegarClientes(recyclerViewAdapter: ClientesRecyclerViewAdapter?) {
-        Firebase.firestore.collection("ClientesKotlin").orderBy("nome").get().addOnCompleteListener { task ->
+        Firebase.firestore.collection("ClientesKotlin").orderBy("nome").limit(50).get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                for (document in task.result) {
+                    val cliente: Cliente = document.toObject()
+                    recyclerViewAdapter?.clientes!!.add(cliente)
+                    recyclerViewAdapter.notifyItemInserted(recyclerViewAdapter.itemCount)
+                }
+            }
+        }
+    }
+    fun pegarProximosClientes(recyclerViewAdapter: ClientesRecyclerViewAdapter?, nomeUltimo : String) {
+        Firebase.firestore.collection("ClientesKotlin").orderBy("nome").limit(50).startAfter(nomeUltimo).get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 for (document in task.result) {
                     val cliente: Cliente = document.toObject()

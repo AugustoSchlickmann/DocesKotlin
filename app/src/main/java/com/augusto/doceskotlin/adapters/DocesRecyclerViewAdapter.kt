@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.augusto.doceskotlin.EDITAR_DOCES
 import com.augusto.doceskotlin.EncomendaMapper
-import com.augusto.doceskotlin.dialogos.DialogoRemoverDoce
+import com.augusto.doceskotlin.dialogos.DialogoDoceRemover
 import com.augusto.doceskotlin.R
 import com.augusto.doceskotlin.VER_DOCES_A_FAZER
 import com.augusto.doceskotlin.dialogos.DialogoDoceAlterarQuantidade
@@ -43,7 +43,6 @@ class DocesRecyclerViewAdapter : RecyclerView.Adapter<DoceRecyclerViewViewHolder
 
     override fun onBindViewHolder(holder: DoceRecyclerViewViewHolder, position: Int) {
         holder.imagem.setImageResource(holder.imagem.resources.getIdentifier(lista!![position].imagemDoce!!,null,null))
-        //Glide.with(context!!).load(lista!![position].imagemDoce!!).into(holder.imagem)
         holder.nome.text = lista!![position].nomeDoce
 
         when (tipoLista) {
@@ -61,7 +60,7 @@ class DocesRecyclerViewAdapter : RecyclerView.Adapter<DoceRecyclerViewViewHolder
         }
 
         holder.constraintLayout.setOnLongClickListener{
-            DialogoRemoverDoce(lista!![position], context!!, encomendaMapper!!)
+            DialogoDoceRemover(lista!![position], context!!, encomendaMapper!!)
             true
         }
 

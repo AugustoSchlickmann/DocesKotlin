@@ -97,4 +97,16 @@ class ExampleUnitTest {
         println("  ab cd ef  g".trimStart().replaceFirstChar { it.uppercase() })
         println("  a b c d e f  g".replaceFirstChar { it.uppercase() })
     }
+    @Test
+    fun switch() {
+        var a = 10
+        var b = 10
+        when (a+b){
+            10 -> println("10")
+            20 -> println("20")
+            30 -> println("30")
+            40 -> println("40")
+            1 -> println("1")
+        }
+    }
 }

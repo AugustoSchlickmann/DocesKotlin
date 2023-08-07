@@ -12,6 +12,7 @@ import com.augusto.doceskotlin.EncomendaMapper
 import com.augusto.doceskotlin.R
 import com.augusto.doceskotlin.SpinnerDoces
 import com.augusto.doceskotlin.databinding.FragmentCadastrarEncomendaBinding
+import com.augusto.doceskotlin.objetos.Encomenda
 import com.augusto.doceskotlin.singletons.OperacoesFirebase
 import com.google.android.material.appbar.AppBarLayout
 
@@ -27,22 +28,23 @@ class EncomendaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_carregando)
 
-        bind = FragmentCadastrarEncomendaBinding.inflate(layoutInflater)
-        encomendaMapper = EncomendaMapper(bind!!, false)
-        encomendaMapper!!.encomenda = intent.getParcelableExtra(ARG_PARAM_ENCOMENDA_PARCELABLE)
+        val encomenda: Encomenda? = intent.getParcelableExtra(ARG_PARAM_ENCOMENDA_PARCELABLE)
 
-        if (encomendaMapper!!.encomenda == null) {
+        if (encomenda == null) {
             Toast.makeText(this, "Encomenda não encontrada", Toast.LENGTH_SHORT).show()
             finish()
         } else {
+            bind = FragmentCadastrarEncomendaBinding.inflate(layoutInflater)
+            encomendaMapper = EncomendaMapper(bind!!, false, encomenda)
+
             toolBar = bind!!.toolbarEncomenda
             setSupportActionBar(toolBar)
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
             appBarLayout = bind!!.appBarLayoutEncomenda
             appBarLayout!!.visibility = View.VISIBLE
 
-            encomendaMapper!!.botaoSalvar.setOnClickListener {
-                encomendaMapper!!.salvarEncomenda(encomendaMapper!!.encomenda!!.id!!)
+            encomendaMapper!!.buttonSalvar.setOnClickListener {
+                encomendaMapper!!.salvarEncomenda(encomendaMapper!!.encomenda.id!!)
                 vendo()
             }
 
@@ -67,13 +69,14 @@ class EncomendaActivity : AppCompatActivity() {
             android.R.id.home -> finish()
             R.id.encomenda_menu_EditarEncomenda -> editando()
             R.id.encomenda_menu_CancelarEdicao -> vendo()
+
             R.id.encomenda_menu_ExcluirEncomenda -> OperacoesFirebase.excluirEncomenda(
-                encomendaMapper!!.encomenda!!,
+                encomendaMapper!!.encomenda,
                 this
             )
 
             R.id.encomenda_menu_MarcarComoFeita -> OperacoesFirebase.marcarEncomendaFeita(
-                encomendaMapper!!.encomenda!!,
+                encomendaMapper!!.encomenda,
                 this
             )
         }
@@ -83,33 +86,45 @@ class EncomendaActivity : AppCompatActivity() {
 
 
     private fun vendo() {
-        if (encomendaMapper!!.encomenda!!.feita == true) {
+        if (encomendaMapper!!.encomenda.feita == true) {
             supportActionBar!!.title = "Encomenda Feita"
         } else {
-            supportActionBar!!.title = "Encomenda ${encomendaMapper!!.encomenda?.quantidadeDocesEncomenda} Doces"
+            supportActionBar!!.title = "Encomenda de ${encomendaMapper!!.encomenda.quantidadeDocesEncomenda} Doces"
         }
-        if (encomendaMapper!!.telefoneCliente.text.isBlank()) {
-            encomendaMapper!!.telefoneCliente.visibility = View.GONE
+
+        if (encomendaMapper!!.editTextTelefoneCliente.text.isBlank()) {
+            encomendaMapper!!.editTextTelefoneCliente.visibility = View.GONE
         }
-        encomendaMapper!!.botaoSalvar.visibility = View.INVISIBLE
-        encomendaMapper!!.nomeCliente.isFocusableInTouchMode = false
-        encomendaMapper!!.telefoneCliente.isFocusableInTouchMode = false
+
+        encomendaMapper!!.buttonSalvar.visibility = View.INVISIBLE
+        encomendaMapper!!.editTextNomeCliente.isFocusableInTouchMode = false
+        encomendaMapper!!.editTextTelefoneCliente.isFocusableInTouchMode = false
         cancelarEdicao?.isVisible = false
-        encomendaMapper!!.spinner.visibility = View.INVISIBLE
+        encomendaMapper!!.spinner.visibility = View.GONE
+
+        if(encomendaMapper!!.encomenda.obs == null){
+            encomendaMapper!!.imageViewObs.visibility = View.INVISIBLE
+        }else{
+            encomendaMapper!!.imageViewObs.visibility = View.VISIBLE
+        }
+
     }
 
     private fun editando() {
         supportActionBar!!.title = "Editando Encomenda..."
-        encomendaMapper!!.telefoneCliente.visibility = View.VISIBLE
-        encomendaMapper!!.botaoSalvar.visibility = View.VISIBLE
-        encomendaMapper!!.nomeCliente.isFocusableInTouchMode = true
-        encomendaMapper!!.telefoneCliente.isFocusableInTouchMode = true
+        encomendaMapper!!.editTextTelefoneCliente.visibility = View.VISIBLE
+        encomendaMapper!!.buttonSalvar.visibility = View.VISIBLE
+        encomendaMapper!!.editTextNomeCliente.isFocusableInTouchMode = true
+        encomendaMapper!!.editTextTelefoneCliente.isFocusableInTouchMode = true
         cancelarEdicao?.isVisible = true
+
         if (encomendaMapper!!.spinner.adapter == null) {
             SpinnerDoces(encomendaMapper!!)
         } else {
             encomendaMapper!!.spinner.visibility = View.VISIBLE
         }
+
+        encomendaMapper!!.imageViewObs.visibility = View.VISIBLE
 
     }
 

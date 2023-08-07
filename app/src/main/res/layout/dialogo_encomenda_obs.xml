@@ -4,24 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
-    android:background="#807C7C">
+    android:background="#807C7C"
+    android:padding="8dp">
 
     <TextView
-        android:id="@+id/textViewDialogoObsTitulo"
+        android:id="@+id/DialogoEncomendaObsTextViewTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Observações da Encomenda"
         android:textAlignment="center"
+        android:textColor="@color/rosinha"
         android:textSize="20sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/rosinha"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLineDialogoObsObservacoes"
+        android:id="@+id/DialogoEncomendaObsEditTextTextMultiLine"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -29,22 +29,23 @@
         android:ems="10"
         android:gravity="center"
         android:inputType="textMultiLine"
+        android:maxLength="255"
         android:minHeight="48dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:textSize="18sp"
+        android:padding="8dp"
         android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDialogoObsTitulo" />
+        app:layout_constraintTop_toBottomOf="@+id/DialogoEncomendaObsTextViewTitulo"
+        tools:text="\@@@@@@@@@@123456789@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" />
 
     <Button
-        android:id="@+id/buttonDialogoObsOK"
+        android:id="@+id/DialogoEncomendaObsButtonOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="OK"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLineDialogoObsObservacoes" />
+        app:layout_constraintTop_toBottomOf="@+id/DialogoEncomendaObsEditTextTextMultiLine" />
 </androidx.constraintlayout.widget.ConstraintLayout>

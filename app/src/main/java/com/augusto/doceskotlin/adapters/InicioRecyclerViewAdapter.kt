@@ -36,6 +36,12 @@ class InicioRecyclerViewAdapter(val context: Context, var lista: MutableList<Enc
             holder.checkFeita.visibility = View.GONE
         }
 
+        if (lista[position].obs != null){
+            holder.avisoObs.visibility = View.VISIBLE
+        }else{
+            holder.avisoObs.visibility = View.GONE
+        }
+
         holder.constraintLayout.setOnClickListener {
             val irParaEncomendaActivity = Intent(context, EncomendaActivity::class.java)
             irParaEncomendaActivity.putExtra(ARG_PARAM_ENCOMENDA_PARCELABLE, lista[position])

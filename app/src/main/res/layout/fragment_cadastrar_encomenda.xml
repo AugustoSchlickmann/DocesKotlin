@@ -33,26 +33,12 @@
         <ImageView
             android:id="@+id/FragmentCadastrarEncomendaImageViewObs"
             android:layout_width="36dp"
-            android:layout_height="39dp"
+            android:layout_height="36dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayoutEncomenda"
             app:srcCompat="@drawable/ic_baseline_info_24" />
-
-        <TextView
-            android:id="@+id/FragmentCadastrarEncomendaTextViewObs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/FragmentCadastrarEncomendaTextViewObs"
-            android:textColor="#D32F2F"
-            android:textSize="16sp"
-            android:textStyle="bold|italic"
-            app:layout_constraintEnd_toEndOf="@+id/FragmentCadastrarEncomendaImageViewObs"
-            app:layout_constraintStart_toStartOf="@+id/FragmentCadastrarEncomendaImageViewObs"
-            app:layout_constraintTop_toBottomOf="@+id/FragmentCadastrarEncomendaImageViewObs">
-
-        </TextView>
 
         <EditText
             android:id="@+id/FragmentCadastrarEncomendaEditTextNomeCliente"

@@ -2,13 +2,11 @@ package com.augusto.doceskotlin
 
 import android.app.DatePickerDialog
 import android.content.Context
-import android.view.View
 import android.widget.EditText
 import com.augusto.doceskotlin.adapters.InicioRecyclerViewAdapter
 import com.augusto.doceskotlin.fragments.InicioFragment
 import com.augusto.doceskotlin.singletons.OperacoesFirebase
 import java.util.Calendar
-
 
 class Calendario {
 

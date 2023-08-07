@@ -31,22 +31,21 @@ class CadastrarEncomendaFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         bind = FragmentCadastrarEncomendaBinding.inflate(layoutInflater, container, false)
-        encomendaMapper = EncomendaMapper(bind!!, true)
-        encomendaMapper!!.encomenda = Encomenda()
+        encomendaMapper = EncomendaMapper(bind!!, true, Encomenda())
         encomendaMapper!!.recyclerViewAdapter.lista = ArrayList()
 
         param1?.let {
-            encomendaMapper!!.nomeCliente.setText(it)
-            encomendaMapper!!.telefoneCliente.visibility = View.GONE
+            encomendaMapper!!.editTextNomeCliente.setText(it)
+            encomendaMapper!!.editTextTelefoneCliente.visibility = View.GONE
         }
 
         param2?.let {
-            encomendaMapper!!.nomeCliente.setText(it.nome)
-            encomendaMapper!!.telefoneCliente.setText(it.telefone)
+            encomendaMapper!!.editTextNomeCliente.setText(it.nome)
+            encomendaMapper!!.editTextTelefoneCliente.setText(it.telefone)
         }
 
 
-        encomendaMapper!!.botaoSalvar.setOnClickListener {
+        encomendaMapper!!.buttonSalvar.setOnClickListener {
             encomendaMapper!!.salvarEncomenda(null)
         }
 

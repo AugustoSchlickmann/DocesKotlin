@@ -17,13 +17,6 @@
     </item>
 
     <item
-        android:id="@+id/encomenda_menu_AdicionarObs"
-        android:icon="@drawable/ic_baseline_info_24"
-        android:title="@string/EncomendaMenuAdicionarObs">
-
-    </item>
-
-    <item
         android:id="@+id/encomenda_menu_MarcarComoFeita"
         android:icon="@drawable/ic_baseline_done_24"
         android:title="@string/EncomendaMenuMarcarComoFeita">
@@ -38,7 +31,6 @@
         app:showAsAction="ifRoom">
 
     </item>
-
 
 
 </menu>

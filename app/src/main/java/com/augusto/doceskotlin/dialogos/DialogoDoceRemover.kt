@@ -9,7 +9,7 @@ import com.augusto.doceskotlin.EncomendaMapper
 import com.augusto.doceskotlin.R
 import com.augusto.doceskotlin.objetos.Doce
 
-class DialogoRemoverDoce(doce: Doce, context: Context, encomendaMapper: EncomendaMapper) {
+class DialogoDoceRemover(doce: Doce, context: Context, encomendaMapper: EncomendaMapper) {
 
     var imagem: ImageView? = null
     var botaoOk: Button? = null

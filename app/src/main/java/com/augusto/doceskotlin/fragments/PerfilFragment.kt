@@ -86,6 +86,7 @@ class PerfilFragment : Fragment() {
 
     private fun vendo() {
         cancelarEdicao?.isVisible = false
+        editTextNome!!.clearFocus()
         editTextNome!!.isFocusableInTouchMode = false
         buttonAtualizar!!.visibility = View.GONE
     }

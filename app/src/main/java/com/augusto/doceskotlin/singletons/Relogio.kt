@@ -1,16 +1,17 @@
-package com.augusto.doceskotlin
+package com.augusto.doceskotlin.singletons
 
 import android.app.TimePickerDialog
 import android.content.Context
 import android.widget.EditText
+import com.augusto.doceskotlin.FORMATADOR_HORA
 import java.util.Calendar
 
-class Relogio {
+object Relogio {
 
     fun abrirRelogio(context: Context, calendario: Calendar, field: EditText) {
+
         val timepicker = TimePickerDialog(
-            context,
-            TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+            context, { view, hourOfDay, minute ->
                 calendario.set(Calendar.HOUR_OF_DAY, hourOfDay)
                 calendario.set(Calendar.MINUTE, minute)
                 calendario.set(Calendar.SECOND, 0)

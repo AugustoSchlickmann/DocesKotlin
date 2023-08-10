@@ -1,5 +1,6 @@
 package com.augusto.doceskotlin.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -23,6 +24,7 @@ class InicioRecyclerViewAdapter(val context: Context, var lista: MutableList<Enc
 
     override fun getItemCount(): Int = lista.size
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: EncomendaRecyclerViewViewHolder, position: Int) {
         holder.nomeCliente.text = lista[position].cliente!!.nome
         holder.data.text = FORMATADOR_DATA.format(lista[position].data!!)

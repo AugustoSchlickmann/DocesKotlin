@@ -24,8 +24,8 @@ class EntrarActivity : AppCompatActivity() {
 
             val botaoEntrar : Button = findViewById(R.id.EntrarActivityBotaoEntrar)
             val botaoCriarConta: Button = findViewById(R.id.EntrarActivityBotaoCriarConta)
-            var email: TextInputEditText = findViewById(R.id.EntrarActivityTextInputEditTextEmail)
-            var senha: TextInputEditText = findViewById(R.id.EntrarActivityTextInputEditTextSenha)
+            val email: TextInputEditText = findViewById(R.id.EntrarActivityTextInputEditTextEmail)
+            val senha: TextInputEditText = findViewById(R.id.EntrarActivityTextInputEditTextSenha)
             val progressBar : ProgressBar = findViewById(R.id.EntrarActivityProgressBar)
 
             botaoEntrar.setOnClickListener{

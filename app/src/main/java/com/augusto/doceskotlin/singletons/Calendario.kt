@@ -1,14 +1,14 @@
-package com.augusto.doceskotlin
+package com.augusto.doceskotlin.singletons
 
 import android.app.DatePickerDialog
 import android.content.Context
 import android.widget.EditText
+import com.augusto.doceskotlin.FORMATADOR_DATA
 import com.augusto.doceskotlin.adapters.InicioRecyclerViewAdapter
-import com.augusto.doceskotlin.fragments.InicioFragment
-import com.augusto.doceskotlin.singletons.OperacoesFirebase
+import com.augusto.doceskotlin.fragments.inicio.InicioFragment
 import java.util.Calendar
 
-class Calendario {
+object Calendario {
 
     fun abrirCalendario(context: Context, calendario: Calendar, field: EditText) {
 

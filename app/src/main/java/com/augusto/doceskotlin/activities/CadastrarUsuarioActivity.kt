@@ -21,7 +21,6 @@ import com.google.firebase.ktx.Firebase
 
 class CadastrarUsuarioActivity : AppCompatActivity(){
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastrar_usuario)
@@ -33,7 +32,6 @@ class CadastrarUsuarioActivity : AppCompatActivity(){
         val progressBar: ProgressBar = findViewById(R.id.CadastrarUsuarioActivityProgressBar)
         val botaoCadastrar: Button = findViewById(R.id.CadastrarUsuarioActivityBotaoCadastrar)
         val voltar: TextView = findViewById(R.id.CadastrarUsuarioActivityTextViewVoltar)
-
 
         botaoCadastrar.setOnClickListener {
             if (ValidarEntradas.doCadastroUsuario(nome, email, senha, confirmarSenha)) {
@@ -85,7 +83,5 @@ class CadastrarUsuarioActivity : AppCompatActivity(){
             finish()
         }
     }
-
-
 
 }

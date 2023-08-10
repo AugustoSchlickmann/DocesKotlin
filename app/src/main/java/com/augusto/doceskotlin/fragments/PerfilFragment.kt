@@ -20,7 +20,6 @@ import com.google.firebase.ktx.Firebase
 
 class PerfilFragment : Fragment() {
 
-    var bind: FragmentPerfilBinding? = null
     private var editTextNome: EditText? = null
     private var editTextEmail: EditText? = null
     private var cancelarEdicao: MenuItem? = null
@@ -28,10 +27,10 @@ class PerfilFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         setHasOptionsMenu(true)
-        bind = FragmentPerfilBinding.inflate(layoutInflater, container, false)
-        editTextNome = bind!!.FragmentPerfilEditTextNome
-        editTextEmail = bind!!.FragmentPerfilEditTextEmail
-        buttonAtualizar = bind!!.FragmentPerfilBotaoAtualizar
+        val bind = FragmentPerfilBinding.inflate(layoutInflater, container, false)
+        editTextNome = bind.FragmentPerfilEditTextNome
+        editTextEmail = bind.FragmentPerfilEditTextEmail
+        buttonAtualizar = bind.FragmentPerfilBotaoAtualizar
 
         buttonAtualizar!!.setOnClickListener {
             buttonAtualizar!!.isEnabled = false
@@ -43,7 +42,7 @@ class PerfilFragment : Fragment() {
             editTextEmail!!.setText(Firebase.auth.currentUser!!.email)
         }
         container!!.removeAllViews()
-        return bind!!.root
+        return bind.root
     }
 
     private fun atualizarPerfil() {

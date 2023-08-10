@@ -2,7 +2,7 @@ package com.augusto.doceskotlin.singletons
 
 import android.annotation.SuppressLint
 import com.augusto.doceskotlin.SpinnerDoces
-import com.augusto.doceskotlin.adapters.DocesRecyclerViewAdapter
+import com.augusto.doceskotlin.adapters.doces.DocesRecyclerViewAdapter
 import com.augusto.doceskotlin.objetos.Doce
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject

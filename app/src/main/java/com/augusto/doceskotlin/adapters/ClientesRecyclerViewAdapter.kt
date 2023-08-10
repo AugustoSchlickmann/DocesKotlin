@@ -10,7 +10,6 @@ import com.augusto.doceskotlin.databinding.UmaLinhaClienteBinding
 import com.augusto.doceskotlin.objetos.Cliente
 import com.augusto.doceskotlin.viewHolder.ClientesRecyclerViewViewHolder
 
-
 class ClientesRecyclerViewAdapter(var clientes: MutableList<Cliente>) : RecyclerView.Adapter<ClientesRecyclerViewViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClientesRecyclerViewViewHolder {

@@ -19,7 +19,6 @@ import com.google.android.material.appbar.AppBarLayout
 class EncomendaActivity : AppCompatActivity() {
 
     private var encomendaMapper: EncomendaMapper? = null
-    var bind: FragmentCadastrarEncomendaBinding? = null
     private var toolBar: Toolbar? = null
     private var appBarLayout: AppBarLayout? = null
     private var cancelarEdicao: MenuItem? = null
@@ -34,13 +33,13 @@ class EncomendaActivity : AppCompatActivity() {
             Toast.makeText(this, "Encomenda não encontrada", Toast.LENGTH_SHORT).show()
             finish()
         } else {
-            bind = FragmentCadastrarEncomendaBinding.inflate(layoutInflater)
-            encomendaMapper = EncomendaMapper(bind!!, false, encomenda)
+            val bind = FragmentCadastrarEncomendaBinding.inflate(layoutInflater)
+            encomendaMapper = EncomendaMapper(bind, false, encomenda)
 
-            toolBar = bind!!.toolbarEncomenda
+            toolBar = bind.toolbarEncomenda
             setSupportActionBar(toolBar)
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-            appBarLayout = bind!!.appBarLayoutEncomenda
+            appBarLayout = bind.appBarLayoutEncomenda
             appBarLayout!!.visibility = View.VISIBLE
 
             encomendaMapper!!.buttonSalvar.setOnClickListener {
@@ -50,7 +49,7 @@ class EncomendaActivity : AppCompatActivity() {
 
             encomendaMapper!!.colocarDadosNaTela()
             vendo()
-            setContentView(bind!!.root)
+            setContentView(bind.root)
         }
     }
 

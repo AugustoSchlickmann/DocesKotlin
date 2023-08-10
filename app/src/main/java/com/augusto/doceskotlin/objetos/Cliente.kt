@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class Cliente(var nome: String?, var telefone: String?) : Parcelable {
+data class Cliente(var nome: String?, var telefone: String?) : Parcelable {
 
     constructor() : this(null, null)
 

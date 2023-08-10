@@ -11,22 +11,20 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.augusto.doceskotlin.ARG_PARAM_CLIENTE_PARCELABLE
 import com.augusto.doceskotlin.CADASTRANDO_ENCOMENDA_BANDEJINHA
-import com.augusto.doceskotlin.EDITAR_DOCES
 import com.augusto.doceskotlin.FRAGMENT_CADASTRAR_ENCOMENDA_COM_CLIENTE
 import com.augusto.doceskotlin.MAIN_ACTIVITY_QUAL_FRAGMENTO_CRIAR
-import com.augusto.doceskotlin.PROCURAR_ENCOMENDAS_DA_SEMANA
 import com.augusto.doceskotlin.PROCURAR_ENCOMENDAS_DO_CLIENTE
-import com.augusto.doceskotlin.PROCURAR_ENCOMENDAS_POR_DATA
-import com.augusto.doceskotlin.PROCURAR_ENCOMENDAS_POR_NOME_CLIENTE_DIGITADO
-import com.augusto.doceskotlin.PROCURAR_PROXIMAS_ENCOMENDAS
 import com.augusto.doceskotlin.R
-import com.augusto.doceskotlin.VER_DOCES_A_FAZER
 import com.augusto.doceskotlin.databinding.ActivityCarregandoBinding
 import com.augusto.doceskotlin.fragments.CadastrarEncomendaFragment
-import com.augusto.doceskotlin.fragments.InicioFragment
+import com.augusto.doceskotlin.fragments.inicio.InicioFragmentEncomendasCliente
+import com.augusto.doceskotlin.fragments.inicio.InicioFragmentEncomendasData
+import com.augusto.doceskotlin.fragments.inicio.InicioFragmentEncomendasSemana
+import com.augusto.doceskotlin.fragments.inicio.InicioFragmentEncomendasProximas
 import com.augusto.doceskotlin.fragments.ListaClientesFragment
-import com.augusto.doceskotlin.fragments.ListaDocesFragment
 import com.augusto.doceskotlin.fragments.PerfilFragment
+import com.augusto.doceskotlin.fragments.listaDeDoces.DocesAFazerFragment
+import com.augusto.doceskotlin.fragments.listaDeDoces.EditarDocesFragment
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, DrawerLayout.DrawerListener {
@@ -59,7 +57,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 supportActionBar?.title = "Encomendas"
                 navigationView!!.setCheckedItem(R.id.nav_telaInicial)
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.frameLayout, InicioFragment.newInstance(PROCURAR_PROXIMAS_ENCOMENDAS)).commitNow()
+                    .replace(R.id.frameLayout, InicioFragmentEncomendasProximas()).commitNow()
             }
 
             FRAGMENT_CADASTRAR_ENCOMENDA_COM_CLIENTE -> {
@@ -68,15 +66,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 supportFragmentManager.beginTransaction().replace(
                     R.id.frameLayout,
                     CadastrarEncomendaFragment.cadastrandoComCliente(
-                        intent.getParcelableExtra(ARG_PARAM_CLIENTE_PARCELABLE)!!)).commitNow()
+                        intent.getParcelableExtra(ARG_PARAM_CLIENTE_PARCELABLE)!!
+                    )
+                ).commitNow()
             }
 
             PROCURAR_ENCOMENDAS_DO_CLIENTE -> {
                 supportActionBar?.title = "Encomendas do Cliente"
                 navigationView!!.setCheckedItem(R.id.nav_telaInicial)
                 supportFragmentManager.beginTransaction().replace(
-                    R.id.frameLayout, InicioFragment.encomendasDoCliente(
-                        PROCURAR_ENCOMENDAS_DO_CLIENTE,
+                    R.id.frameLayout, InicioFragmentEncomendasCliente.encomendasDoCliente(
                         intent.getParcelableExtra(ARG_PARAM_CLIENTE_PARCELABLE)!!
                     )
                 ).commitNow()
@@ -91,12 +90,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
                 R.id.nav_telaInicial -> {
                     supportActionBar?.title = "Encomendas"
-                    fragmentSelecionado = InicioFragment.newInstance(PROCURAR_PROXIMAS_ENCOMENDAS)
+                    fragmentSelecionado = InicioFragmentEncomendasProximas()
                 }
 
                 R.id.nav_docesAfazer -> {
-                    supportActionBar?.title = "Doces a fazer"
-                    fragmentSelecionado = ListaDocesFragment.newInstance(VER_DOCES_A_FAZER)
+                    supportActionBar?.title = "Doces a Fazer"
+                    fragmentSelecionado = DocesAFazerFragment()
                 }
 
                 R.id.nav_cadastrarEncomenda -> {
@@ -105,29 +104,29 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
 
                 R.id.nav_cadastrarBandejinha -> {
-                    supportActionBar?.title = "Cadastrar Bandejinha"
+                    supportActionBar?.title = "Bandejinhas"
                     fragmentSelecionado =
                         CadastrarEncomendaFragment.cadastrandoBandejinha(CADASTRANDO_ENCOMENDA_BANDEJINHA)
                 }
 
                 R.id.nav_fecharSemana -> {
-                    supportActionBar?.title = "Fechar semana"
-                    fragmentSelecionado = InicioFragment.newInstance(PROCURAR_ENCOMENDAS_DA_SEMANA)
+                    supportActionBar?.title = "Fechar Semana"
+                    fragmentSelecionado = InicioFragmentEncomendasSemana()
                 }
 
                 R.id.nav_procurarPorData -> {
-                    supportActionBar?.title = "Seleciona uma data"
-                    fragmentSelecionado = InicioFragment.newInstance(PROCURAR_ENCOMENDAS_POR_DATA)
+                    supportActionBar?.title = "Selecione uma Data"
+                    fragmentSelecionado = InicioFragmentEncomendasData()
                 }
 
                 R.id.nav_procurarPorCliente -> {
-                    supportActionBar?.title = "Digite um nome"
-                    fragmentSelecionado = InicioFragment.newInstance(PROCURAR_ENCOMENDAS_POR_NOME_CLIENTE_DIGITADO)
+                    supportActionBar?.title = "Digite um Nome"
+                    fragmentSelecionado = InicioFragmentEncomendasCliente()
                 }
 
                 R.id.nav_doces -> {
                     supportActionBar?.title = "Doces"
-                    fragmentSelecionado = ListaDocesFragment.newInstance(EDITAR_DOCES)
+                    fragmentSelecionado = EditarDocesFragment()
                 }
 
                 R.id.nav_clientes -> {
@@ -141,13 +140,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
 
             }
-
             container!!.removeAllViews()
             container!!.addView(ActivityCarregandoBinding.inflate(layoutInflater).root)
 
         }
         drawerLayout!!.close()
         return true
+
     }
 
     override fun onDrawerClosed(drawerView: View) {

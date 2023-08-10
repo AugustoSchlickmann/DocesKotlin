@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/lista_encomenda_menu_AbrirCalendario"
+        android:icon="@drawable/ic_baseline_calendar_month_24"
+        android:title="@string/lista_encomenda_menu_calendario_selecionar_data"
+        app:showAsAction="ifRoom">
+
+    </item>
+
+</menu>

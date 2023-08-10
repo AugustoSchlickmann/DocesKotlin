@@ -62,7 +62,7 @@
     <string name="NavigationDrawerMenuPerfil">Perfil</string>
 
     <string name="DialogoRemoverDoceBotaoCancelar">Cancelar</string>
-    <string name="DialogoRemoverDoceBotaoOk">Ok</string>
+    <string name="DialogoRemoverDoceBotaoOk">OK</string>
 
     <string name="FragmentPerfil_imagem_do_perfil_do_usuario">Imagem do perfil do usuário</string>
     <string name="FragmentPerfil_nome">Nome</string>
@@ -80,6 +80,10 @@
     <string name="ClienteActivityEditTextNomeHint">Cliente</string>
     <string name="ClienteActivityEditTextTelefoneHint">Telefone</string>
     <string name="ClienteActivityBotaoSalvar">Salvar</string>
+
     <string name="FragmentListaClientesTextViewSemClientes">Nenhum Cliente Encontrado</string>
+
+    <string name="pesquisar">Pesquisar</string>
+    <string name="lista_encomenda_menu_calendario_selecionar_data">Selecionar Data</string>
 
 </resources>

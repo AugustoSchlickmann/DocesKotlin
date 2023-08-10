@@ -3,22 +3,21 @@ package com.augusto.doceskotlin.objetos
 import android.os.Parcel
 import android.os.Parcelable
 
-
-data class Doce(var idDoce: Long?, var nomeDoce: String?, var imagemDoce: String?,  var valorDoce: Double?) : Parcelable {
+data class Doce(var idDoce: Long?, var nomeDoce: String?, var imagemDoce: String?) : Parcelable {
 
     var quantidadeDoce = 0
+    var valorDoce: Double? = null
 
     constructor(parcel: Parcel) : this(
         parcel.readValue(Long::class.java.classLoader) as? Long,
         parcel.readString(),
-        parcel.readString(),
-        parcel.readValue(Double::class.java.classLoader) as? Double
+        parcel.readString()
     ) {
         quantidadeDoce = parcel.readInt()
+        valorDoce = parcel.readValue(Double::class.java.classLoader) as? Double
     }
 
-
-    constructor() : this(null,null,null,null)
+    constructor() : this(null, null, null)
 
     override fun toString(): String {
         return "Doce: (idDoce=$idDoce, nomeDoce=$nomeDoce, imagemDoce=$imagemDoce, valorDoce=$valorDoce, quantidadeDoce=$quantidadeDoce)"
@@ -28,8 +27,8 @@ data class Doce(var idDoce: Long?, var nomeDoce: String?, var imagemDoce: String
         parcel.writeValue(idDoce)
         parcel.writeString(nomeDoce)
         parcel.writeString(imagemDoce)
-        parcel.writeValue(valorDoce)
         parcel.writeInt(quantidadeDoce)
+        parcel.writeValue(valorDoce)
     }
 
     override fun describeContents(): Int {

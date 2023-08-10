@@ -8,12 +8,15 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.augusto.doceskotlin.adapters.DocesRecyclerViewAdapter
+import com.augusto.doceskotlin.adapters.doces.DocesDaEncomendaRecyclerViewAdapter
+import com.augusto.doceskotlin.adapters.doces.DocesRecyclerViewAdapter
 import com.augusto.doceskotlin.databinding.FragmentCadastrarEncomendaBinding
 import com.augusto.doceskotlin.dialogos.DialogoEncomendaObs
 import com.augusto.doceskotlin.objetos.Doce
 import com.augusto.doceskotlin.objetos.Encomenda
+import com.augusto.doceskotlin.singletons.Calendario
 import com.augusto.doceskotlin.singletons.OperacoesFirebase
+import com.augusto.doceskotlin.singletons.Relogio
 import com.augusto.doceskotlin.singletons.ValidarEntradas
 import java.util.Calendar
 
@@ -21,7 +24,7 @@ class EncomendaMapper(var bind: FragmentCadastrarEncomendaBinding, criarSpinner:
 
     var editTextNomeCliente: EditText = bind.FragmentCadastrarEncomendaEditTextNomeCliente
     var editTextTelefoneCliente: EditText = bind.FragmentCadastrarEncomendaEditTextTelefoneCliente
-    var editTextData: EditText = bind.FragmentCadastrarEncomendaEditTextData
+    private var editTextData: EditText = bind.FragmentCadastrarEncomendaEditTextData
     private var editTextHora: EditText = bind.FragmentCadastrarEncomendaEditTextHora
     var buttonSalvar: Button = bind.FragmentCadastrarEncomendaBotaoSalvar
     private var textViewValorTotal: TextView = bind.FragmentCadastrarEncomendaTextViewValorTotal
@@ -29,7 +32,7 @@ class EncomendaMapper(var bind: FragmentCadastrarEncomendaBinding, criarSpinner:
     private var recyclerView: RecyclerView = bind.FragmentCadastrarEncomendaRecyclerView
     var imageViewObs : ImageView = bind.FragmentCadastrarEncomendaImageViewObs
 
-    var recyclerViewAdapter: DocesRecyclerViewAdapter = DocesRecyclerViewAdapter(this)
+    var recyclerViewAdapter: DocesRecyclerViewAdapter = DocesDaEncomendaRecyclerViewAdapter(this)
 
     private val calendario: Calendar = Calendar.getInstance()
     var encomenda : Encomenda
@@ -45,14 +48,14 @@ class EncomendaMapper(var bind: FragmentCadastrarEncomendaBinding, criarSpinner:
         editTextData.setOnClickListener {
             editTextNomeCliente.clearFocus()
             editTextTelefoneCliente.clearFocus()
-            Calendario().abrirCalendario(bind.root.context, calendario, editTextData)
+            Calendario.abrirCalendario(bind.root.context, calendario, editTextData)
 
         }
 
         editTextHora.setOnClickListener {
             editTextNomeCliente.clearFocus()
             editTextTelefoneCliente.clearFocus()
-            Relogio().abrirRelogio(bind.root.context, calendario, editTextHora)
+            Relogio.abrirRelogio(bind.root.context, calendario, editTextHora)
         }
 
         imageViewObs.setOnClickListener{
@@ -64,6 +67,7 @@ class EncomendaMapper(var bind: FragmentCadastrarEncomendaBinding, criarSpinner:
 
     }
 
+    @SuppressLint("SetTextI18n")
     fun adicionouDoce(doceAdicionado: Doce) {
         recyclerViewAdapter.lista!!.add(doceAdicionado)
         recyclerViewAdapter.notifyItemInserted(recyclerViewAdapter.itemCount)
@@ -72,7 +76,7 @@ class EncomendaMapper(var bind: FragmentCadastrarEncomendaBinding, criarSpinner:
         textViewValorTotal.text = "R$: " + "%.2f".format(encomenda.valorEncomenda)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     fun removeuDoce(doceRemovido: Doce) {
         recyclerViewAdapter.lista!!.remove(doceRemovido)
         recyclerViewAdapter.notifyDataSetChanged()
@@ -81,6 +85,7 @@ class EncomendaMapper(var bind: FragmentCadastrarEncomendaBinding, criarSpinner:
         textViewValorTotal.text = "R$: " + "%.2f".format(encomenda.valorEncomenda)
     }
 
+    @SuppressLint("SetTextI18n")
     fun alterouDoce(doceAlterado: Doce, quantidadeAnterior: Int) {
         recyclerViewAdapter.notifyItemChanged(recyclerViewAdapter.lista!!.indexOf(doceAlterado))
         encomenda.valorEncomenda -= doceAlterado.valorDoce!! * quantidadeAnterior
@@ -90,13 +95,15 @@ class EncomendaMapper(var bind: FragmentCadastrarEncomendaBinding, criarSpinner:
         textViewValorTotal.text = "R$: " + "%.2f".format(encomenda.valorEncomenda)
     }
 
+    @SuppressLint("SetTextI18n")
     fun colocarDadosNaTela() {
         editTextNomeCliente.setText(encomenda.cliente!!.nome)
         editTextTelefoneCliente.setText(encomenda.cliente!!.telefone)
         editTextData.setText(FORMATADOR_DATA.format(encomenda.data!!))
         editTextHora.setText(FORMATADOR_HORA.format(encomenda.data!!))
-        recyclerViewAdapter.lista = encomenda.doces
+        recyclerViewAdapter.lista = encomenda.doces!!
         textViewValorTotal.text = "R$: " + "%.2f".format(encomenda.valorEncomenda)
+        calendario.time = encomenda.data!!
 
     }
 
@@ -110,7 +117,7 @@ class EncomendaMapper(var bind: FragmentCadastrarEncomendaBinding, criarSpinner:
                 encomenda.cliente?.nome = editTextNomeCliente.text.toString().trim().replaceFirstChar { it.uppercase() }
                 encomenda.cliente?.telefone = editTextTelefoneCliente.text.toString()
                 encomenda.data = calendario.time
-                encomenda.doces = recyclerViewAdapter.lista!!
+                encomenda.doces = recyclerViewAdapter.lista
 
                 if(trocaTela == null){
                     OperacoesFirebase.salvarNovaEncomenda(encomenda, bind.root.context, buttonSalvar)

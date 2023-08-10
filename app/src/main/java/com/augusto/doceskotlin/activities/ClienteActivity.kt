@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.augusto.doceskotlin.ARG_PARAM_CLIENTE_PARCELABLE
 import com.augusto.doceskotlin.FRAGMENT_CADASTRAR_ENCOMENDA_COM_CLIENTE
@@ -22,8 +23,9 @@ import com.augusto.doceskotlin.objetos.Cliente
 import com.augusto.doceskotlin.singletons.OperacoesFirebase
 
 class ClienteActivity : AppCompatActivity() {
-    var bind: ActivityClienteBinding? = null
+
     var cliente: Cliente? = null
+
     private var toolBar: Toolbar? = null
     private var editTextViewNome: EditText? = null
     private var editTextViewTelefone: EditText? = null
@@ -41,24 +43,24 @@ class ClienteActivity : AppCompatActivity() {
             Toast.makeText(this, "Cliente nulo", Toast.LENGTH_SHORT).show()
             finish()
         } else {
-            bind = ActivityClienteBinding.inflate(layoutInflater)
-            toolBar = bind!!.ClienteActivityToolbar
+            val bind = ActivityClienteBinding.inflate(layoutInflater)
+            toolBar = bind.ClienteActivityToolbar
             setSupportActionBar(toolBar)
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-            supportActionBar!!.title = "Cliente"
-            editTextViewNome = bind!!.ClienteActivityEditTextNome
-            editTextViewTelefone = bind!!.ClienteActivityEditTextTelefone
-            buttonSalvar = bind!!.ClienteActivityBotaoSalvar
-            buttonCadastrarEncomenda = bind!!.ClienteActivityBotaoCadastrarEncomenda
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.title = "Cliente"
+            editTextViewNome = bind.ClienteActivityEditTextNome
+            editTextViewTelefone = bind.ClienteActivityEditTextTelefone
+            buttonSalvar = bind.ClienteActivityBotaoSalvar
+            buttonCadastrarEncomenda = bind.ClienteActivityBotaoCadastrarEncomenda
 
-            buttonSalvar!!.setOnClickListener {
-                if (ValidarEntradas.doCliente(editTextViewNome!!,this)) {
-                    cliente!!.nome = editTextViewNome!!.text.toString()
-                    cliente!!.telefone = editTextViewTelefone!!.text.toString()
+            buttonSalvar?.setOnClickListener {
+                if (ValidarEntradas.doCliente(editTextViewNome!!, this)) {
+                    cliente!!.nome = editTextViewNome?.text.toString()
+                    cliente!!.telefone = editTextViewTelefone?.text.toString()
                     OperacoesFirebase.atualizarCliente(cliente!!, this)
                 }
             }
-            buttonCadastrarEncomenda!!.setOnClickListener {
+            buttonCadastrarEncomenda?.setOnClickListener {
                 val cadastrarEncomendaComCliente = Intent(
                     this,
                     MainActivity::class.java
@@ -70,7 +72,7 @@ class ClienteActivity : AppCompatActivity() {
                 finish()
             }
 
-            colocarDados()
+            colocarDados(bind.root)
         }
     }
 
@@ -104,32 +106,32 @@ class ClienteActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun colocarDados() {
-        editTextViewNome!!.setText(cliente?.nome)
+    private fun colocarDados(bind: ConstraintLayout) {
+        editTextViewNome?.setText(cliente?.nome)
         if (cliente?.telefone!!.isNotBlank()) {
-            editTextViewTelefone!!.setText(cliente?.telefone)
-            editTextViewTelefone!!.visibility = View.VISIBLE
+            editTextViewTelefone?.setText(cliente?.telefone)
+            editTextViewTelefone?.visibility = View.VISIBLE
         }
         vendo()
-        setContentView(bind!!.root)
+        setContentView(bind)
     }
 
     private fun vendo() {
         cancelarEdicao?.isVisible = false
         buttonSalvar?.isVisible = false
-        if (editTextViewTelefone!!.text.isBlank()) {
-            editTextViewTelefone!!.visibility = View.INVISIBLE
+        if (editTextViewTelefone?.text!!.isBlank()) {
+            editTextViewTelefone?.visibility = View.INVISIBLE
         }
-        editTextViewNome!!.isFocusableInTouchMode = false
-        editTextViewTelefone!!.isFocusableInTouchMode = false
+        editTextViewNome?.isFocusableInTouchMode = false
+        editTextViewTelefone?.isFocusableInTouchMode = false
     }
 
     private fun editando() {
         cancelarEdicao?.isVisible = true
         buttonSalvar?.visibility = View.VISIBLE
-        editTextViewTelefone!!.visibility = View.VISIBLE
-        editTextViewNome!!.isFocusableInTouchMode = true
-        editTextViewTelefone!!.isFocusableInTouchMode = true
+        editTextViewTelefone?.visibility = View.VISIBLE
+        editTextViewNome?.isFocusableInTouchMode = true
+        editTextViewTelefone?.isFocusableInTouchMode = true
     }
 
 

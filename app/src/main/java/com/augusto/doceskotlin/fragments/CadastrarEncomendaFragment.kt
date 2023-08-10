@@ -14,10 +14,9 @@ private const val CADASTRANDO_BANDEJINHA = "CadastrandoBandejinha"
 private const val CADASTRANDO_COM_CLIENTE = "CadastrandoComCliente"
 
 class CadastrarEncomendaFragment : Fragment() {
+
     private var param1: String? = null
     private var param2: Cliente? = null
-
-    private var bind: FragmentCadastrarEncomendaBinding? = null
 
     private var encomendaMapper: EncomendaMapper? = null
 
@@ -30,8 +29,8 @@ class CadastrarEncomendaFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        bind = FragmentCadastrarEncomendaBinding.inflate(layoutInflater, container, false)
-        encomendaMapper = EncomendaMapper(bind!!, true, Encomenda())
+        val bind = FragmentCadastrarEncomendaBinding.inflate(layoutInflater, container, false)
+        encomendaMapper = EncomendaMapper(bind, true, Encomenda())
         encomendaMapper!!.recyclerViewAdapter.lista = ArrayList()
 
         param1?.let {
@@ -50,7 +49,7 @@ class CadastrarEncomendaFragment : Fragment() {
         }
 
         container!!.removeAllViews()
-        return bind!!.root
+        return bind.root
     }
 
     companion object {

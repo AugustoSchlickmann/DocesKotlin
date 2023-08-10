@@ -17,12 +17,12 @@ abstract class DialogoDoce(doce: Doce, context: Context) {
 
     init {
         dialog.setContentView(R.layout.dialogo_doce)
-        dialog.window!!.setBackgroundDrawableResource(R.drawable.edit_text_rounded)
+        dialog.window?.setBackgroundDrawableResource(R.drawable.edit_text_rounded)
         imagem = dialog.findViewById(R.id.DialogoDoceImageView)
         botao = dialog.findViewById(R.id.DialogoDoceButton)
         qtd = dialog.findViewById(R.id.DialogoDoceEditTextNumero)
         imagem?.setImageResource(imagem?.resources!!.getIdentifier(doce.imagemDoce,null,null))
-        qtd!!.requestFocus()
+        qtd?.requestFocus()
     }
 
 }

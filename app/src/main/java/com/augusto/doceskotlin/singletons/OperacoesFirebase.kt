@@ -11,11 +11,12 @@ import com.augusto.doceskotlin.activities.ClienteActivity
 import com.augusto.doceskotlin.activities.EncomendaActivity
 import com.augusto.doceskotlin.activities.MainActivity
 import com.augusto.doceskotlin.adapters.ClientesRecyclerViewAdapter
-import com.augusto.doceskotlin.adapters.DocesRecyclerViewAdapter
+import com.augusto.doceskotlin.adapters.doces.DocesRecyclerViewAdapter
 import com.augusto.doceskotlin.adapters.InicioRecyclerViewAdapter
-import com.augusto.doceskotlin.fragments.InicioFragment
-import com.augusto.doceskotlin.fragments.ListaDocesFragment
+import com.augusto.doceskotlin.fragments.listaDeDoces.DocesAFazerFragment
+import com.augusto.doceskotlin.fragments.inicio.InicioFragment
 import com.augusto.doceskotlin.objetos.Cliente
+import com.augusto.doceskotlin.objetos.Doce
 import com.augusto.doceskotlin.objetos.Encomenda
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.QuerySnapshot
@@ -53,11 +54,12 @@ object OperacoesFirebase {
                 Firebase.firestore.collection("EncomendasKotlin").document(encomenda.id!!).set(encomenda)
                     .addOnCompleteListener {
                         Toast.makeText(context, "Encomenda atualizada", Toast.LENGTH_SHORT).show()
+                        button.isEnabled = true
 
                     }.addOnFailureListener {
-                    Toast.makeText(context, "Falha no banco de dados", Toast.LENGTH_SHORT).show()
-                    button.isEnabled = true
-                }
+                        Toast.makeText(context, "Falha no banco de dados", Toast.LENGTH_SHORT).show()
+                        button.isEnabled = true
+                    }
             }.addOnFailureListener {
                 Toast.makeText(context, "Falha no banco de dados", Toast.LENGTH_SHORT).show()
                 button.isEnabled = true
@@ -74,6 +76,34 @@ object OperacoesFirebase {
             .orderBy("data").get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     juntarEncomendas(task, inicioFragment, recyclerViewAdapter)
+                }
+            }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun pegarProximasEncomendasQueContemDoce(
+        recyclerViewAdapter: InicioRecyclerViewAdapter,
+        inicioFragment: InicioFragment,
+        doce: Doce
+    ) {
+        val hoje = Calendar.getInstance()
+        hoje.set(Calendar.HOUR_OF_DAY, 0)
+        hoje.set(Calendar.MINUTE, 0)
+        hoje.set(Calendar.SECOND, 0)
+        inicioFragment.progressBar?.visibility = View.VISIBLE
+        Firebase.firestore.collection("EncomendasKotlin").whereGreaterThanOrEqualTo("data", hoje.time)
+            .orderBy("data").get().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    recyclerViewAdapter.lista.clear()
+                    recyclerViewAdapter.notifyDataSetChanged()
+                    for (document in task.result) {
+                        val encomenda: Encomenda = document.toObject()
+                        if (encomenda.doces!!.contains(doce)) {
+                            recyclerViewAdapter.lista.add(encomenda)
+                            recyclerViewAdapter.notifyItemInserted(recyclerViewAdapter.itemCount)
+                        }
+                    }
+                    inicioFragment.somarValoresEncomendas()
                 }
             }
     }
@@ -99,7 +129,8 @@ object OperacoesFirebase {
         cliente: Cliente?
     ) {
         inicioFragment.progressBar?.visibility = View.VISIBLE
-        Firebase.firestore.collection("EncomendasKotlin").whereEqualTo("cliente.nome", cliente?.nome).orderBy("data").get()
+        Firebase.firestore.collection("EncomendasKotlin").whereEqualTo("cliente.nome", cliente?.nome).orderBy("data")
+            .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     juntarEncomendas(task, inicioFragment, recyclerViewAdapter)
@@ -125,7 +156,7 @@ object OperacoesFirebase {
         inicioFragment.somarValoresEncomendas()
     }
 
-    fun pegarDocesAFazer(recyclerViewAdapter: DocesRecyclerViewAdapter, listaDocesFragment: ListaDocesFragment) {
+    fun pegarDocesAFazer(recyclerViewAdapter: DocesRecyclerViewAdapter, docesAFazerFragment: DocesAFazerFragment) {
 
         val hoje = Calendar.getInstance()
         hoje.set(Calendar.HOUR_OF_DAY, 0)
@@ -153,7 +184,7 @@ object OperacoesFirebase {
                         quantidadeDoces += encomenda.quantidadeDocesEncomenda
                         valorTotal += encomenda.valorEncomenda
                     }
-                    listaDocesFragment.mostrarDocesAFazer(quantidadeDoces, valorTotal)
+                    docesAFazerFragment.mostrarDocesAFazer(quantidadeDoces, valorTotal)
                 }
             }
 
@@ -170,16 +201,18 @@ object OperacoesFirebase {
             }
         }
     }
-    fun pegarProximosClientes(recyclerViewAdapter: ClientesRecyclerViewAdapter?, nomeUltimo : String) {
-        Firebase.firestore.collection("ClientesKotlin").orderBy("nome").limit(50).startAfter(nomeUltimo).get().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                for (document in task.result) {
-                    val cliente: Cliente = document.toObject()
-                    recyclerViewAdapter?.clientes!!.add(cliente)
-                    recyclerViewAdapter.notifyItemInserted(recyclerViewAdapter.itemCount)
+
+    fun pegarProximosClientes(recyclerViewAdapter: ClientesRecyclerViewAdapter?, nomeUltimo: String) {
+        Firebase.firestore.collection("ClientesKotlin").orderBy("nome").limit(50).startAfter(nomeUltimo).get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result) {
+                        val cliente: Cliente = document.toObject()
+                        recyclerViewAdapter?.clientes!!.add(cliente)
+                        recyclerViewAdapter.notifyItemInserted(recyclerViewAdapter.itemCount)
+                    }
                 }
             }
-        }
     }
 
     fun marcarEncomendaFeita(encomenda: Encomenda, context: Context) {
@@ -215,12 +248,29 @@ object OperacoesFirebase {
         }
     }
 
-    fun pegarEncomendasPorNomeCliente(recyclerViewAdapter: InicioRecyclerViewAdapter, inicioFragment: InicioFragment, nome: String) {
-        Firebase.firestore.collection("EncomendasKotlin").whereEqualTo("cliente.nome",nome).get().addOnCompleteListener{
-            task -> if (task.isSuccessful) {
-                juntarEncomendas(task, inicioFragment, recyclerViewAdapter)
+    fun pegarEncomendasPorNomeCliente(
+        recyclerViewAdapter: InicioRecyclerViewAdapter,
+        inicioFragment: InicioFragment,
+        nome: String
+    ) {
+        Firebase.firestore.collection("EncomendasKotlin").whereEqualTo("cliente.nome", nome).get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    juntarEncomendas(task, inicioFragment, recyclerViewAdapter)
+                }
             }
-        }
+    }
+
+    fun atualizarDoce(doce: Doce, context: Context) {
+        Firebase.firestore.collection("DocesKotlin").document(doce.nomeDoce!!).set(doce)
+            .addOnCompleteListener {
+                Toast.makeText(context, "Valor atualizado", Toast.LENGTH_SHORT).show()
+
+
+            }.addOnFailureListener {
+                Toast.makeText(context, "Falha no banco de dados", Toast.LENGTH_SHORT).show()
+
+            }
     }
 
 }
